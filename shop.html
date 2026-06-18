@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop | AK Fashions</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" style="background: rgba(15, 17, 21, 0.95);">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="AK Fashions Logo" class="brand-logo">
+                AK FASHIONS
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="shop.html" class="nav-link active">Shop</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button id="login-btn" class="icon-btn" aria-label="User Login">
+                    <i class="fa-solid fa-user"></i>
+                </button>
+                <button id="cart-btn" class="icon-btn" aria-label="Open Cart">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span id="cart-badge" class="badge">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="shop-header">
+        <div class="container">
+            <h1 class="hero-title" style="font-size: 3rem; margin-bottom: 10px;">Our Collection</h1>
+            <p class="hero-subtitle" style="margin-bottom: 20px;">Explore our premium menswear.</p>
+            
+            <div class="search-bar-container">
+                <input type="text" id="search-input" class="search-input" placeholder="Search for shirts, jeans, t-shirts...">
+                <i class="fa-solid fa-search search-icon"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Categories -->
+        <section class="categories" style="padding-top: 20px;">
+            <div class="container">
+                <div class="category-filters" id="category-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="offers">Offers 🔥</button>
+                    <button class="filter-btn" data-filter="shirts">Shirts</button>
+                    <button class="filter-btn" data-filter="tshirts">T-Shirts</button>
+                    <button class="filter-btn" data-filter="jeans">Jeans</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products -->
+        <section class="products" style="padding-top: 40px;">
+            <div class="container">
+                <div class="products-grid" id="products-grid">
+                    <!-- Products will be injected here by JS -->
+                </div>
+                <div id="pagination-container" class="pagination"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3 class="logo"><img src="assets/logo.png" alt="AK Fashions Logo" class="brand-logo"> AK FASHIONS</h3>
+                    <p>Redefining menswear with quality, style, and perfection.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 AK Fashions. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals (Reused from index) -->
+    <!-- Product Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content product-modal-content">
+            <button class="close-btn" id="close-product-modal">&times;</button>
+            <div class="product-details" id="product-details-container"></div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h2>Your Cart</h2>
+            <button class="close-btn" id="close-cart-sidebar">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items-container"></div>
+        <div class="cart-footer">
+            <div class="cart-summary">
+                <span>Subtotal</span>
+                <span id="cart-subtotal">₹0</span>
+            </div>
+            <button id="checkout-btn" class="btn btn-primary btn-block" disabled>Proceed to Checkout</button>
+        </div>
+    </div>
+    <div id="sidebar-overlay" class="overlay"></div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content" style="max-width: 400px; padding: 40px; text-align: center;">
+            <button class="close-btn" id="close-login-modal">&times;</button>
+            <h2 style="margin-bottom: 20px;">Welcome Back</h2>
+            <p style="color: var(--text-muted); margin-bottom: 30px;">Sign in to save your details for faster checkout.</p>
+            
+            <button id="google-signin-btn" class="btn btn-block" style="background: white; color: black; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google Logo" style="width: 20px; height: 20px;">
+                Sign in with Google
+            </button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="modal">
+        <div class="modal-content checkout-modal-content">
+            <button class="close-btn" id="close-checkout-modal">&times;</button>
+            <div class="checkout-layout">
+                <div class="checkout-form-section">
+                    <h2>Checkout Details</h2>
+                    <p>Please enter your details to complete the order via WhatsApp.</p>
+                    <form id="checkout-form" class="checkout-form">
+                        <div class="form-group"><label>Full Name *</label><input type="text" id="cust-name" required></div>
+                        <div class="form-group"><label>Phone Number *</label><input type="tel" id="cust-phone" required></div>
+                        <div class="form-group"><label>Delivery Address *</label><textarea id="cust-address" rows="3" required></textarea></div>
+                        <button type="submit" class="btn btn-whatsapp btn-block"><i class="fa-brands fa-whatsapp"></i> Send Order via WhatsApp</button>
+                    </form>
+                </div>
+                <div class="checkout-summary-section">
+                    <h3>Order Summary</h3>
+                    <div id="checkout-items" class="checkout-items"></div>
+                    <div class="checkout-total"><span>Total:</span><span id="checkout-total-amount" class="total-amount">₹0</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
