@@ -17,9 +17,9 @@
     <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#" class="logo">
-                <img src="assets/logo.png" alt="AK Fashions Logo" class="brand-logo">
-                AK FASHIONS
+            <a href="#" class="logo" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+                <img src="assets/logo.png?v=1" alt="AK Fashions Logo" class="brand-logo">
+                <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--primary-color); letter-spacing: 1px; text-transform: uppercase;">AK FASHIONS</span>
             </a>
             
             <ul class="nav-links">
@@ -39,26 +39,75 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">Elevate Your Style</h1>
-            <p class="hero-subtitle">Premium menswear designed for the modern gentleman.</p>
-            <button class="btn btn-primary" onclick="window.location.href='shop.html'">
-                Shop Collection
-            </button>
+    <!-- Promotions Section -->
+    <header class="promotions-header">
+        <div class="container">
+            <div class="promo-grid">
+                <div class="promo-card" style="background-image: url('assets/combo1.jpeg');">
+                    <div class="promo-overlay"></div>
+                    <div class="promo-content">
+                        <h3>Combo Offers</h3>
+                        <p>Buy more, save more on premium sets.</p>
+                        <button class="btn btn-primary" onclick="document.getElementById('combo-section').scrollIntoView({behavior: 'smooth'})">View Section</button>
+                    </div>
+                </div>
+                <div class="promo-card" style="background-image: url('assets/light_blue_denim_cargo_jeans.jpg');">
+                    <div class="promo-overlay"></div>
+                    <div class="promo-content">
+                        <h3>Seasonal Offers</h3>
+                        <p>Up to 50% off on winter collection.</p>
+                        <button class="btn btn-primary" onclick="document.getElementById('seasonal-section').scrollIntoView({behavior: 'smooth'})">View Section</button>
+                    </div>
+                </div>
+                <div class="promo-card" style="background-image: url('assets/tactical_black_cargo_pants.jpg');">
+                    <div class="promo-overlay"></div>
+                    <div class="promo-content">
+                        <h3>New Collection</h3>
+                        <p>Discover the latest trends today.</p>
+                        <button class="btn btn-primary" onclick="document.getElementById('new-section').scrollIntoView({behavior: 'smooth'})">View Section</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="hero-overlay"></div>
     </header>
 
     <!-- Main Content -->
     <main>
-        <!-- Today's Offers (Combos) -->
-        <section id="offers-section" class="products">
+        <!-- Combo Offers -->
+        <section id="combo-section" class="products">
             <div class="container">
-                <h2 class="section-title">Today's Offers</h2>
+                <div class="section-header">
+                    <h2 class="section-title">Combo Offers</h2>
+                    <a href="collection.html?collection=combos" class="see-all-link">See All <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
                 <div class="products-grid" id="combo-grid">
                     <!-- Combos will be injected here by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Seasonal Offers -->
+        <section id="seasonal-section" class="products" style="background-color: var(--bg-elevated);">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Seasonal Offers</h2>
+                    <a href="collection.html?collection=seasonal" class="see-all-link">See All <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+                <div class="products-grid" id="seasonal-grid">
+                    <!-- Offers will be injected here by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- New Collection -->
+        <section id="new-section" class="products">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">New Collection</h2>
+                    <a href="collection.html?collection=new" class="see-all-link">See All <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+                <div class="products-grid" id="new-grid">
+                    <!-- New Collection will be injected here by JS -->
                 </div>
             </div>
         </section>
@@ -69,7 +118,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <h3 class="logo"><img src="assets/logo.png" alt="AK Fashions Logo" class="brand-logo"> AK FASHIONS</h3>
+                    <h3 class="logo"><img src="assets/logo.png?v=1" alt="AK Fashions Logo" class="brand-logo"></h3>
                     <p>Redefining menswear with quality, style, and perfection.</p>
                 </div>
                 <div class="footer-links">

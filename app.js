@@ -4,116 +4,192 @@
 
 const baseProducts = [
     {
-        name: "Black Henley Long Sleeve",
+        name: "Adidas T-Shirt",
         category: "tshirts",
-        price: 899,
-        originalPrice: 1199,
+        price: 350,
+        originalPrice: 599,
         isOffer: true,
-        image: "assets/black_henley_long_sleeve.jpg",
-        description: "Premium long sleeve Henley t-shirt for a casual yet refined look.",
-        sizes: ["S", "M", "L", "XL"]
+        image: "assets/adidas front.jpeg",
+        images: ["assets/adidas front.jpeg", "assets/adidas back.jpeg"],
+        description: "Premium acid wash oversized t-shirt. Trendy and comfortable.",
+        sizes: ["S", "M", "L", "XL"],
+        colors: ["Blue"]
+    },
+    {
+        name: "Adidas T-Shirt",
+        category: "tshirts",
+        price: 350,
+        originalPrice: 599,
+        isOffer: true,
+        image: "assets/adidas tshirt1.jpeg",
+        description: "Premium acid wash oversized t-shirt. Trendy and comfortable.",
+        sizes: ["S", "M", "L", "XL"],
+        colors: ["Beige"]
+    },
+    {
+        name: "Adidas T-Shirt",
+        category: "tshirts",
+        price: 350,
+        originalPrice: 599,
+        isOffer: true,
+        image: "assets/adidas tshirt2.jpeg",
+        description: "Premium acid wash oversized t-shirt. Trendy and comfortable.",
+        sizes: ["S", "M", "L", "XL"],
+        colors: ["Pink"]
+    },
+    {
+        name: "Premium Cotton T-Shirt",
+        category: "tshirts",
+        price: 350,
+        originalPrice: 599,
+        isOffer: true,
+        image: "assets/tshirt.jpg",
+        description: "Soft and breathable premium cotton t-shirt. Available in multiple colors.",
+        sizes: ["S", "M", "L", "XL"],
+        colors: ["Black", "White", "Navy", "Olive"]
+    },
+    {
+        name: "Casual Checkered Shirt",
+        category: "shirts",
+        price: 430,
+        originalPrice: 799,
+        isOffer: true,
+        image: "assets/casual shirt.jpg",
+        description: "A comfortable and stylish checkered shirt for everyday wear.",
+        sizes: ["M", "L", "XL"],
+        colors: ["Red/Black", "Blue/White", "Grey/Black"]
     },
     {
         name: "Tactical Black Cargo Pants",
         category: "jeans",
-        price: 1899,
+        price: 899,
         isOffer: false,
         image: "assets/tactical_black_cargo_pants.jpg",
         description: "Comfortable and durable black cargo pants with multiple utility pockets.",
         sizes: ["30", "32", "34", "36"]
     },
     {
-        name: "Classic Sweatpants Trio Pack",
-        category: "jeans",
-        price: 2499,
-        originalPrice: 3299,
-        isOffer: true,
-        image: "assets/classic_sweatpants_trio_pack.jpeg",
-        description: "Pack of 3 essential sweatpants (Black, Grey, Dark Grey). Premium cotton blend.",
-        sizes: ["S", "M", "L", "XL"]
-    },
-    {
         name: "Light Blue Denim Cargo Jeans",
         category: "jeans",
-        price: 2199,
-        originalPrice: 2899,
+        price: 999,
+        originalPrice: 1299,
         isOffer: true,
         image: "assets/light_blue_denim_cargo_jeans.jpg",
         description: "Modern light wash denim combined with functional cargo styling.",
         sizes: ["28", "30", "32", "34"]
     },
     {
-        name: "Vintage Dark Denim Shirt",
+        name: "Solid Formal Shirt",
         category: "shirts",
-        price: 1499,
+        price: 430,
         isOffer: false,
-        image: "assets/vintage_dark_denim_shirt.jpg",
-        description: "Rugged yet stylish dark denim shirt with double chest pockets.",
-        sizes: ["M", "L", "XL", "XXL"]
+        image: "assets/plain formal shirt.jpg",
+        description: "Classic solid formal shirt, perfect for office and formal events.",
+        sizes: ["S", "M", "L", "XL"],
+        colors: ["White", "Light Blue", "Pink", "Black"]
     },
     {
-        name: "Athletic Loose Straight Sweatpants",
-        category: "jeans",
-        price: 1199,
+        name: "Graphic Print T-Shirt",
+        category: "tshirts",
+        price: 350,
         isOffer: false,
-        image: "assets/athletic_loose_straight_sweatpants.avif",
-        description: "High performance athletic loose pants, perfect for workouts or casual wear.",
-        sizes: ["M", "L", "XL"]
+        image: "assets/printed tshirt.jpg",
+        description: "Trendy graphic print t-shirt for a cool casual look.",
+        sizes: ["M", "L", "XL"],
+        colors: ["White", "Black", "Grey"]
+    },
+    {
+        name: "Classic Denim Jacket",
+        category: "shirts",
+        price: 899,
+        originalPrice: 1299,
+        isOffer: true,
+        image: "assets/vintage_dark_denim_shirt.jpeg",
+        description: "A timeless denim jacket that pairs perfectly with any outfit.",
+        sizes: ["S", "M", "L", "XL"]
+    },
+    {
+        name: "Urban Polo T-Shirt",
+        category: "tshirts",
+        price: 350,
+        isOffer: false,
+        image: "assets/tshirt1.jpg",
+        description: "Smart casual polo t-shirt with contrast collar.",
+        sizes: ["M", "L", "XL", "XXL"],
+        colors: ["Navy", "Maroon", "Dark Green"]
     }
 ];
 
-// Generate 24 products using the exact correctly matched images
+// Generate 40 products
 const products = [];
-for (let i = 0; i < 24; i++) {
-    const base = baseProducts[i % baseProducts.length];
+const extraProductsData = [
+    { image: "assets/tshirt 4.jpg", name: "Classic Green Polo", category: "tshirts", price: 350 },
+    { image: "assets/tshirt 5.jpg", name: "Premium Black Henley", category: "tshirts", price: 350 },
+    { image: "assets/tshirt 6.jpg", name: "Vintage T-Shirt", category: "tshirts", price: 350 },
+    { image: "assets/white tshirt.jpg", name: "Essential White T-Shirt", category: "tshirts", price: 350 },
+    { image: "assets/designed shirt.jpg", name: "Tropical Printed Shirt", category: "shirts", price: 430 },
+    { image: "assets/plain fomal shirt 2.jpg", name: "Navy Blue Formal Shirt", category: "shirts", price: 430 },
+    { image: "assets/OIP (33).jpg", name: "Striped Linen Henley", category: "shirts", price: 430 },
+    { image: "assets/OIP (34).jpg", name: "Casual Oxford Shirt", category: "shirts", price: 430 },
+    { image: "assets/OIP (35).jpg", name: "Camo Cargo Half Trousers", category: "jeans", price: 430 },
+    { image: "assets/OIP (36).jpg", name: "Grey Athletic Half Trousers", category: "jeans", price: 430 }
+];
+
+baseProducts.forEach((base, i) => {
     products.push({
         id: i + 1,
-        name: i < 6 ? base.name : `${base.name} - Edition ${Math.floor(i / 6) + 1}`,
+        name: base.name,
         category: base.category,
         price: base.price,
         originalPrice: base.originalPrice,
-        isOffer: base.isOffer,
+        isOffer: i % 3 === 0 ? true : base.isOffer,
         image: base.image,
+        images: base.images,
         description: base.description,
-        sizes: base.sizes
+        sizes: base.sizes || ["S", "M", "L", "XL"],
+        colors: base.colors || []
+    });
+});
+
+extraProductsData.forEach((extra, i) => {
+    const globalIndex = baseProducts.length + i;
+    products.push({
+        id: globalIndex + 1,
+        name: extra.name,
+        category: extra.category,
+        price: extra.price,
+        originalPrice: extra.price + 299,
+        isOffer: globalIndex % 3 === 0,
+        image: extra.image,
+        description: "Premium quality clothing for everyday comfort and style.",
+        sizes: ["M", "L", "XL"],
+        colors: []
+    });
+});
+
+const comboImages = [
+    "assets/combo.jpeg", "assets/combo1.jpeg", "assets/combo2.jpeg", 
+    "assets/combo4.jpeg", "assets/combo5.jpeg", "assets/combo6.jpeg", 
+    "assets/combo7.jpeg", "assets/combo8.jpeg", "assets/combo9.jpeg", 
+    "assets/combo10.jpeg", "assets/combo11.jpeg", "assets/combo12.jpeg", 
+    "assets/combo13.jpeg", "assets/combo14.jpeg", "assets/combo15.jpeg", 
+    "assets/combo16.jpeg", "assets/combo17.jpeg"
+];
+
+const combos = [];
+for(let i = 0; i < comboImages.length; i++) {
+    combos.push({
+        id: 100 + i + 1,
+        name: "Premium Style Combo Set",
+        category: "combos",
+        price: 999,
+        originalPrice: 1199,
+        isOffer: true,
+        image: comboImages[i],
+        description: "An exclusive limited edition bundle bringing you premium style and maximum comfort. Save big when bought together!",
+        sizes: ["M (Top/32 Bot)", "L (Top/34 Bot)", "XL (Top/36 Bot)"]
     });
 }
-
-const combos = [
-    {
-        id: 101,
-        name: "Summer Date Combo (White Shirt + Blue Jeans)",
-        category: "combos",
-        price: 2999,
-        originalPrice: 3698,
-        isOffer: true,
-        image: "https://images.unsplash.com/photo-1617137968427-85924c800a22?q=80&w=600&auto=format&fit=crop",
-        description: "The perfect summer date outfit. Includes the Classic Oxford White Shirt and Midnight Blue Slim Fit Jeans. Save big when bought together!",
-        sizes: ["M (Shirt/32 Jeans)", "L (Shirt/34 Jeans)", "XL (Shirt/36 Jeans)"]
-    },
-    {
-        id: 102,
-        name: "Weekend Relax Combo (Black T-Shirt + Light Jeans)",
-        category: "combos",
-        price: 2499,
-        originalPrice: 3398,
-        isOffer: true,
-        image: "https://images.unsplash.com/photo-1516826957135-700ede19c6ce?q=80&w=600&auto=format&fit=crop",
-        description: "Casual weekend ready. Graphic Print Black T-Shirt paired with our Distressed Light Wash Jeans.",
-        sizes: ["M (Tee/32 Jeans)", "L (Tee/34 Jeans)", "XL (Tee/36 Jeans)"]
-    },
-    {
-        id: 103,
-        name: "Smart Casual Combo (Grey Shirt + Blue Jeans)",
-        category: "combos",
-        price: 2899,
-        originalPrice: 3498,
-        isOffer: true,
-        image: "https://images.unsplash.com/photo-1594938298596-70f594f62bce?q=80&w=600&auto=format&fit=crop",
-        description: "Office to evening transition. Charcoal Grey Casual Shirt and Midnight Blue Slim Fit Jeans.",
-        sizes: ["M (Shirt/32 Jeans)", "L (Shirt/34 Jeans)", "XL (Shirt/36 Jeans)"]
-    }
-];
 
 const allItems = [...products, ...combos];
 
@@ -121,6 +197,7 @@ const allItems = [...products, ...combos];
 let cart = JSON.parse(localStorage.getItem('ak_cart')) || [];
 let selectedProduct = null;
 let selectedSize = null;
+let selectedColor = null;
 
 // Pagination State
 let currentPage = 1;
@@ -131,6 +208,8 @@ let currentFilteredProducts = products; // Defaults to all products
 const elements = {
     productsGrid: document.getElementById('products-grid'), // Shop page
     comboGrid: document.getElementById('combo-grid'),       // Home page
+    seasonalGrid: document.getElementById('seasonal-grid'), // Home page
+    newGrid: document.getElementById('new-grid'),           // Home page
     paginationContainer: document.getElementById('pagination-container'), // Shop page
     filterBtns: document.querySelectorAll('.filter-btn'),
     searchInput: document.getElementById('search-input'),
@@ -165,10 +244,65 @@ const elements = {
 // --- 4. INITIALIZATION ---
 function init() {
     if (elements.comboGrid) {
-        renderGrid(combos, elements.comboGrid); // Render all combos on Home
+        renderGrid(combos.slice(0, 3), elements.comboGrid); // Render all combos on Home
     } 
+    if (elements.seasonalGrid) {
+        const seasonalOffers = products.filter(p => p.isOffer).slice(0, 3);
+        renderGrid(seasonalOffers, elements.seasonalGrid);
+    }
+    if (elements.newGrid) {
+        renderGrid(products.slice(0, 3), elements.newGrid);
+    }
     
     if (elements.productsGrid) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const filterParam = urlParams.get('filter');
+        const collectionParam = urlParams.get('collection');
+        
+        let shopTitle = document.querySelector('.shop-header .hero-title');
+        let shopSubtitle = document.querySelector('.shop-header .hero-subtitle');
+        let categoryFilters = document.getElementById('category-filters');
+
+        if (collectionParam) {
+            // Dynamic separate interface UI
+            if(categoryFilters) categoryFilters.style.display = 'none';
+
+            if (collectionParam === 'combos') {
+                if(shopTitle) shopTitle.textContent = "Combo Offers";
+                if(shopSubtitle) shopSubtitle.textContent = "Exclusive sets tailored for the perfect look.";
+                currentFilteredProducts = combos;
+            } else if (collectionParam === 'seasonal') {
+                if(shopTitle) shopTitle.textContent = "Seasonal Offers";
+                if(shopSubtitle) shopSubtitle.textContent = "Up to 50% off on winter and premium items.";
+                currentFilteredProducts = products.filter(p => p.isOffer);
+            } else if (collectionParam === 'new') {
+                if(shopTitle) shopTitle.textContent = "New Collection";
+                if(shopSubtitle) shopSubtitle.textContent = "Be the first to wear our latest arrivals.";
+                // Let's pretend the first 16 items in 'products' are new
+                currentFilteredProducts = products.slice(0, 16);
+            }
+        } else if (filterParam) {
+            if (filterParam === 'all') {
+                currentFilteredProducts = allItems;
+            } else if (filterParam === 'offers') {
+                currentFilteredProducts = products.filter(p => p.isOffer);
+            } else {
+                currentFilteredProducts = products.filter(p => p.category === filterParam);
+            }
+            
+            if (elements.filterBtns) {
+                elements.filterBtns.forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.getAttribute('data-filter') === filterParam) {
+                        btn.classList.add('active');
+                    }
+                });
+            }
+        } else {
+            // Default Shop page shows all 50 items
+            currentFilteredProducts = allItems;
+        }
+        
         renderPaginatedGrid(); // Render paginated products on Shop
     }
     
@@ -313,27 +447,64 @@ function renderPaginationControls() {
 }
 
 // --- 6. PRODUCT MODAL LOGIC ---
+window.changeModalImage = function(thumbElement, newSrc) {
+    document.getElementById('main-product-img').src = newSrc;
+    document.querySelectorAll('.gallery-thumb').forEach(el => {
+        el.style.border = '2px solid transparent';
+    });
+    thumbElement.style.border = '2px solid var(--primary-color)';
+};
+
 window.openProductModal = function(productId) {
     selectedProduct = allItems.find(p => p.id === productId);
     selectedSize = null; 
+    selectedColor = null;
     
     if (!selectedProduct) return;
     
     let priceHtml = selectedProduct.originalPrice 
         ? `<span class="original-price" style="font-size:1.2rem">${formatPrice(selectedProduct.originalPrice)}</span> ${formatPrice(selectedProduct.price)}` 
         : formatPrice(selectedProduct.price);
+        
+    let colorSelectorHtml = '';
+    if (selectedProduct.colors && selectedProduct.colors.length > 0) {
+        colorSelectorHtml = `
+            <div class="selector-group">
+                <label class="selector-label">Select Color <span style="color:#ff4757" id="color-error"></span></label>
+                <div class="size-options">
+                    ${selectedProduct.colors.map(color => `
+                        <button class="size-btn color-btn" onclick="selectColor('${color}', this)" style="width: auto; padding: 0 15px;">${color}</button>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    }
+    
+    let imageGalleryHtml = '';
+    if (selectedProduct.images && selectedProduct.images.length > 1) {
+        imageGalleryHtml = `
+            <div class="product-gallery" style="display: flex; gap: 10px; margin-top: 15px; justify-content: center;">
+                ${selectedProduct.images.map((img, idx) => `
+                    <img src="${img}" class="gallery-thumb" style="width: 60px; height: 60px; object-fit: contain; background: var(--bg-elevated); border-radius: 5px; cursor: pointer; border: 2px solid ${idx === 0 ? 'var(--primary-color)' : 'transparent'}; transition: border-color 0.2s;" onclick="changeModalImage(this, '${img}')">
+                `).join('')}
+            </div>
+        `;
+    }
     
     elements.productDetailsContainer.innerHTML = `
         <div class="product-detail-grid">
             <div class="product-detail-img-container">
                 ${selectedProduct.isOffer ? `<div class="offer-badge" style="font-size: 1rem; padding: 8px 16px;">SPECIAL OFFER</div>` : ''}
-                <img src="${selectedProduct.image}" alt="${selectedProduct.name}" class="product-detail-img">
+                <img src="${selectedProduct.image}" alt="${selectedProduct.name}" class="product-detail-img" id="main-product-img">
+                ${imageGalleryHtml}
             </div>
             <div class="product-detail-info">
                 <span style="color: var(--primary-color); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 5px; display: block;">${selectedProduct.category}</span>
                 <h2 class="product-detail-title">${selectedProduct.name}</h2>
                 <div class="product-detail-price">${priceHtml}</div>
                 <p class="product-detail-desc">${selectedProduct.description}</p>
+                
+                ${colorSelectorHtml}
                 
                 <div class="selector-group">
                     <label class="selector-label">Select Size <span style="color:#ff4757" id="size-error"></span></label>
@@ -364,6 +535,15 @@ window.openProductModal = function(productId) {
     document.body.style.overflow = 'hidden';
 }
 
+window.selectColor = function(color, btnElement) {
+    selectedColor = color;
+    document.querySelectorAll('.color-btn').forEach(btn => btn.classList.remove('selected'));
+    btnElement.classList.add('selected');
+    if (document.getElementById('color-error')) {
+        document.getElementById('color-error').textContent = '';
+    }
+}
+
 window.selectSize = function(size, btnElement) {
     selectedSize = size;
     document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('selected'));
@@ -380,21 +560,26 @@ window.updateModalQty = function(change) {
 }
 
 window.addToCartFromModal = function() {
+    if (selectedProduct.colors && selectedProduct.colors.length > 0 && !selectedColor) {
+        document.getElementById('color-error').textContent = '(Please select a color)';
+        return;
+    }
+
     if (!selectedSize) {
         document.getElementById('size-error').textContent = '(Please select a size)';
         return;
     }
     
     const qty = parseInt(document.getElementById('modal-qty').value);
-    addToCart(selectedProduct, selectedSize, qty);
+    addToCart(selectedProduct, selectedSize, qty, selectedColor);
     
     closeModals();
     toggleCartSidebar(true);
 }
 
 // --- 7. CART LOGIC ---
-function addToCart(product, size, qty) {
-    const existingItemIndex = cart.findIndex(item => item.id === product.id && item.size === size);
+function addToCart(product, size, qty, color) {
+    const existingItemIndex = cart.findIndex(item => item.id === product.id && item.size === size && item.color === color);
     
     if (existingItemIndex > -1) {
         cart[existingItemIndex].qty += qty;
@@ -405,6 +590,7 @@ function addToCart(product, size, qty) {
             price: product.price,
             image: product.image,
             size: size,
+            color: color,
             qty: qty
         });
     }
@@ -460,7 +646,7 @@ function updateCartUI() {
             <img src="${item.image}" alt="${item.name}" class="cart-item-img">
             <div class="cart-item-info">
                 <div class="cart-item-title">${item.name}</div>
-                <div class="cart-item-meta">Size: ${item.size}</div>
+                <div class="cart-item-meta">Size: ${item.size}${item.color ? ` | Color: ${item.color}` : ''}</div>
                 <div class="cart-item-bottom">
                     <div class="cart-item-price">${formatPrice(item.price)}</div>
                     <div class="qty-control" style="transform: scale(0.85); transform-origin: left center;">
@@ -514,7 +700,7 @@ function openCheckout() {
             <div class="checkout-item-mini">
                 <div>
                     <div class="checkout-item-name">${item.name}</div>
-                    <div class="checkout-item-detail">Size: ${item.size} | Qty: ${item.qty}</div>
+                    <div class="checkout-item-detail">Size: ${item.size} ${item.color ? `| Color: ${item.color}` : ''} | Qty: ${item.qty}</div>
                 </div>
                 <div class="checkout-item-total">${formatPrice(itemTotal)}</div>
             </div>
@@ -658,7 +844,7 @@ function sendWhatsAppOrder(name, phone, address) {
     let itemsText = cart.map((item, index) => {
         subtotal += (item.price * item.qty);
         return `${index + 1}. *${item.name}*
-   Size: ${item.size} | Qty: ${item.qty} | ₹${item.price} each`;
+   Size: ${item.size} ${item.color ? `| Color: ${item.color}` : ''} | Qty: ${item.qty} | ₹${item.price} each`;
     }).join('\n\n');
     
     const message = `🛍️ *NEW ORDER - AK Fashions*
