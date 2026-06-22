@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AK Fashions | Admin Portal</title>
+    <meta name="description" content="Secure admin dashboard for managing stocks, analytics, order verification, and bill generation at AK Fashions.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-body">
+
+    <!-- LOGIN SCREEN -->
+    <div id="admin-login-screen" class="admin-login-wrapper">
+        <div class="login-card">
+            <div class="login-brand">
+                <img src="assets/logo.png?v=1" alt="AK Fashions Logo" class="brand-logo">
+                <h2>AK FASHIONS</h2>
+                <p>ADMIN CONTROL PANEL</p>
+            </div>
+            <form id="admin-login-form">
+                <div class="form-group">
+                    <label for="admin-password">Secure Passcode</label>
+                    <div class="input-wrap">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="admin-password" placeholder="Enter Admin Passcode" required autocomplete="current-password">
+                    </div>
+                </div>
+                <div id="login-error-msg" class="login-error"></div>
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fa-solid fa-right-to-bracket"></i> Authenticate
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MAIN ADMIN INTERFACE -->
+    <div id="admin-main-interface" class="admin-layout" style="display: none;">
+        <!-- Sidebar Navigation -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <img src="assets/logo.png?v=1" alt="AK Fashions Logo" class="brand-logo">
+                    <div>
+                        <h3>AK Fashions</h3>
+                        <span>Administrator</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="sidebar-menu">
+                <button class="nav-item active" data-tab="dashboard">
+                    <i class="fa-solid fa-chart-line"></i> Dashboard
+                </button>
+                <button class="nav-item" data-tab="orders">
+                    <i class="fa-solid fa-receipt"></i> Orders List
+                    <span id="pending-badge" class="badge-pending" style="display: none;">0</span>
+                </button>
+                <button class="nav-item" data-tab="stock">
+                    <i class="fa-solid fa-boxes-stacked"></i> Stock Manager
+                </button>
+                <button class="nav-item" data-tab="billing">
+                    <i class="fa-solid fa-file-invoice-dollar"></i> Bill Generator
+                </button>
+                <button class="nav-item" data-tab="reports">
+                    <i class="fa-solid fa-chart-pie"></i> Reports & Alerts
+                </button>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="admin-logout-btn" class="btn btn-logout">
+                    <i class="fa-solid fa-power-off"></i> Sign Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="admin-content">
+            <header class="content-header">
+                <div class="header-title">
+                    <h1 id="tab-title">Dashboard</h1>
+                    <p id="tab-subtitle">Real-time statistics & business insights.</p>
+                </div>
+                <div class="admin-profile">
+                    <span class="status-indicator"></span>
+                    <span>System Active</span>
+                </div>
+            </header>
+
+            <div class="tab-container">
+                <!-- 1. DASHBOARD TAB -->
+                <div id="tab-dashboard" class="tab-panel active">
+                    <!-- Stats Cards Grid -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon rev"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                            <div class="stat-info">
+                                <h3>Total Sales</h3>
+                                <p id="stat-total-sales">₹0</p>
+                                <span class="stat-desc">From completed orders</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon ord"><i class="fa-solid fa-bag-shopping"></i></div>
+                            <div class="stat-info">
+                                <h3>Total Orders</h3>
+                                <p id="stat-total-orders">0</p>
+                                <span class="stat-desc">All customer requests</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon pend"><i class="fa-solid fa-clock"></i></div>
+                            <div class="stat-info">
+                                <h3>Pending Orders</h3>
+                                <p id="stat-pending-orders">0</p>
+                                <span class="stat-desc">Awaiting verification</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon warn"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                            <div class="stat-info">
+                                <h3>Low Stock</h3>
+                                <p id="stat-low-stock">0</p>
+                                <span class="stat-desc">Sizes with stock &le; 3</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Section -->
+                    <div class="charts-row">
+                        <div class="chart-container card-panel">
+                            <h3>Revenue Trends</h3>
+                            <div class="canvas-wrap">
+                                <canvas id="revenueChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-container card-panel small-chart">
+                            <h3>Category Distribution</h3>
+                            <div class="canvas-wrap">
+                                <canvas id="categoryChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. ORDERS LIST TAB -->
+                <div id="tab-orders" class="tab-panel">
+                    <div class="card-panel">
+                        <div class="panel-header">
+                            <h3>Customer Order Enquiries</h3>
+                            <div class="filters-row">
+                                <select id="order-status-filter" class="form-control select-dark">
+                                    <option value="all">All Orders</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table" id="orders-table">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Date & Time</th>
+                                        <th>Customer</th>
+                                        <th>Items Details</th>
+                                        <th>Total Amount</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="orders-table-body">
+                                    <!-- Orders injected dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. STOCK MANAGER TAB -->
+                <div id="tab-stock" class="tab-panel">
+                    <div class="card-panel">
+                        <div class="panel-header">
+                            <h3>Product Stock Levels</h3>
+                            <div class="filters-row">
+                                <input type="text" id="stock-search" class="form-control" placeholder="Search by name...">
+                                <select id="stock-category-filter" class="form-control select-dark">
+                                    <option value="all">All Categories</option>
+                                    <option value="shirts">Shirts</option>
+                                    <option value="tshirts">T-Shirts</option>
+                                    <option value="jeans">Jeans</option>
+                                    <option value="combos">Combos</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table" id="stock-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Image</th>
+                                        <th>Product Name</th>
+                                        <th>Category</th>
+                                        <th>Stock by Size (Edit count & click Save)</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="stock-table-body">
+                                    <!-- Stock rows injected dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. BILL GENERATOR TAB -->
+                <div id="tab-billing" class="tab-panel">
+                    <div class="billing-layout">
+                        <!-- Select Order Panel -->
+                        <div class="card-panel billing-selector">
+                            <h3>Choose Order for Bill</h3>
+                            <p class="section-desc">Select a completed or pending order to populate the invoice details.</p>
+                            <div class="form-group" style="margin-top: 15px;">
+                                <label for="billing-order-select">Select Order ID</label>
+                                <select id="billing-order-select" class="form-control select-dark">
+                                    <option value="">-- Choose an Order --</option>
+                                </select>
+                            </div>
+                            <div class="billing-actions" style="margin-top: 20px;">
+                                <button id="print-bill-btn" class="btn btn-primary btn-block" disabled>
+                                    <i class="fa-solid fa-print"></i> Print Invoice
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Invoice Preview Panel -->
+                        <div class="card-panel billing-preview-wrap">
+                            <div class="invoice-container" id="invoice-preview">
+                                <div class="invoice-empty">
+                                    <i class="fa-solid fa-file-invoice" style="font-size: 3rem; margin-bottom: 15px; color: var(--text-muted);"></i>
+                                    <p>Select an order from the list to display invoice preview.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. REPORTS & ALERTS TAB -->
+                <div id="tab-reports" class="tab-panel">
+                    <div class="reports-layout">
+                        <!-- Left Panel: Alerts -->
+                        <div class="card-panel">
+                            <h3><i class="fa-solid fa-triangle-exclamation" style="color: var(--stock-low); margin-right: 10px;"></i>Low Stock Warnings</h3>
+                            <p class="section-desc">The following sizes have &le; 3 units left. Update stock immediately to prevent purchase failures.</p>
+                            
+                            <div id="low-stock-list" class="alerts-list">
+                                <!-- Alerts injected dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Right Panel: Business Statistics -->
+                        <div class="card-panel">
+                            <h3><i class="fa-solid fa-chart-column" style="color: var(--primary-color); margin-right: 10px;"></i>Performance Report</h3>
+                            <p class="section-desc">General metrics summarizing store sales performance.</p>
+
+                            <div class="report-stats-list">
+                                <div class="report-row">
+                                    <span class="report-label">Average Order Value:</span>
+                                    <strong class="report-value" id="report-avg-order">₹0</strong>
+                                </div>
+                                <div class="report-row">
+                                    <span class="report-label">Completed Orders Ratio:</span>
+                                    <strong class="report-value" id="report-completion-rate">0%</strong>
+                                </div>
+                                <div class="report-row">
+                                    <span class="report-label">Active Items In Store:</span>
+                                    <strong class="report-value" id="report-active-items">0</strong>
+                                </div>
+                                <div class="report-row">
+                                    <span class="report-label">Total Items in Stock:</span>
+                                    <strong class="report-value" id="report-total-stock">0 units</strong>
+                                </div>
+                            </div>
+
+                            <h4 style="margin-top: 25px; margin-bottom: 10px; font-size: 1.1rem; color: var(--text-main);">Sales by Product Category</h4>
+                            <div class="table-responsive" style="border: 1px solid var(--border-color); border-radius: 8px;">
+                                <table class="data-table simple-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Category</th>
+                                            <th>Items Sold</th>
+                                            <th>Revenue</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="category-report-body">
+                                        <!-- Category performance rows injected dynamically -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notification for Admin Panel -->
+    <div id="admin-toast" class="toast-notification"></div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

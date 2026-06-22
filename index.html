@@ -4,33 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AK Fashions | Premium Menswear</title>
-    <meta name="description" content="Discover premium menswear at AK Fashions. Shop the latest shirts, t-shirts, jeans, and more.">
+    <meta name="description" content="Discover premium menswear at AK Fashions. Shop the latest shirts, t-shirts, jeans, and more. Group orders welcome.">
     <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#" class="logo" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+            <a href="index.html" class="logo" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
                 <img src="assets/logo.png?v=1" alt="AK Fashions Logo" class="brand-logo">
-                <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--primary-color); letter-spacing: 1px; text-transform: uppercase;">AK FASHIONS</span>
+                <span style="font-family:'Outfit',sans-serif;font-weight:800;font-size:1.4rem;color:var(--primary-color);letter-spacing:1px;text-transform:uppercase;">AK FASHIONS</span>
             </a>
-            
             <ul class="nav-links">
                 <li><a href="index.html" class="nav-link active">Home</a></li>
                 <li><a href="shop.html" class="nav-link">Shop</a></li>
+                <li><a href="#" class="nav-link" onclick="openGroupOrderSizeSelector(); return false;">Group Orders</a></li>
             </ul>
-
             <div class="nav-actions">
-                <button id="login-btn" class="icon-btn" aria-label="User Login">
-                    <i class="fa-solid fa-user"></i>
-                </button>
+                <button id="login-btn" class="icon-btn" aria-label="User Login"><i class="fa-solid fa-user"></i></button>
                 <button id="cart-btn" class="icon-btn" aria-label="Open Cart">
                     <i class="fa-solid fa-bag-shopping"></i>
                     <span id="cart-badge" class="badge">0</span>
@@ -39,76 +34,91 @@
         </div>
     </nav>
 
-    <!-- Promotions Section -->
+    <!-- Hero Promotions -->
     <header class="promotions-header">
         <div class="container">
             <div class="promo-grid">
-                <div class="promo-card" style="background-image: url('assets/combo1.jpeg');">
+                <div class="promo-card" style="background-image:url('assets/combo1.jpeg');">
                     <div class="promo-overlay"></div>
                     <div class="promo-content">
                         <h3>Combo Offers</h3>
                         <p>Buy more, save more on premium sets.</p>
-                        <button class="btn btn-primary" onclick="document.getElementById('combo-section').scrollIntoView({behavior: 'smooth'})">View Section</button>
+                        <button class="btn btn-primary" onclick="document.getElementById('combo-section').scrollIntoView({behavior:'smooth'})">View Section</button>
                     </div>
                 </div>
-                <div class="promo-card" style="background-image: url('assets/light_blue_denim_cargo_jeans.jpg');">
+                <div class="promo-card" style="background-image:url('assets/light_blue_denim_cargo_jeans.jpg');">
                     <div class="promo-overlay"></div>
                     <div class="promo-content">
                         <h3>Seasonal Offers</h3>
                         <p>Up to 50% off on winter collection.</p>
-                        <button class="btn btn-primary" onclick="document.getElementById('seasonal-section').scrollIntoView({behavior: 'smooth'})">View Section</button>
+                        <button class="btn btn-primary" onclick="document.getElementById('seasonal-section').scrollIntoView({behavior:'smooth'})">View Section</button>
                     </div>
                 </div>
-                <div class="promo-card" style="background-image: url('assets/tactical_black_cargo_pants.jpg');">
+                <div class="promo-card" style="background-image:url('assets/tactical_black_cargo_pants.jpg');">
                     <div class="promo-overlay"></div>
                     <div class="promo-content">
                         <h3>New Collection</h3>
                         <p>Discover the latest trends today.</p>
-                        <button class="btn btn-primary" onclick="document.getElementById('new-section').scrollIntoView({behavior: 'smooth'})">View Section</button>
+                        <button class="btn btn-primary" onclick="document.getElementById('new-section').scrollIntoView({behavior:'smooth'})">View Section</button>
+                    </div>
+                </div>
+                <div class="promo-card" style="background-image:url('assets/group_orders.png');">
+                    <div class="promo-overlay"></div>
+                    <div class="promo-content">
+                        <h3>Group Orders</h3>
+                        <p>Custom or bulk sizes for teams & events.</p>
+                        <button class="btn btn-primary" onclick="openGroupOrderSizeSelector()">Find by Size</button>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
+    <!-- Group Order Banner -->
+    <section class="group-order-banner">
+        <div class="container">
+            <div class="group-banner-content">
+                <div class="group-banner-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <div class="group-banner-text">
+                    <h3>Bulk / Group Orders Available!</h3>
+                    <p>Order multiple sizes at once for your team, family, or event. Filter by size to see available products.</p>
+                </div>
+                <button class="btn btn-primary" onclick="openGroupOrderSizeSelector()">
+                    <i class="fa-solid fa-layer-group"></i> Start Group Order
+                </button>
+            </div>
+        </div>
+    </section>
+
     <!-- Main Content -->
     <main>
-        <!-- Combo Offers -->
         <section id="combo-section" class="products">
             <div class="container">
                 <div class="section-header">
                     <h2 class="section-title">Combo Offers</h2>
                     <a href="collection.html?collection=combos" class="see-all-link">See All <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
-                <div class="products-grid" id="combo-grid">
-                    <!-- Combos will be injected here by JS -->
-                </div>
+                <div class="products-grid" id="combo-grid"></div>
             </div>
         </section>
 
-        <!-- Seasonal Offers -->
-        <section id="seasonal-section" class="products" style="background-color: var(--bg-elevated);">
+        <section id="seasonal-section" class="products" style="background-color:var(--bg-elevated);">
             <div class="container">
                 <div class="section-header">
                     <h2 class="section-title">Seasonal Offers</h2>
                     <a href="collection.html?collection=seasonal" class="see-all-link">See All <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
-                <div class="products-grid" id="seasonal-grid">
-                    <!-- Offers will be injected here by JS -->
-                </div>
+                <div class="products-grid" id="seasonal-grid"></div>
             </div>
         </section>
 
-        <!-- New Collection -->
         <section id="new-section" class="products">
             <div class="container">
                 <div class="section-header">
                     <h2 class="section-title">New Collection</h2>
                     <a href="collection.html?collection=new" class="see-all-link">See All <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
-                <div class="products-grid" id="new-grid">
-                    <!-- New Collection will be injected here by JS -->
-                </div>
+                <div class="products-grid" id="new-grid"></div>
             </div>
         </section>
     </main>
@@ -124,9 +134,16 @@
                 <div class="footer-links">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#products-section">Shop</a></li>
-                        <li><a href="#">About Us</a></li>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="shop.html?filter=shirts">Shirts</a></li>
+                        <li><a href="shop.html?filter=tshirts">T-Shirts</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="https://wa.me/919361438664" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a></li>
                     </ul>
                 </div>
             </div>
@@ -140,20 +157,25 @@
     <div id="product-modal" class="modal">
         <div class="modal-content product-modal-content">
             <button class="close-btn" id="close-product-modal">&times;</button>
-            <div class="product-details" id="product-details-container">
-                <!-- Product details injected here -->
-            </div>
+            <div class="product-details" id="product-details-container"></div>
         </div>
     </div>
 
-    <!-- Cart Sidebar / Modal -->
+    <!-- Group Order Modal -->
+    <div id="group-order-modal" class="modal">
+        <div class="modal-content group-order-modal-content">
+            <button class="close-btn" id="close-group-order-modal">&times;</button>
+            <div id="group-order-container"></div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
     <div id="cart-sidebar" class="sidebar">
         <div class="sidebar-header">
             <h2>Your Cart</h2>
             <button class="close-btn" id="close-cart-sidebar">&times;</button>
         </div>
         <div class="cart-items" id="cart-items-container">
-            <!-- Cart items injected here -->
             <div class="empty-cart-msg">Your cart is currently empty.</div>
         </div>
         <div class="cart-footer">
@@ -168,13 +190,12 @@
 
     <!-- Login Modal -->
     <div id="login-modal" class="modal">
-        <div class="modal-content" style="max-width: 400px; padding: 40px; text-align: center;">
+        <div class="modal-content" style="max-width:400px;padding:40px;text-align:center;">
             <button class="close-btn" id="close-login-modal">&times;</button>
-            <h2 style="margin-bottom: 20px;">Welcome Back</h2>
-            <p style="color: var(--text-muted); margin-bottom: 30px;">Sign in to save your details for faster checkout.</p>
-            
-            <button id="google-signin-btn" class="btn btn-block" style="background: white; color: black; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google Logo" style="width: 20px; height: 20px;">
+            <h2 style="margin-bottom:20px;">Welcome Back</h2>
+            <p style="color:var(--text-muted);margin-bottom:30px;">Sign in to save your details for faster checkout.</p>
+            <button id="google-signin-btn" class="btn btn-block" style="background:white;color:black;font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google Logo" style="width:20px;height:20px;">
                 Sign in with Google
             </button>
         </div>
@@ -201,7 +222,6 @@
                             <label for="cust-address">Delivery Address *</label>
                             <textarea id="cust-address" rows="3" required placeholder="Full street address, city, pin code"></textarea>
                         </div>
-                        
                         <button type="submit" class="btn btn-whatsapp btn-block">
                             <i class="fa-brands fa-whatsapp"></i> Send Order via WhatsApp
                         </button>
@@ -209,9 +229,7 @@
                 </div>
                 <div class="checkout-summary-section">
                     <h3>Order Summary</h3>
-                    <div id="checkout-items" class="checkout-items">
-                        <!-- Summary items injected here -->
-                    </div>
+                    <div id="checkout-items" class="checkout-items"></div>
                     <div class="checkout-total">
                         <span>Total to Pay:</span>
                         <span id="checkout-total-amount" class="total-amount">₹0</span>
@@ -221,7 +239,6 @@
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="app.js"></script>
 </body>
 </html>

@@ -1,9 +1,15 @@
 /* =========================================
-   AK FASHIONS - MAIN JAVASCRIPT
+   AK FASHIONS - MAIN JAVASCRIPT v2.0
    ========================================= */
 
+const WHATSAPP_NUMBER = "919361438664";
+
+// ==========================================
+// 1. PRODUCT DATA
+// ==========================================
 const baseProducts = [
     {
+        id: 1,
         name: "Adidas T-Shirt",
         category: "tshirts",
         price: 350,
@@ -13,9 +19,11 @@ const baseProducts = [
         images: ["assets/adidas front.jpeg", "assets/adidas back.jpeg"],
         description: "Premium acid wash oversized t-shirt. Trendy and comfortable.",
         sizes: ["S", "M", "L", "XL"],
-        colors: ["Blue"]
+        colors: ["Blue"],
+        defaultStock: { S: 15, M: 20, L: 18, XL: 12 }
     },
     {
+        id: 2,
         name: "Adidas T-Shirt",
         category: "tshirts",
         price: 350,
@@ -24,9 +32,11 @@ const baseProducts = [
         image: "assets/adidas tshirt1.jpeg",
         description: "Premium acid wash oversized t-shirt. Trendy and comfortable.",
         sizes: ["S", "M", "L", "XL"],
-        colors: ["Beige"]
+        colors: ["Beige"],
+        defaultStock: { S: 10, M: 15, L: 12, XL: 8 }
     },
     {
+        id: 3,
         name: "Adidas T-Shirt",
         category: "tshirts",
         price: 350,
@@ -35,9 +45,11 @@ const baseProducts = [
         image: "assets/adidas tshirt2.jpeg",
         description: "Premium acid wash oversized t-shirt. Trendy and comfortable.",
         sizes: ["S", "M", "L", "XL"],
-        colors: ["Pink"]
+        colors: ["Pink"],
+        defaultStock: { S: 8, M: 14, L: 16, XL: 10 }
     },
     {
+        id: 4,
         name: "Premium Cotton T-Shirt",
         category: "tshirts",
         price: 350,
@@ -46,9 +58,11 @@ const baseProducts = [
         image: "assets/tshirt.jpg",
         description: "Soft and breathable premium cotton t-shirt. Available in multiple colors.",
         sizes: ["S", "M", "L", "XL"],
-        colors: ["Black", "White", "Navy", "Olive"]
+        colors: ["Black", "White", "Navy", "Olive"],
+        defaultStock: { S: 20, M: 25, L: 22, XL: 15 }
     },
     {
+        id: 5,
         name: "Casual Checkered Shirt",
         category: "shirts",
         price: 430,
@@ -57,18 +71,22 @@ const baseProducts = [
         image: "assets/casual shirt.jpg",
         description: "A comfortable and stylish checkered shirt for everyday wear.",
         sizes: ["M", "L", "XL"],
-        colors: ["Red/Black", "Blue/White", "Grey/Black"]
+        colors: ["Red/Black", "Blue/White", "Grey/Black"],
+        defaultStock: { M: 18, L: 20, XL: 14 }
     },
     {
+        id: 6,
         name: "Tactical Black Cargo Pants",
         category: "jeans",
         price: 899,
         isOffer: false,
         image: "assets/tactical_black_cargo_pants.jpg",
         description: "Comfortable and durable black cargo pants with multiple utility pockets.",
-        sizes: ["30", "32", "34", "36"]
+        sizes: ["30", "32", "34", "36"],
+        defaultStock: { "30": 10, "32": 15, "34": 12, "36": 8 }
     },
     {
+        id: 7,
         name: "Light Blue Denim Cargo Jeans",
         category: "jeans",
         price: 999,
@@ -76,9 +94,11 @@ const baseProducts = [
         isOffer: true,
         image: "assets/light_blue_denim_cargo_jeans.jpg",
         description: "Modern light wash denim combined with functional cargo styling.",
-        sizes: ["28", "30", "32", "34"]
+        sizes: ["28", "30", "32", "34"],
+        defaultStock: { "28": 8, "30": 12, "32": 14, "34": 10 }
     },
     {
+        id: 8,
         name: "Solid Formal Shirt",
         category: "shirts",
         price: 430,
@@ -86,9 +106,11 @@ const baseProducts = [
         image: "assets/plain formal shirt.jpg",
         description: "Classic solid formal shirt, perfect for office and formal events.",
         sizes: ["S", "M", "L", "XL"],
-        colors: ["White", "Light Blue", "Pink", "Black"]
+        colors: ["White", "Light Blue", "Pink", "Black"],
+        defaultStock: { S: 12, M: 18, L: 16, XL: 10 }
     },
     {
+        id: 9,
         name: "Graphic Print T-Shirt",
         category: "tshirts",
         price: 350,
@@ -96,9 +118,11 @@ const baseProducts = [
         image: "assets/printed tshirt.jpg",
         description: "Trendy graphic print t-shirt for a cool casual look.",
         sizes: ["M", "L", "XL"],
-        colors: ["White", "Black", "Grey"]
+        colors: ["White", "Black", "Grey"],
+        defaultStock: { M: 20, L: 18, XL: 12 }
     },
     {
+        id: 10,
         name: "Classic Denim Jacket",
         category: "shirts",
         price: 899,
@@ -106,9 +130,11 @@ const baseProducts = [
         isOffer: true,
         image: "assets/vintage_dark_denim_shirt.jpeg",
         description: "A timeless denim jacket that pairs perfectly with any outfit.",
-        sizes: ["S", "M", "L", "XL"]
+        sizes: ["S", "M", "L", "XL"],
+        defaultStock: { S: 5, M: 8, L: 7, XL: 4 }
     },
     {
+        id: 11,
         name: "Urban Polo T-Shirt",
         category: "tshirts",
         price: 350,
@@ -116,101 +142,178 @@ const baseProducts = [
         image: "assets/tshirt1.jpg",
         description: "Smart casual polo t-shirt with contrast collar.",
         sizes: ["M", "L", "XL", "XXL"],
-        colors: ["Navy", "Maroon", "Dark Green"]
+        colors: ["Navy", "Maroon", "Dark Green"],
+        defaultStock: { M: 14, L: 16, XL: 10, XXL: 6 }
     }
 ];
 
-// Generate 40 products
-const products = [];
 const extraProductsData = [
-    { image: "assets/tshirt 4.jpg", name: "Classic Green Polo", category: "tshirts", price: 350 },
-    { image: "assets/tshirt 5.jpg", name: "Premium Black Henley", category: "tshirts", price: 350 },
-    { image: "assets/tshirt 6.jpg", name: "Vintage T-Shirt", category: "tshirts", price: 350 },
-    { image: "assets/white tshirt.jpg", name: "Essential White T-Shirt", category: "tshirts", price: 350 },
-    { image: "assets/designed shirt.jpg", name: "Tropical Printed Shirt", category: "shirts", price: 430 },
-    { image: "assets/plain fomal shirt 2.jpg", name: "Navy Blue Formal Shirt", category: "shirts", price: 430 },
-    { image: "assets/OIP (33).jpg", name: "Striped Linen Henley", category: "shirts", price: 430 },
-    { image: "assets/OIP (34).jpg", name: "Casual Oxford Shirt", category: "shirts", price: 430 },
-    { image: "assets/OIP (35).jpg", name: "Camo Cargo Half Trousers", category: "jeans", price: 430 },
-    { image: "assets/OIP (36).jpg", name: "Grey Athletic Half Trousers", category: "jeans", price: 430 }
+    { id: 12, image: "assets/tshirt 4.jpg", name: "Classic Green Polo", category: "tshirts", price: 350, defaultStock: { S: 10, M: 15, L: 12, XL: 8 } },
+    { id: 13, image: "assets/tshirt 5.jpg", name: "Premium Black Henley", category: "tshirts", price: 350, defaultStock: { S: 8, M: 12, L: 14, XL: 10 } },
+    { id: 14, image: "assets/tshirt 6.jpg", name: "Vintage T-Shirt", category: "tshirts", price: 350, defaultStock: { S: 12, M: 16, L: 14, XL: 9 } },
+    { id: 15, image: "assets/white tshirt.jpg", name: "Essential White T-Shirt", category: "tshirts", price: 350, defaultStock: { S: 20, M: 25, L: 22, XL: 15 } },
+    { id: 16, image: "assets/designed shirt.jpg", name: "Tropical Printed Shirt", category: "shirts", price: 430, defaultStock: { M: 10, L: 12, XL: 8 } },
+    { id: 17, image: "assets/plain fomal shirt 2.jpg", name: "Navy Blue Formal Shirt", category: "shirts", price: 430, defaultStock: { S: 8, M: 12, L: 10, XL: 6 } },
+    { id: 18, image: "assets/OIP (33).jpg", name: "Striped Linen Henley", category: "shirts", price: 430, defaultStock: { M: 14, L: 16, XL: 10 } },
+    { id: 19, image: "assets/OIP (34).jpg", name: "Casual Oxford Shirt", category: "shirts", price: 430, defaultStock: { S: 6, M: 10, L: 8, XL: 5 } },
+    { id: 20, image: "assets/OIP (35).jpg", name: "Camo Cargo Half Trousers", category: "jeans", price: 430, defaultStock: { "30": 8, "32": 10, "34": 8, "36": 5 } },
+    { id: 21, image: "assets/OIP (36).jpg", name: "Grey Athletic Half Trousers", category: "jeans", price: 430, defaultStock: { "30": 6, "32": 10, "34": 9, "36": 4 } }
 ];
 
-baseProducts.forEach((base, i) => {
-    products.push({
-        id: i + 1,
-        name: base.name,
-        category: base.category,
-        price: base.price,
-        originalPrice: base.originalPrice,
-        isOffer: i % 3 === 0 ? true : base.isOffer,
-        image: base.image,
-        images: base.images,
-        description: base.description,
-        sizes: base.sizes || ["S", "M", "L", "XL"],
-        colors: base.colors || []
-    });
-});
+// Build products array
+const products = baseProducts.map(p => ({
+    ...p,
+    colors: p.colors || [],
+    sizes: p.sizes || ["S", "M", "L", "XL"]
+}));
 
-extraProductsData.forEach((extra, i) => {
-    const globalIndex = baseProducts.length + i;
+extraProductsData.forEach(extra => {
     products.push({
-        id: globalIndex + 1,
+        id: extra.id,
         name: extra.name,
         category: extra.category,
         price: extra.price,
         originalPrice: extra.price + 299,
-        isOffer: globalIndex % 3 === 0,
+        isOffer: extra.id % 3 === 0,
         image: extra.image,
         description: "Premium quality clothing for everyday comfort and style.",
-        sizes: ["M", "L", "XL"],
-        colors: []
+        sizes: Object.keys(extra.defaultStock),
+        colors: [],
+        defaultStock: extra.defaultStock
     });
 });
 
+// Build combos
 const comboImages = [
-    "assets/combo.jpeg", "assets/combo1.jpeg", "assets/combo2.jpeg", 
-    "assets/combo4.jpeg", "assets/combo5.jpeg", "assets/combo6.jpeg", 
-    "assets/combo7.jpeg", "assets/combo8.jpeg", "assets/combo9.jpeg", 
-    "assets/combo10.jpeg", "assets/combo11.jpeg", "assets/combo12.jpeg", 
-    "assets/combo13.jpeg", "assets/combo14.jpeg", "assets/combo15.jpeg", 
+    "assets/combo.jpeg", "assets/combo1.jpeg", "assets/combo2.jpeg",
+    "assets/combo4.jpeg", "assets/combo5.jpeg", "assets/combo6.jpeg",
+    "assets/combo7.jpeg", "assets/combo8.jpeg", "assets/combo9.jpeg",
+    "assets/combo10.jpeg", "assets/combo11.jpeg", "assets/combo12.jpeg",
+    "assets/combo13.jpeg", "assets/combo14.jpeg", "assets/combo15.jpeg",
     "assets/combo16.jpeg", "assets/combo17.jpeg"
 ];
 
-const combos = [];
-for(let i = 0; i < comboImages.length; i++) {
-    combos.push({
-        id: 100 + i + 1,
-        name: "Premium Style Combo Set",
-        category: "combos",
-        price: 999,
-        originalPrice: 1199,
-        isOffer: true,
-        image: comboImages[i],
-        description: "An exclusive limited edition bundle bringing you premium style and maximum comfort. Save big when bought together!",
-        sizes: ["M (Top/32 Bot)", "L (Top/34 Bot)", "XL (Top/36 Bot)"]
-    });
-}
+const combos = comboImages.map((img, i) => ({
+    id: 100 + i + 1,
+    name: "Premium Style Combo Set",
+    category: "combos",
+    price: 999,
+    originalPrice: 1199,
+    isOffer: true,
+    image: img,
+    description: "An exclusive limited edition bundle bringing you premium style and maximum comfort. Save big when bought together!",
+    sizes: ["M", "L", "XL"],
+    colors: [],
+    defaultStock: { M: 10, L: 12, XL: 8 }
+}));
 
 const allItems = [...products, ...combos];
 
-// --- 2. STATE MANAGEMENT ---
-let cart = JSON.parse(localStorage.getItem('ak_cart')) || [];
+// ==========================================
+// 2. STOCK MANAGER
+// ==========================================
+const stockManager = {
+    STORAGE_KEY: 'ak_stock_v2',
+
+    init() {
+        const existing = localStorage.getItem(this.STORAGE_KEY);
+        if (!existing) {
+            const stockData = {};
+            allItems.forEach(p => {
+                stockData[p.id] = {};
+                if (p.defaultStock) {
+                    Object.assign(stockData[p.id], p.defaultStock);
+                } else {
+                    (p.sizes || []).forEach(s => { stockData[p.id][s] = 15; });
+                }
+            });
+            localStorage.setItem(this.STORAGE_KEY, JSON.stringify(stockData));
+        }
+    },
+
+    getAll() {
+        return JSON.parse(localStorage.getItem(this.STORAGE_KEY)) || {};
+    },
+
+    get(productId, size) {
+        const all = this.getAll();
+        return (all[productId] && all[productId][size] !== undefined) ? all[productId][size] : 0;
+    },
+
+    getProductStock(productId) {
+        const all = this.getAll();
+        return all[productId] || {};
+    },
+
+    reduce(productId, size, qty) {
+        const all = this.getAll();
+        if (!all[productId]) all[productId] = {};
+        const current = all[productId][size] || 0;
+        all[productId][size] = Math.max(0, current - qty);
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(all));
+    },
+
+    set(productId, size, qty) {
+        const all = this.getAll();
+        if (!all[productId]) all[productId] = {};
+        all[productId][size] = parseInt(qty) || 0;
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(all));
+    },
+
+    getTotalForProduct(productId) {
+        const stock = this.getProductStock(productId);
+        return Object.values(stock).reduce((a, b) => a + b, 0);
+    },
+
+    getStockLabel(qty) {
+        if (qty === 0) return { label: 'Out of Stock', cls: 'stock-none' };
+        if (qty <= 2) return { label: `${qty} left`, cls: 'stock-low' };
+        if (qty <= 5) return { label: `${qty} left`, cls: 'stock-medium' };
+        return { label: `${qty} in stock`, cls: 'stock-good' };
+    }
+};
+
+// ==========================================
+// 3. ORDER HISTORY
+// ==========================================
+const orderHistory = {
+    STORAGE_KEY: 'ak_order_history_v2',
+
+    getAll() {
+        return JSON.parse(localStorage.getItem(this.STORAGE_KEY)) || [];
+    },
+
+    save(order) {
+        const orders = this.getAll();
+        orders.unshift(order);
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(orders));
+    },
+
+    generateId() {
+        return 'ORD-' + Date.now();
+    }
+};
+
+// ==========================================
+// 4. STATE
+// ==========================================
+let cart = JSON.parse(localStorage.getItem('ak_cart_v2')) || [];
 let selectedProduct = null;
 let selectedSize = null;
 let selectedColor = null;
-
-// Pagination State
 let currentPage = 1;
 const itemsPerPage = 12;
-let currentFilteredProducts = products; // Defaults to all products
+let currentFilteredProducts = products;
 
-// --- 3. DOM ELEMENTS ---
+// ==========================================
+// 5. DOM ELEMENTS
+// ==========================================
 const elements = {
-    productsGrid: document.getElementById('products-grid'), // Shop page
-    comboGrid: document.getElementById('combo-grid'),       // Home page
-    seasonalGrid: document.getElementById('seasonal-grid'), // Home page
-    newGrid: document.getElementById('new-grid'),           // Home page
-    paginationContainer: document.getElementById('pagination-container'), // Shop page
+    productsGrid: document.getElementById('products-grid'),
+    comboGrid: document.getElementById('combo-grid'),
+    seasonalGrid: document.getElementById('seasonal-grid'),
+    newGrid: document.getElementById('new-grid'),
+    paginationContainer: document.getElementById('pagination-container'),
     filterBtns: document.querySelectorAll('.filter-btn'),
     searchInput: document.getElementById('search-input'),
     loginBtn: document.getElementById('login-btn'),
@@ -222,100 +325,83 @@ const elements = {
     cartSubtotal: document.getElementById('cart-subtotal'),
     checkoutBtn: document.getElementById('checkout-btn'),
     sidebarOverlay: document.getElementById('sidebar-overlay'),
-    
-    // Login Modal
     loginModal: document.getElementById('login-modal'),
     closeLoginModal: document.getElementById('close-login-modal'),
     googleSigninBtn: document.getElementById('google-signin-btn'),
-    
-    // Product Modal
     productModal: document.getElementById('product-modal'),
     closeProductModal: document.getElementById('close-product-modal'),
     productDetailsContainer: document.getElementById('product-details-container'),
-    
-    // Checkout Modal
     checkoutModal: document.getElementById('checkout-modal'),
     closeCheckoutModal: document.getElementById('close-checkout-modal'),
     checkoutForm: document.getElementById('checkout-form'),
     checkoutItems: document.getElementById('checkout-items'),
-    checkoutTotalAmount: document.getElementById('checkout-total-amount')
+    checkoutTotalAmount: document.getElementById('checkout-total-amount'),
+    groupOrderModal: document.getElementById('group-order-modal'),
+    closeGroupOrderModal: document.getElementById('close-group-order-modal'),
+    groupOrderContainer: document.getElementById('group-order-container')
 };
 
-// --- 4. INITIALIZATION ---
+// ==========================================
+// 6. INIT
+// ==========================================
 function init() {
-    if (elements.comboGrid) {
-        renderGrid(combos.slice(0, 3), elements.comboGrid); // Render all combos on Home
-    } 
-    if (elements.seasonalGrid) {
-        const seasonalOffers = products.filter(p => p.isOffer).slice(0, 3);
-        renderGrid(seasonalOffers, elements.seasonalGrid);
-    }
-    if (elements.newGrid) {
-        renderGrid(products.slice(0, 3), elements.newGrid);
-    }
-    
+    stockManager.init();
+
+    if (elements.comboGrid) renderGrid(combos.slice(0, 3), elements.comboGrid);
+    if (elements.seasonalGrid) renderGrid(products.filter(p => p.isOffer).slice(0, 3), elements.seasonalGrid);
+    if (elements.newGrid) renderGrid(products.slice(0, 3), elements.newGrid);
+
     if (elements.productsGrid) {
         const urlParams = new URLSearchParams(window.location.search);
         const filterParam = urlParams.get('filter');
         const collectionParam = urlParams.get('collection');
-        
         let shopTitle = document.querySelector('.shop-header .hero-title');
         let shopSubtitle = document.querySelector('.shop-header .hero-subtitle');
         let categoryFilters = document.getElementById('category-filters');
 
         if (collectionParam) {
-            // Dynamic separate interface UI
-            if(categoryFilters) categoryFilters.style.display = 'none';
-
+            if (categoryFilters) categoryFilters.style.display = 'none';
             if (collectionParam === 'combos') {
-                if(shopTitle) shopTitle.textContent = "Combo Offers";
-                if(shopSubtitle) shopSubtitle.textContent = "Exclusive sets tailored for the perfect look.";
+                if (shopTitle) shopTitle.textContent = "Combo Offers";
+                if (shopSubtitle) shopSubtitle.textContent = "Exclusive sets tailored for the perfect look.";
                 currentFilteredProducts = combos;
             } else if (collectionParam === 'seasonal') {
-                if(shopTitle) shopTitle.textContent = "Seasonal Offers";
-                if(shopSubtitle) shopSubtitle.textContent = "Up to 50% off on winter and premium items.";
+                if (shopTitle) shopTitle.textContent = "Seasonal Offers";
+                if (shopSubtitle) shopSubtitle.textContent = "Up to 50% off on premium items.";
                 currentFilteredProducts = products.filter(p => p.isOffer);
             } else if (collectionParam === 'new') {
-                if(shopTitle) shopTitle.textContent = "New Collection";
-                if(shopSubtitle) shopSubtitle.textContent = "Be the first to wear our latest arrivals.";
-                // Let's pretend the first 16 items in 'products' are new
+                if (shopTitle) shopTitle.textContent = "New Collection";
+                if (shopSubtitle) shopSubtitle.textContent = "Be the first to wear our latest arrivals.";
                 currentFilteredProducts = products.slice(0, 16);
             }
         } else if (filterParam) {
-            if (filterParam === 'all') {
-                currentFilteredProducts = allItems;
-            } else if (filterParam === 'offers') {
-                currentFilteredProducts = products.filter(p => p.isOffer);
-            } else {
-                currentFilteredProducts = products.filter(p => p.category === filterParam);
-            }
-            
+            if (filterParam === 'all') currentFilteredProducts = allItems;
+            else if (filterParam === 'offers') currentFilteredProducts = products.filter(p => p.isOffer);
+            else currentFilteredProducts = products.filter(p => p.category === filterParam);
+
             if (elements.filterBtns) {
                 elements.filterBtns.forEach(btn => {
                     btn.classList.remove('active');
-                    if (btn.getAttribute('data-filter') === filterParam) {
-                        btn.classList.add('active');
-                    }
+                    if (btn.getAttribute('data-filter') === filterParam) btn.classList.add('active');
                 });
             }
         } else {
-            // Default Shop page shows all 50 items
             currentFilteredProducts = allItems;
         }
-        
-        renderPaginatedGrid(); // Render paginated products on Shop
+        renderPaginatedGrid();
     }
-    
+
     updateCartUI();
     setupEventListeners();
-    
+
     window.addEventListener('scroll', () => {
         const navbar = document.querySelector('.navbar');
+        if (!navbar) return;
         if (window.scrollY > 50) {
-            navbar.style.background = 'rgba(15, 17, 21, 0.95)';
+            navbar.style.background = 'rgba(15, 17, 21, 0.98)';
             navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.5)';
         } else {
-            if(!elements.productsGrid) {
+            if (!elements.productsGrid) {
                 navbar.style.background = 'rgba(15, 17, 21, 0.85)';
                 navbar.style.boxShadow = 'none';
             }
@@ -323,65 +409,57 @@ function init() {
     });
 }
 
-// --- 5. RENDER FUNCTIONS ---
+// ==========================================
+// 7. RENDER FUNCTIONS
+// ==========================================
 function formatPrice(price) {
     return `₹${price.toLocaleString('en-IN')}`;
 }
 
-// Basic render for combos
 function renderGrid(items, container) {
     if (!container) return;
-    
     container.innerHTML = '';
-    
     if (items.length === 0) {
-        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">No products found matching your criteria.</p>';
+        container.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-muted);">No products found.</p>';
         return;
     }
-    
-    items.forEach(product => {
-        container.appendChild(createProductCard(product));
-    });
+    items.forEach(product => container.appendChild(createProductCard(product)));
 }
 
-// Advanced render for shop pagination
 function renderPaginatedGrid() {
     if (!elements.productsGrid) return;
-    
     elements.productsGrid.innerHTML = '';
-    
     if (currentFilteredProducts.length === 0) {
-        elements.productsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">No products found matching your criteria.</p>';
-        if(elements.paginationContainer) elements.paginationContainer.innerHTML = '';
+        elements.productsGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-muted);">No products found.</p>';
+        if (elements.paginationContainer) elements.paginationContainer.innerHTML = '';
         return;
     }
-    
-    // Calculate start and end indices
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    
-    // Slice array to get current page items
-    const pageItems = currentFilteredProducts.slice(startIndex, endIndex);
-    
-    pageItems.forEach(product => {
-        elements.productsGrid.appendChild(createProductCard(product));
-    });
-    
+    const pageItems = currentFilteredProducts.slice(startIndex, startIndex + itemsPerPage);
+    pageItems.forEach(product => elements.productsGrid.appendChild(createProductCard(product)));
     renderPaginationControls();
 }
 
 function createProductCard(product) {
     const card = document.createElement('div');
     card.className = 'product-card';
-    
-    let badgeHtml = product.isOffer ? `<div class="offer-badge">OFFER</div>` : '';
-    let priceHtml = product.originalPrice 
-        ? `<span class="original-price">${formatPrice(product.originalPrice)}</span> ${formatPrice(product.price)}` 
+
+    const badgeHtml = product.isOffer ? `<div class="offer-badge">OFFER</div>` : '';
+    const priceHtml = product.originalPrice
+        ? `<span class="original-price">${formatPrice(product.originalPrice)}</span> ${formatPrice(product.price)}`
         : formatPrice(product.price);
-        
+
+    const totalStock = stockManager.getTotalForProduct(product.id);
+    const stockInfo = totalStock === 0
+        ? `<div class="card-stock-badge stock-none">Out of Stock</div>`
+        : totalStock <= 5
+            ? `<div class="card-stock-badge stock-low">${totalStock} left</div>`
+            : `<div class="card-stock-badge stock-good">In Stock</div>`;
+
     card.innerHTML = `
         <div class="product-img-wrapper" style="cursor:pointer;" onclick="openProductModal(${product.id})">
             ${badgeHtml}
+            ${stockInfo}
             <img src="${product.image}" alt="${product.name}" class="product-img" loading="lazy">
         </div>
         <div class="product-info">
@@ -389,7 +467,7 @@ function createProductCard(product) {
             <h3 class="product-title" style="cursor:pointer;" onclick="openProductModal(${product.id})">${product.name}</h3>
             <div class="product-price">${priceHtml}</div>
             <button class="btn btn-primary btn-block" onclick="openProductModal(${product.id})">
-                View Details
+                <i class="fa-solid fa-eye"></i> View Details
             </button>
         </div>
     `;
@@ -398,74 +476,54 @@ function createProductCard(product) {
 
 function renderPaginationControls() {
     if (!elements.paginationContainer) return;
-    
     const totalPages = Math.ceil(currentFilteredProducts.length / itemsPerPage);
     elements.paginationContainer.innerHTML = '';
-    
-    if (totalPages <= 1) return; // Hide pagination if only 1 page
-    
-    // Prev button
+    if (totalPages <= 1) return;
+
     const prevBtn = document.createElement('button');
     prevBtn.className = 'page-btn';
     prevBtn.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
     prevBtn.disabled = currentPage === 1;
-    prevBtn.onclick = () => {
-        if(currentPage > 1) {
-            currentPage--;
-            renderPaginatedGrid();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    };
+    prevBtn.onclick = () => { if (currentPage > 1) { currentPage--; renderPaginatedGrid(); window.scrollTo({ top: 0, behavior: 'smooth' }); } };
     elements.paginationContainer.appendChild(prevBtn);
-    
-    // Page Numbers
+
     for (let i = 1; i <= totalPages; i++) {
         const pageBtn = document.createElement('button');
         pageBtn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
         pageBtn.textContent = i;
-        pageBtn.onclick = () => {
-            currentPage = i;
-            renderPaginatedGrid();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
+        pageBtn.onclick = () => { currentPage = i; renderPaginatedGrid(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
         elements.paginationContainer.appendChild(pageBtn);
     }
-    
-    // Next button
+
     const nextBtn = document.createElement('button');
     nextBtn.className = 'page-btn';
     nextBtn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
     nextBtn.disabled = currentPage === totalPages;
-    nextBtn.onclick = () => {
-        if(currentPage < totalPages) {
-            currentPage++;
-            renderPaginatedGrid();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    };
+    nextBtn.onclick = () => { if (currentPage < totalPages) { currentPage++; renderPaginatedGrid(); window.scrollTo({ top: 0, behavior: 'smooth' }); } };
     elements.paginationContainer.appendChild(nextBtn);
 }
 
-// --- 6. PRODUCT MODAL LOGIC ---
-window.changeModalImage = function(thumbElement, newSrc) {
+// ==========================================
+// 8. PRODUCT MODAL
+// ==========================================
+window.changeModalImage = function (thumbEl, newSrc) {
     document.getElementById('main-product-img').src = newSrc;
-    document.querySelectorAll('.gallery-thumb').forEach(el => {
-        el.style.border = '2px solid transparent';
-    });
-    thumbElement.style.border = '2px solid var(--primary-color)';
+    document.querySelectorAll('.gallery-thumb').forEach(el => el.style.border = '2px solid transparent');
+    thumbEl.style.border = '2px solid var(--primary-color)';
 };
 
-window.openProductModal = function(productId) {
+window.openProductModal = function (productId) {
     selectedProduct = allItems.find(p => p.id === productId);
-    selectedSize = null; 
+    selectedSize = null;
     selectedColor = null;
-    
     if (!selectedProduct) return;
-    
-    let priceHtml = selectedProduct.originalPrice 
-        ? `<span class="original-price" style="font-size:1.2rem">${formatPrice(selectedProduct.originalPrice)}</span> ${formatPrice(selectedProduct.price)}` 
+
+    const priceHtml = selectedProduct.originalPrice
+        ? `<span class="original-price" style="font-size:1.2rem">${formatPrice(selectedProduct.originalPrice)}</span> ${formatPrice(selectedProduct.price)}`
         : formatPrice(selectedProduct.price);
-        
+
+    const productStock = stockManager.getProductStock(selectedProduct.id);
+
     let colorSelectorHtml = '';
     if (selectedProduct.colors && selectedProduct.colors.length > 0) {
         colorSelectorHtml = `
@@ -473,48 +531,64 @@ window.openProductModal = function(productId) {
                 <label class="selector-label">Select Color <span style="color:#ff4757" id="color-error"></span></label>
                 <div class="size-options">
                     ${selectedProduct.colors.map(color => `
-                        <button class="size-btn color-btn" onclick="selectColor('${color}', this)" style="width: auto; padding: 0 15px;">${color}</button>
+                        <button class="size-btn color-btn" onclick="selectColor('${color}', this)" style="width:auto;padding:0 15px;">${color}</button>
                     `).join('')}
                 </div>
-            </div>
-        `;
+            </div>`;
     }
-    
+
     let imageGalleryHtml = '';
     if (selectedProduct.images && selectedProduct.images.length > 1) {
         imageGalleryHtml = `
-            <div class="product-gallery" style="display: flex; gap: 10px; margin-top: 15px; justify-content: center;">
+            <div class="product-gallery" style="display:flex;gap:10px;margin-top:15px;justify-content:center;flex-wrap:wrap;">
                 ${selectedProduct.images.map((img, idx) => `
-                    <img src="${img}" class="gallery-thumb" style="width: 60px; height: 60px; object-fit: contain; background: var(--bg-elevated); border-radius: 5px; cursor: pointer; border: 2px solid ${idx === 0 ? 'var(--primary-color)' : 'transparent'}; transition: border-color 0.2s;" onclick="changeModalImage(this, '${img}')">
+                    <img src="${img}" class="gallery-thumb" style="width:60px;height:60px;object-fit:contain;background:var(--bg-elevated);border-radius:5px;cursor:pointer;border:2px solid ${idx === 0 ? 'var(--primary-color)' : 'transparent'};transition:border-color 0.2s;" onclick="changeModalImage(this,'${img}')">
                 `).join('')}
-            </div>
-        `;
+            </div>`;
     }
-    
+
+    const totalStock = stockManager.getTotalForProduct(selectedProduct.id);
+    const stockStatusHtml = `
+        <div class="stock-status-bar">
+            <span class="stock-total-label ${totalStock === 0 ? 'stock-none' : totalStock <= 5 ? 'stock-low' : 'stock-good'}">
+                <i class="fa-solid fa-boxes-stacked"></i>
+                ${totalStock === 0 ? 'Out of Stock' : `${totalStock} units available`}
+            </span>
+        </div>`;
+
+    const sizesHtml = selectedProduct.sizes.map(size => {
+        const qty = productStock[size] !== undefined ? productStock[size] : 0;
+        const info = stockManager.getStockLabel(qty);
+        const disabled = qty === 0 ? 'disabled' : '';
+        return `
+            <div class="size-option-wrap">
+                <button class="size-btn ${qty === 0 ? 'out-of-stock' : ''}" onclick="selectSize('${size}', this)" ${disabled} style="width:auto;padding:0 15px;">
+                    ${size}
+                </button>
+                <span class="size-stock-label ${info.cls}">${info.label}</span>
+            </div>`;
+    }).join('');
+
     elements.productDetailsContainer.innerHTML = `
         <div class="product-detail-grid">
             <div class="product-detail-img-container">
-                ${selectedProduct.isOffer ? `<div class="offer-badge" style="font-size: 1rem; padding: 8px 16px;">SPECIAL OFFER</div>` : ''}
+                ${selectedProduct.isOffer ? `<div class="offer-badge" style="font-size:1rem;padding:8px 16px;">SPECIAL OFFER</div>` : ''}
                 <img src="${selectedProduct.image}" alt="${selectedProduct.name}" class="product-detail-img" id="main-product-img">
                 ${imageGalleryHtml}
             </div>
             <div class="product-detail-info">
-                <span style="color: var(--primary-color); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 5px; display: block;">${selectedProduct.category}</span>
+                <span style="color:var(--primary-color);font-weight:600;font-size:0.9rem;text-transform:uppercase;margin-bottom:5px;display:block;">${selectedProduct.category}</span>
                 <h2 class="product-detail-title">${selectedProduct.name}</h2>
                 <div class="product-detail-price">${priceHtml}</div>
+                ${stockStatusHtml}
                 <p class="product-detail-desc">${selectedProduct.description}</p>
-                
                 ${colorSelectorHtml}
-                
                 <div class="selector-group">
                     <label class="selector-label">Select Size <span style="color:#ff4757" id="size-error"></span></label>
-                    <div class="size-options">
-                        ${selectedProduct.sizes.map(size => `
-                            <button class="size-btn" onclick="selectSize('${size}', this)" style="width: auto; padding: 0 15px;">${size}</button>
-                        `).join('')}
+                    <div class="size-options size-options-stacked">
+                        ${sizesHtml}
                     </div>
                 </div>
-                
                 <div class="selector-group">
                     <label class="selector-label">Quantity</label>
                     <div class="qty-control">
@@ -523,331 +597,647 @@ window.openProductModal = function(productId) {
                         <button class="qty-btn" onclick="updateModalQty(1)">+</button>
                     </div>
                 </div>
-                
-                <button class="btn btn-primary btn-block" onclick="addToCartFromModal()" style="margin-top: 20px; font-size: 1.1rem; padding: 15px;">
+                <button class="btn btn-primary btn-block" onclick="addToCartFromModal()" style="margin-top:20px;font-size:1.1rem;padding:15px;" ${totalStock === 0 ? 'disabled' : ''}>
                     <i class="fa-solid fa-cart-plus"></i> Add to Cart
                 </button>
             </div>
-        </div>
-    `;
-    
+        </div>`;
+
     elements.productModal.classList.add('active');
     document.body.style.overflow = 'hidden';
-}
+};
 
-window.selectColor = function(color, btnElement) {
+window.selectColor = function (color, btnEl) {
     selectedColor = color;
     document.querySelectorAll('.color-btn').forEach(btn => btn.classList.remove('selected'));
-    btnElement.classList.add('selected');
-    if (document.getElementById('color-error')) {
-        document.getElementById('color-error').textContent = '';
-    }
-}
+    btnEl.classList.add('selected');
+    if (document.getElementById('color-error')) document.getElementById('color-error').textContent = '';
+};
 
-window.selectSize = function(size, btnElement) {
+window.selectSize = function (size, btnEl) {
+    if (btnEl.disabled) return;
     selectedSize = size;
-    document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('selected'));
-    btnElement.classList.add('selected');
-    document.getElementById('size-error').textContent = '';
-}
+    document.querySelectorAll('.size-btn:not(.color-btn)').forEach(btn => btn.classList.remove('selected'));
+    btnEl.classList.add('selected');
+    const errEl = document.getElementById('size-error');
+    if (errEl) errEl.textContent = '';
 
-window.updateModalQty = function(change) {
+    // Update max qty based on stock
+    const stock = stockManager.get(selectedProduct.id, size);
+    const qtyInput = document.getElementById('modal-qty');
+    if (qtyInput) {
+        qtyInput.max = stock;
+        if (parseInt(qtyInput.value) > stock) qtyInput.value = stock;
+    }
+};
+
+window.updateModalQty = function (change) {
     const input = document.getElementById('modal-qty');
     let newVal = parseInt(input.value) + change;
-    if (newVal >= 1) {
-        input.value = newVal;
-    }
-}
+    const max = selectedSize ? stockManager.get(selectedProduct.id, selectedSize) : 99;
+    if (newVal >= 1 && newVal <= max) input.value = newVal;
+};
 
-window.addToCartFromModal = function() {
+window.addToCartFromModal = function () {
     if (selectedProduct.colors && selectedProduct.colors.length > 0 && !selectedColor) {
         document.getElementById('color-error').textContent = '(Please select a color)';
         return;
     }
-
     if (!selectedSize) {
         document.getElementById('size-error').textContent = '(Please select a size)';
         return;
     }
-    
     const qty = parseInt(document.getElementById('modal-qty').value);
+    const stock = stockManager.get(selectedProduct.id, selectedSize);
+    if (qty > stock) {
+        showToast(`Only ${stock} units available for size ${selectedSize}`, 'error');
+        return;
+    }
     addToCart(selectedProduct, selectedSize, qty, selectedColor);
-    
     closeModals();
     toggleCartSidebar(true);
+};
+
+// ==========================================
+// 9. GROUP ORDER CENTRALIZED SIZE FLOW & MODAL
+// ==========================================
+function ensureGroupOrderModalExists() {
+    if (!document.getElementById('group-order-modal')) {
+        const modalHtml = `
+        <div id="group-order-modal" class="modal">
+            <div class="modal-content group-order-modal-content">
+                <button class="close-btn" id="close-group-order-modal" onclick="closeModals()">&times;</button>
+                <div id="group-order-container"></div>
+            </div>
+        </div>`;
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+        
+        // Update elements reference
+        elements.groupOrderModal = document.getElementById('group-order-modal');
+        elements.closeGroupOrderModal = document.getElementById('close-group-order-modal');
+        elements.groupOrderContainer = document.getElementById('group-order-container');
+        
+        // Add click listener to close if clicked outside
+        elements.groupOrderModal.addEventListener('click', e => {
+            if (e.target === elements.groupOrderModal) closeModals();
+        });
+    }
 }
 
-// --- 7. CART LOGIC ---
-function addToCart(product, size, qty, color) {
-    const existingItemIndex = cart.findIndex(item => item.id === product.id && item.size === size && item.color === color);
+window.openGroupOrderSizeSelector = function() {
+    closeModals();
+    ensureGroupOrderModalExists();
+
+    // Show size selector UI inside groupOrderContainer
+    elements.groupOrderContainer.innerHTML = `
+        <div class="group-size-selector-header" style="padding: 30px 30px 10px;">
+            <h2 style="font-family: var(--font-heading); font-size: 2rem; margin-bottom: 10px; color: var(--primary-color);">Bulk & Group Orders</h2>
+            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.5;">Select your required size to find premium shirts and t-shirts available for group ordering.</p>
+        </div>
+        <div class="group-size-selector-body" style="padding: 20px 30px 30px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 15px; font-weight: 600;">Choose a Size:</h3>
+            <div class="size-selector-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 12px; margin-bottom: 30px;">
+                ${['S', 'M', 'L', 'XL', 'XXL', '28', '30', '32', '34', '36'].map(size => `
+                    <button class="btn btn-outline size-bubble-btn" onclick="showGroupProductsForSize('${size}')" style="padding: 0; font-size: 1.1rem; font-weight: bold; border-radius: 50%; width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
+                        ${size}
+                    </button>
+                `).join('')}
+            </div>
+            <div style="background: rgba(255,255,255,0.03); border-radius: 10px; padding: 20px; border-left: 4px solid var(--primary-color);">
+                <h4 style="margin-bottom: 5px; color: var(--text-main);"><i class="fa-solid fa-circle-info"></i> How it works</h4>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">Once you select a size, we will show you all products with stock available in that size. You can then specify quantities for multiple sizes to place a single bulk/group order.</p>
+            </div>
+        </div>
+    `;
+
+    elements.groupOrderModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+};
+
+window.showGroupProductsForSize = function(size) {
+    ensureGroupOrderModalExists();
     
-    if (existingItemIndex > -1) {
-        cart[existingItemIndex].qty += qty;
+    // Filter shirts/tshirts that have stock for this size > 0
+    const availableProducts = allItems.filter(product => {
+        const isShirt = product.category === 'shirts' || product.category === 'tshirts';
+        if (!isShirt) return false;
+        
+        const productStock = stockManager.getProductStock(product.id);
+        const stockForSize = productStock[size] !== undefined ? productStock[size] : 0;
+        return stockForSize > 0;
+    });
+
+    let productsListHtml = '';
+    if (availableProducts.length === 0) {
+        productsListHtml = `
+            <div style="text-align: center; padding: 40px 20px; color: var(--text-muted);">
+                <i class="fa-solid fa-face-frown" style="font-size: 3rem; margin-bottom: 15px; color: var(--primary-color);"></i>
+                <p>Sorry, no products currently have size <strong>${size}</strong> in stock for bulk ordering.</p>
+            </div>
+        `;
+    } else {
+        productsListHtml = `
+            <div class="group-products-grid" style="display: flex; flex-direction: column; gap: 15px; max-height: 400px; overflow-y: auto; padding-right: 5px;">
+                ${availableProducts.map(product => {
+                    const productStock = stockManager.getProductStock(product.id);
+                    const stock = productStock[size];
+                    return `
+                        <div class="group-product-list-item" style="display: flex; align-items: center; gap: 15px; padding: 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 12px; transition: all 0.2s;">
+                            <img src="${product.image}" alt="${product.name}" style="width: 70px; height: 90px; object-fit: cover; border-radius: 8px;">
+                            <div style="flex: 1; text-align: left;">
+                                <span class="product-category" style="font-size: 0.75rem; color: var(--primary-color); font-weight: 600; text-transform: uppercase;">${product.category}</span>
+                                <h4 style="margin: 3px 0; font-size: 1.1rem; color: var(--text-main);">${product.name}</h4>
+                                <div style="display: flex; align-items: center; gap: 10px; margin-top: 5px;">
+                                    <span style="font-weight: 600; color: #fff;">${formatPrice(product.price)}</span>
+                                    <span class="size-stock-badge" style="background: rgba(212,175,55,0.1); color: var(--primary-color); padding: 2px 8px; border-radius: 20px; font-size: 0.8rem; font-weight: 500;">
+                                        ${stock} available in ${size}
+                                    </span>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" onclick="openGroupOrderModal(${product.id})" style="padding: 10px 15px; font-size: 0.9rem;">
+                                Select <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; margin-left: 5px;"></i>
+                            </button>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        `;
+    }
+
+    elements.groupOrderContainer.innerHTML = `
+        <div class="group-size-selector-header" style="padding: 30px 30px 10px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-color);">
+            <div style="text-align: left;">
+                <h2 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 5px; color: var(--primary-color);">Products in Size ${size}</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">Showing products available for group orders.</p>
+            </div>
+            <button class="btn btn-outline" onclick="openGroupOrderSizeSelector()" style="padding: 8px 15px; font-size: 0.85rem; border-radius: 8px;">
+                <i class="fa-solid fa-arrow-left"></i> Back
+            </button>
+        </div>
+        <div class="group-size-selector-body" style="padding: 20px 30px 30px;">
+            ${productsListHtml}
+        </div>
+    `;
+};
+
+window.openGroupOrderModal = function (productId) {
+    const product = allItems.find(p => p.id === productId);
+    if (!product) return;
+
+    const productStock = stockManager.getProductStock(product.id);
+    const priceHtml = product.originalPrice
+        ? `<span class="original-price">${formatPrice(product.originalPrice)}</span> ${formatPrice(product.price)}`
+        : formatPrice(product.price);
+
+    const colorOptions = product.colors && product.colors.length > 0 ? `
+        <div class="group-field-row">
+            <label class="group-field-label">Color</label>
+            <select id="group-color-select" class="group-select">
+                <option value="">Select Color...</option>
+                ${product.colors.map(c => `<option value="${c}">${c}</option>`).join('')}
+            </select>
+        </div>` : '';
+
+    const sizeRows = product.sizes.map(size => {
+        const stock = productStock[size] !== undefined ? productStock[size] : 0;
+        const info = stockManager.getStockLabel(stock);
+        return `
+            <div class="group-size-row">
+                <div class="group-size-label">
+                    <span class="size-tag">${size}</span>
+                    <span class="size-stock-label ${info.cls}">${info.label}</span>
+                </div>
+                <div class="group-qty-control">
+                    <button type="button" class="qty-btn" onclick="adjustGroupQty('${size}', -1)">-</button>
+                    <input type="number" id="group-qty-${size}" class="qty-input group-qty-input" value="0" min="0" max="${stock}" data-size="${size}" data-stock="${stock}" oninput="updateGroupTotal(${product.price})" ${stock === 0 ? 'disabled' : ''}>
+                    <button type="button" class="qty-btn" onclick="adjustGroupQty('${size}', 1, ${stock})">+</button>
+                </div>
+            </div>`;
+    }).join('');
+
+    if (elements.groupOrderContainer) {
+        elements.groupOrderContainer.innerHTML = `
+            <div class="group-order-product-info">
+                <img src="${product.image}" alt="${product.name}" class="group-product-img">
+                <div class="group-product-details">
+                    <span class="product-category">${product.category.toUpperCase()}</span>
+                    <h3>${product.name}</h3>
+                    <div class="product-price">${priceHtml}</div>
+                </div>
+            </div>
+            <div class="group-order-form">
+                <h3><i class="fa-solid fa-layer-group"></i> Bulk / Group Order</h3>
+                <p class="group-order-hint">Enter the quantity for each size you need. Leave at 0 to skip that size.</p>
+                ${colorOptions}
+                <div class="group-sizes-grid">
+                    ${sizeRows}
+                </div>
+                <div class="group-order-total">
+                    <span>Estimated Total:</span>
+                    <span id="group-total-amount" class="total-amount">₹0</span>
+                </div>
+                <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;">
+                    <button class="btn btn-primary" style="flex:1;" onclick="addGroupToCart(${product.id})">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                    <button class="btn btn-whatsapp" style="flex:1;" onclick="sendGroupOrderDirectly(${product.id})">
+                        <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
+                    </button>
+                </div>
+            </div>`;
+
+        elements.groupOrderModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+};
+
+window.adjustGroupQty = function (size, change, maxStock) {
+    const input = document.getElementById(`group-qty-${size}`);
+    if (!input) return;
+    const max = maxStock !== undefined ? maxStock : parseInt(input.dataset.stock || 99);
+    let val = parseInt(input.value) + change;
+    if (val < 0) val = 0;
+    if (val > max) val = max;
+    input.value = val;
+    // Recalculate total
+    const priceEl = document.querySelector('.group-product-details .product-price');
+    const priceText = priceEl ? priceEl.textContent.replace(/[^0-9]/g, '') : '0';
+    updateGroupTotal(parseInt(priceText) || 0);
+};
+
+window.updateGroupTotal = function (pricePerItem) {
+    const inputs = document.querySelectorAll('.group-qty-input');
+    let totalQty = 0;
+    inputs.forEach(inp => { totalQty += parseInt(inp.value) || 0; });
+    const totalEl = document.getElementById('group-total-amount');
+    if (totalEl) totalEl.textContent = formatPrice(totalQty * pricePerItem);
+};
+
+window.addGroupToCart = function (productId) {
+    const product = allItems.find(p => p.id === productId);
+    if (!product) return;
+
+    const inputs = document.querySelectorAll('.group-qty-input');
+    const colorSelect = document.getElementById('group-color-select');
+    const color = colorSelect ? colorSelect.value : '';
+
+    if (product.colors && product.colors.length > 0 && !color) {
+        showToast('Please select a color', 'error');
+        return;
+    }
+
+    let totalQty = 0;
+    inputs.forEach(inp => { totalQty += parseInt(inp.value) || 0; });
+    if (totalQty === 0) {
+        showToast('Please enter at least one quantity', 'error');
+        return;
+    }
+
+    let hasError = false;
+    inputs.forEach(inp => {
+        const size = inp.dataset.size;
+        const qty = parseInt(inp.value) || 0;
+        const stock = parseInt(inp.dataset.stock) || 0;
+        if (qty > 0) {
+            if (qty > stock) { showToast(`Only ${stock} in stock for size ${size}`, 'error'); hasError = true; return; }
+            addToCart(product, size, qty, color, true);
+        }
+    });
+
+    if (!hasError) {
+        closeModals();
+        toggleCartSidebar(true);
+        showToast('Group order added to cart!', 'success');
+    }
+};
+
+window.sendGroupOrderDirectly = function (productId) {
+    const product = allItems.find(p => p.id === productId);
+    if (!product) return;
+
+    const inputs = document.querySelectorAll('.group-qty-input');
+    const colorSelect = document.getElementById('group-color-select');
+    const color = colorSelect ? colorSelect.value : '';
+
+    if (product.colors && product.colors.length > 0 && !color) {
+        showToast('Please select a color', 'error');
+        return;
+    }
+
+    let orderLines = [];
+    let subtotal = 0;
+    inputs.forEach(inp => {
+        const size = inp.dataset.size;
+        const qty = parseInt(inp.value) || 0;
+        if (qty > 0) {
+            orderLines.push({ size, qty, price: product.price });
+            subtotal += qty * product.price;
+        }
+    });
+
+    if (orderLines.length === 0) {
+        showToast('Please enter at least one quantity', 'error');
+        return;
+    }
+
+    // Show customer info form first - open checkout with temp cart
+    const tempCartBackup = [...cart];
+    cart = []; // Clear temp
+    orderLines.forEach(line => {
+        cart.push({ id: product.id, name: product.name, price: product.price, image: product.image, size: line.size, color, qty: line.qty, isGroup: true });
+    });
+    openCheckout(true);
+    // Restore will happen after sending
+    window._groupCartBackup = tempCartBackup;
+};
+
+// ==========================================
+// 10. CART LOGIC
+// ==========================================
+function addToCart(product, size, qty, color, silent = false) {
+    const key = `${product.id}_${size}_${color || ''}`;
+    const existingIndex = cart.findIndex(item => item._key === key);
+    if (existingIndex > -1) {
+        cart[existingIndex].qty += qty;
     } else {
         cart.push({
+            _key: key,
             id: product.id,
             name: product.name,
             price: product.price,
             image: product.image,
-            size: size,
-            color: color,
-            qty: qty
+            size,
+            color,
+            qty
         });
     }
-    
     saveCart();
     updateCartUI();
+    if (!silent) showToast('Added to cart!', 'success');
 }
 
-window.removeFromCart = function(index) {
+window.removeFromCart = function (index) {
     cart.splice(index, 1);
     saveCart();
     updateCartUI();
-}
+};
 
-window.updateCartItemQty = function(index, change) {
+window.updateCartItemQty = function (index, change) {
     const newQty = cart[index].qty + change;
     if (newQty > 0) {
         cart[index].qty = newQty;
         saveCart();
         updateCartUI();
     }
-}
+};
 
 function saveCart() {
-    localStorage.setItem('ak_cart', JSON.stringify(cart));
+    localStorage.setItem('ak_cart_v2', JSON.stringify(cart));
 }
 
 function updateCartUI() {
-    const totalItems = cart.reduce((total, item) => total + item.qty, 0);
-    if(elements.cartBadge) elements.cartBadge.textContent = totalItems;
-    
-    if(!elements.cartItemsContainer) return;
-    
+    const totalItems = cart.reduce((t, i) => t + i.qty, 0);
+    if (elements.cartBadge) elements.cartBadge.textContent = totalItems;
+    if (!elements.cartItemsContainer) return;
+
     if (cart.length === 0) {
-        elements.cartItemsContainer.innerHTML = '<div class="empty-cart-msg">Your cart is currently empty.</div>';
-        elements.checkoutBtn.disabled = true;
-        elements.cartSubtotal.textContent = '₹0';
+        elements.cartItemsContainer.innerHTML = '<div class="empty-cart-msg"><i class="fa-solid fa-bag-shopping" style="font-size:2rem;margin-bottom:10px;display:block;"></i>Your cart is empty.</div>';
+        if (elements.checkoutBtn) elements.checkoutBtn.disabled = true;
+        if (elements.cartSubtotal) elements.cartSubtotal.textContent = '₹0';
         return;
     }
-    
-    elements.checkoutBtn.disabled = false;
+
+    if (elements.checkoutBtn) elements.checkoutBtn.disabled = false;
     elements.cartItemsContainer.innerHTML = '';
-    
     let subtotal = 0;
-    
+
     cart.forEach((item, index) => {
-        const itemTotal = item.price * item.qty;
-        subtotal += itemTotal;
-        
+        subtotal += item.price * item.qty;
         const cartItemEl = document.createElement('div');
         cartItemEl.className = 'cart-item';
         cartItemEl.innerHTML = `
             <img src="${item.image}" alt="${item.name}" class="cart-item-img">
             <div class="cart-item-info">
                 <div class="cart-item-title">${item.name}</div>
-                <div class="cart-item-meta">Size: ${item.size}${item.color ? ` | Color: ${item.color}` : ''}</div>
+                <div class="cart-item-meta">Size: ${item.size}${item.color ? ` | Color: ${item.color}` : ''}${item.isGroup ? ' <span class="group-tag">GROUP</span>' : ''}</div>
                 <div class="cart-item-bottom">
                     <div class="cart-item-price">${formatPrice(item.price)}</div>
-                    <div class="qty-control" style="transform: scale(0.85); transform-origin: left center;">
+                    <div class="qty-control" style="transform:scale(0.85);transform-origin:left center;">
                         <button class="qty-btn" onclick="updateCartItemQty(${index}, -1)">-</button>
                         <input type="number" class="qty-input" value="${item.qty}" readonly>
                         <button class="qty-btn" onclick="updateCartItemQty(${index}, 1)">+</button>
                     </div>
-                    <button class="remove-item" onclick="removeFromCart(${index})">Remove</button>
+                    <button class="remove-item" onclick="removeFromCart(${index})"><i class="fa-solid fa-trash-can"></i></button>
                 </div>
-            </div>
-        `;
+            </div>`;
         elements.cartItemsContainer.appendChild(cartItemEl);
     });
-    
-    elements.cartSubtotal.textContent = formatPrice(subtotal);
+
+    if (elements.cartSubtotal) elements.cartSubtotal.textContent = formatPrice(subtotal);
 }
 
-// --- 8. UI TOGGLES & EVENT LISTENERS ---
+// ==========================================
+// 11. UI TOGGLES
+// ==========================================
 function toggleCartSidebar(show = true) {
-    if(!elements.cartSidebar) return;
-    
+    if (!elements.cartSidebar) return;
     if (show) {
         elements.cartSidebar.classList.add('active');
-        elements.sidebarOverlay.classList.add('active');
+        if (elements.sidebarOverlay) elements.sidebarOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
     } else {
         elements.cartSidebar.classList.remove('active');
-        elements.sidebarOverlay.classList.remove('active');
+        if (elements.sidebarOverlay) elements.sidebarOverlay.classList.remove('active');
         document.body.style.overflow = '';
     }
 }
 
 function closeModals() {
-    if(elements.productModal) elements.productModal.classList.remove('active');
-    if(elements.checkoutModal) elements.checkoutModal.classList.remove('active');
-    if(elements.loginModal) elements.loginModal.classList.remove('active');
+    if (elements.productModal) elements.productModal.classList.remove('active');
+    if (elements.checkoutModal) elements.checkoutModal.classList.remove('active');
+    if (elements.loginModal) elements.loginModal.classList.remove('active');
+    if (elements.groupOrderModal) elements.groupOrderModal.classList.remove('active');
     document.body.style.overflow = '';
 }
 
-function openCheckout() {
+function openCheckout(isGroupDirect = false) {
     toggleCartSidebar(false);
-    
+    if (!elements.checkoutItems || !elements.checkoutTotalAmount) return;
+
     elements.checkoutItems.innerHTML = '';
     let total = 0;
-    
     cart.forEach(item => {
         const itemTotal = item.price * item.qty;
         total += itemTotal;
-        
         elements.checkoutItems.innerHTML += `
             <div class="checkout-item-mini">
                 <div>
-                    <div class="checkout-item-name">${item.name}</div>
+                    <div class="checkout-item-name">${item.name}${item.isGroup ? ' <span class="group-tag">GROUP</span>' : ''}</div>
                     <div class="checkout-item-detail">Size: ${item.size} ${item.color ? `| Color: ${item.color}` : ''} | Qty: ${item.qty}</div>
                 </div>
                 <div class="checkout-item-total">${formatPrice(itemTotal)}</div>
-            </div>
-        `;
+            </div>`;
     });
-    
+
     elements.checkoutTotalAmount.textContent = formatPrice(total);
-    
-    const savedCustomer = JSON.parse(localStorage.getItem('ak_customer'));
-    if (savedCustomer) {
-        if(document.getElementById('cust-name')) document.getElementById('cust-name').value = savedCustomer.name || '';
-        if(document.getElementById('cust-phone')) document.getElementById('cust-phone').value = savedCustomer.phone || '';
-        if(document.getElementById('cust-address')) document.getElementById('cust-address').value = savedCustomer.address || '';
+
+    const saved = JSON.parse(localStorage.getItem('ak_customer'));
+    const descEl = document.querySelector('.checkout-form-section p');
+    if (descEl) {
+        descEl.innerHTML = `Please enter your details to complete the order. <br>
+        <div style="background: rgba(46, 213, 115, 0.1); border-left: 4px solid #2ed573; padding: 12px; border-radius: 8px; margin: 15px 0 5px; text-align: left; color: #2ed573; font-size: 0.85rem; line-height: 1.4;">
+            <i class="fa-solid fa-circle-check"></i> <strong>WhatsApp Order System:</strong> No payment is required online. You will confirm your order details and pay securely via UPI or Cash on Delivery (COD) on WhatsApp.
+        </div>`;
     }
-    
-    elements.checkoutModal.classList.add('active');
-    document.body.style.overflow = 'hidden';
+
+    if (saved) {
+        if (document.getElementById('cust-name')) document.getElementById('cust-name').value = saved.name || '';
+        if (document.getElementById('cust-phone')) document.getElementById('cust-phone').value = saved.phone || '';
+        if (document.getElementById('cust-address')) document.getElementById('cust-address').value = saved.address || '';
+        
+        // Show indicator if saved details were prefilled
+        const titleEl = document.querySelector('.checkout-form-section h2');
+        if (titleEl && !document.getElementById('saved-badge')) {
+            titleEl.insertAdjacentHTML('beforeend', ' <span id="saved-badge" style="background:var(--primary-color);color:#000;font-size:0.75rem;padding:2px 8px;border-radius:20px;margin-left:10px;vertical-align:middle;font-weight:600;">Details Auto-filled</span>');
+        }
+    }
+
+    if (elements.checkoutModal) {
+        elements.checkoutModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
 }
 
 function setupEventListeners() {
-    // Filter functionality (Shop Page)
     if (elements.filterBtns && elements.productsGrid) {
         elements.filterBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
+            btn.addEventListener('click', e => {
                 elements.filterBtns.forEach(b => b.classList.remove('active'));
                 e.target.classList.add('active');
-                
-                if(elements.searchInput) elements.searchInput.value = '';
-                
+                if (elements.searchInput) elements.searchInput.value = '';
                 const filter = e.target.getAttribute('data-filter');
-                if (filter === 'all') {
-                    currentFilteredProducts = products;
-                } else if (filter === 'offers') {
-                    currentFilteredProducts = products.filter(p => p.isOffer);
-                } else {
-                    currentFilteredProducts = products.filter(p => p.category === filter);
-                }
-                
-                currentPage = 1; // Reset to page 1 on new filter
+                if (filter === 'all') currentFilteredProducts = allItems;
+                else if (filter === 'offers') currentFilteredProducts = products.filter(p => p.isOffer);
+                else currentFilteredProducts = products.filter(p => p.category === filter);
+                currentPage = 1;
                 renderPaginatedGrid();
             });
         });
     }
-    
-    // Search functionality (Shop Page)
+
     if (elements.searchInput && elements.productsGrid) {
-        elements.searchInput.addEventListener('input', (e) => {
+        elements.searchInput.addEventListener('input', e => {
             const query = e.target.value.toLowerCase();
-            
-            elements.filterBtns.forEach(b => b.classList.remove('active'));
-            elements.filterBtns[0].classList.add('active');
-            
-            if (query.trim() === '') {
-                currentFilteredProducts = products;
-            } else {
-                currentFilteredProducts = products.filter(p => 
-                    p.name.toLowerCase().includes(query) || 
+            if (elements.filterBtns.length > 0) {
+                elements.filterBtns.forEach(b => b.classList.remove('active'));
+                elements.filterBtns[0].classList.add('active');
+            }
+            currentFilteredProducts = query.trim() === ''
+                ? products
+                : products.filter(p =>
+                    p.name.toLowerCase().includes(query) ||
                     p.description.toLowerCase().includes(query) ||
                     p.category.toLowerCase().includes(query)
                 );
-            }
-            
-            currentPage = 1; // Reset to page 1 on new search
+            currentPage = 1;
             renderPaginatedGrid();
         });
     }
-    
-    // Login Modal & Google Sign In
-    if(elements.loginBtn) {
-        elements.loginBtn.addEventListener('click', () => {
-            elements.loginModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-    }
-    
-    if(elements.closeLoginModal) elements.closeLoginModal.addEventListener('click', closeModals);
-    
-    if(elements.loginModal) elements.loginModal.addEventListener('click', (e) => {
-        if (e.target === elements.loginModal) closeModals();
+
+    if (elements.loginBtn) elements.loginBtn.addEventListener('click', () => {
+        elements.loginModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
     });
-    
-    if(elements.googleSigninBtn) {
+
+    if (elements.closeLoginModal) elements.closeLoginModal.addEventListener('click', closeModals);
+    if (elements.loginModal) elements.loginModal.addEventListener('click', e => { if (e.target === elements.loginModal) closeModals(); });
+
+    if (elements.googleSigninBtn) {
         elements.googleSigninBtn.addEventListener('click', () => {
-            const mockUser = {
-                name: "Guest User",
-                phone: "+91 9876543210",
-                address: "123 Main Street, City"
-            };
+            const mockUser = { name: "Guest User", phone: "+91 9876543210", address: "123 Main Street, City" };
             localStorage.setItem('ak_customer', JSON.stringify(mockUser));
-            alert("Successfully signed in with Google! Your details will be pre-filled during checkout.");
+            showToast('Signed in! Details pre-filled at checkout.', 'success');
             closeModals();
         });
     }
-    
-    // Sidebar & Modals
-    if(elements.cartBtn) elements.cartBtn.addEventListener('click', () => toggleCartSidebar(true));
-    if(elements.closeCartSidebar) elements.closeCartSidebar.addEventListener('click', () => toggleCartSidebar(false));
-    if(elements.sidebarOverlay) elements.sidebarOverlay.addEventListener('click', () => {
-        toggleCartSidebar(false);
-        closeModals();
-    });
-    if(elements.closeProductModal) elements.closeProductModal.addEventListener('click', closeModals);
-    if(elements.closeCheckoutModal) elements.closeCheckoutModal.addEventListener('click', closeModals);
-    
-    // Close modal on outside click
-    if(elements.productModal) elements.productModal.addEventListener('click', (e) => {
-        if (e.target === elements.productModal) closeModals();
-    });
-    if(elements.checkoutModal) elements.checkoutModal.addEventListener('click', (e) => {
-        if (e.target === elements.checkoutModal) closeModals();
-    });
-    
-    // Checkout flow
-    if(elements.checkoutBtn) elements.checkoutBtn.addEventListener('click', openCheckout);
-    
-    // WhatsApp Order Submission
-    if(elements.checkoutForm) {
-        elements.checkoutForm.addEventListener('submit', (e) => {
+
+    if (elements.cartBtn) elements.cartBtn.addEventListener('click', () => toggleCartSidebar(true));
+    if (elements.closeCartSidebar) elements.closeCartSidebar.addEventListener('click', () => toggleCartSidebar(false));
+    if (elements.sidebarOverlay) elements.sidebarOverlay.addEventListener('click', () => { toggleCartSidebar(false); closeModals(); });
+    if (elements.closeProductModal) elements.closeProductModal.addEventListener('click', closeModals);
+    if (elements.closeCheckoutModal) elements.closeCheckoutModal.addEventListener('click', closeModals);
+    if (elements.closeGroupOrderModal) elements.closeGroupOrderModal.addEventListener('click', closeModals);
+
+    if (elements.productModal) elements.productModal.addEventListener('click', e => { if (e.target === elements.productModal) closeModals(); });
+    if (elements.checkoutModal) elements.checkoutModal.addEventListener('click', e => { if (e.target === elements.checkoutModal) closeModals(); });
+    if (elements.groupOrderModal) elements.groupOrderModal.addEventListener('click', e => { if (e.target === elements.groupOrderModal) closeModals(); });
+
+    if (elements.checkoutBtn) elements.checkoutBtn.addEventListener('click', () => openCheckout());
+
+    if (elements.checkoutForm) {
+        elements.checkoutForm.addEventListener('submit', e => {
             e.preventDefault();
+            const nameInput = document.getElementById('cust-name');
+            const phoneInput = document.getElementById('cust-phone');
+            const addressInput = document.getElementById('cust-address');
             
-            const name = document.getElementById('cust-name').value;
-            const phone = document.getElementById('cust-phone').value;
-            const address = document.getElementById('cust-address').value;
+            const name = nameInput ? nameInput.value.trim() : '';
+            const phone = phoneInput ? phoneInput.value.trim() : '';
+            const address = addressInput ? addressInput.value.trim() : '';
             
-            if (!name || !phone || !address) return;
+            if (!name) {
+                showToast('Please enter your full name', 'error');
+                if (nameInput) nameInput.focus();
+                return;
+            }
+            // Standard Indian phone number match (10 digits, optionally preceded by +91 or 91 or 0)
+            const phoneRegex = /^(?:\+?91|0)?[6-9]\d{9}$/;
+            if (!phone || !phoneRegex.test(phone.replace(/\s+/g, ''))) {
+                showToast('Please enter a valid 10-digit phone number', 'error');
+                if (phoneInput) phoneInput.focus();
+                return;
+            }
+            if (!address || address.length < 10) {
+                showToast('Please enter a complete delivery address (min 10 characters)', 'error');
+                if (addressInput) addressInput.focus();
+                return;
+            }
             
-            sendWhatsAppOrder(name, phone, address);
+            // Show sending state
+            const submitBtn = elements.checkoutForm.querySelector('button[type="submit"]');
+            const originalBtnHtml = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Preparing WhatsApp Order...';
+            
+            setTimeout(() => {
+                sendWhatsAppOrder(name, phone, address);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnHtml;
+            }, 1000);
         });
     }
 }
 
-// --- 9. WHATSAPP INTEGRATION ---
+// ==========================================
+// 12. WHATSAPP ORDER + HISTORY
+// ==========================================
 function sendWhatsAppOrder(name, phone, address) {
-    const customerInfo = { name, phone, address };
-    localStorage.setItem('ak_customer', JSON.stringify(customerInfo));
+    localStorage.setItem('ak_customer', JSON.stringify({ name, phone, address }));
 
-    const shopNumber = "919361438664"; 
-    
     let subtotal = 0;
-    
-    let itemsText = cart.map((item, index) => {
-        subtotal += (item.price * item.qty);
-        return `${index + 1}. *${item.name}*
-   Size: ${item.size} ${item.color ? `| Color: ${item.color}` : ''} | Qty: ${item.qty} | ₹${item.price} each`;
+    const itemsText = cart.map((item, i) => {
+        subtotal += item.price * item.qty;
+        return `${i + 1}. *${item.name}*${item.isGroup ? ' [GROUP ORDER]' : ''}
+   Size: ${item.size}${item.color ? ` | Color: ${item.color}` : ''} | Qty: ${item.qty} | ${formatPrice(item.price)} each`;
     }).join('\n\n');
-    
+
+    const orderId = orderHistory.generateId();
+    const timestamp = new Date().toLocaleString('en-IN');
+
     const message = `🛍️ *NEW ORDER - AK Fashions*
+━━━━━━━━━━━━━━━━━━
+📋 *Order ID:* ${orderId}
+📅 *Date:* ${timestamp}
 ━━━━━━━━━━━━━━━━━━
 👤 *Name:* ${name}
 📞 *Phone:* ${phone}
@@ -858,23 +1248,59 @@ function sendWhatsAppOrder(name, phone, address) {
 ${itemsText}
 
 ━━━━━━━━━━━━━━━━━━
-💰 *Total Amount: ₹${subtotal.toLocaleString('en-IN')}*
+💰 *Total Amount: ${formatPrice(subtotal)}*
 ━━━━━━━━━━━━━━━━━━
 Please confirm my order. Thank you! 🙏`;
 
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${shopNumber}?text=${encodedMessage}`;
-    
-    cart = [];
+    // Save to order history BEFORE clearing cart
+    const orderRecord = {
+        id: orderId,
+        timestamp: new Date().toISOString(),
+        customer: { name, phone, address },
+        items: cart.map(i => ({ ...i })),
+        total: subtotal,
+        status: 'pending'  // pending, completed, cancelled
+    };
+    orderHistory.save(orderRecord);
+
+    // Restore group cart backup if any
+    if (window._groupCartBackup) {
+        cart = [...window._groupCartBackup];
+        window._groupCartBackup = null;
+    } else {
+        cart = [];
+    }
     saveCart();
     updateCartUI();
     closeModals();
-    
-    window.open(whatsappUrl, '_blank');
-    
-    setTimeout(() => {
-        alert("Thank you! Opening WhatsApp to send your order.");
-    }, 500);
+
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
+    showToast(`Order ${orderId} sent! Check WhatsApp. 🎉`, 'success');
 }
 
+// ==========================================
+// 13. TOAST NOTIFICATIONS
+// ==========================================
+function showToast(message, type = 'success') {
+    const existing = document.querySelector('.toast-notification');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.className = `toast-notification toast-${type}`;
+    toast.innerHTML = `
+        <i class="fa-solid ${type === 'success' ? 'fa-circle-check' : 'fa-circle-exclamation'}"></i>
+        <span>${message}</span>`;
+    document.body.appendChild(toast);
+
+    setTimeout(() => toast.classList.add('toast-show'), 10);
+    setTimeout(() => {
+        toast.classList.remove('toast-show');
+        setTimeout(() => toast.remove(), 400);
+    }, 3000);
+}
+
+// ==========================================
+// 14. BOOT
+// ==========================================
 document.addEventListener('DOMContentLoaded', init);
