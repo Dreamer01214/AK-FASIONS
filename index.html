@@ -22,7 +22,7 @@
             <ul class="nav-links">
                 <li><a href="index.html" class="nav-link active">Home</a></li>
                 <li><a href="shop.html" class="nav-link">Shop</a></li>
-                <li><a href="#" class="nav-link" onclick="openGroupOrderSizeSelector(); return false;">Group Orders</a></li>
+                <li><a href="#" class="nav-link" onclick="openBulkOrderFlow(); return false;">Bulk Orders</a></li>
             </ul>
             <div class="nav-actions">
                 <button id="login-btn" class="icon-btn" aria-label="User Login"><i class="fa-solid fa-user"></i></button>
@@ -34,93 +34,69 @@
         </div>
     </nav>
 
-    <!-- Hero Promotions -->
-    <header class="promotions-header">
-        <div class="container">
-            <div class="promo-grid">
-                <div class="promo-card" style="background-image:url('assets/combo1.jpeg');">
-                    <div class="promo-overlay"></div>
-                    <div class="promo-content">
-                        <h3>Combo Offers</h3>
-                        <p>Buy more, save more on premium sets.</p>
-                        <button class="btn btn-primary" onclick="document.getElementById('combo-section').scrollIntoView({behavior:'smooth'})">View Section</button>
-                    </div>
-                </div>
-                <div class="promo-card" style="background-image:url('assets/light_blue_denim_cargo_jeans.jpg');">
-                    <div class="promo-overlay"></div>
-                    <div class="promo-content">
-                        <h3>Seasonal Offers</h3>
-                        <p>Up to 50% off on winter collection.</p>
-                        <button class="btn btn-primary" onclick="document.getElementById('seasonal-section').scrollIntoView({behavior:'smooth'})">View Section</button>
-                    </div>
-                </div>
-                <div class="promo-card" style="background-image:url('assets/tactical_black_cargo_pants.jpg');">
-                    <div class="promo-overlay"></div>
-                    <div class="promo-content">
-                        <h3>New Collection</h3>
-                        <p>Discover the latest trends today.</p>
-                        <button class="btn btn-primary" onclick="document.getElementById('new-section').scrollIntoView({behavior:'smooth'})">View Section</button>
-                    </div>
-                </div>
-                <div class="promo-card" style="background-image:url('assets/group_orders.png');">
-                    <div class="promo-overlay"></div>
-                    <div class="promo-content">
-                        <h3>Group Orders</h3>
-                        <p>Custom or bulk sizes for teams & events.</p>
-                        <button class="btn btn-primary" onclick="openGroupOrderSizeSelector()">Find by Size</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Shop by Category -->
+    <header class="category-header" style="padding: 60px 0; text-align: center;">
+        <h1 style="font-family: var(--font-heading); font-size: 2.5rem; color: var(--primary-color); margin-bottom: 10px;">Welcome to AK Fashions</h1>
+        <p style="color: var(--text-muted); font-size: 1.1rem;">Shop our premium collections by category.</p>
     </header>
 
-    <!-- Group Order Banner -->
-    <section class="group-order-banner">
-        <div class="container">
-            <div class="group-banner-content">
-                <div class="group-banner-icon"><i class="fa-solid fa-layer-group"></i></div>
-                <div class="group-banner-text">
-                    <h3>Bulk / Group Orders Available!</h3>
-                    <p>Order multiple sizes at once for your team, family, or event. Filter by size to see available products.</p>
+    <main class="container" style="padding-bottom: 60px;">
+        <div class="category-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+            <a href="shirt.html" class="category-card" style="display: block; position: relative; border-radius: 12px; overflow: hidden; height: 250px; text-decoration: none;">
+                <img src="assets/Shirt/plain formal shirt.jpg" alt="Shirts" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+                <div class="category-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;">
+                    <h2 style="color: #fff; font-size: 1.8rem; font-family: var(--font-heading); margin-bottom: 5px;">Shirts</h2>
+                    <span style="color: var(--primary-color); font-weight: 500;">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
                 </div>
-                <button class="btn btn-primary" onclick="openGroupOrderSizeSelector()">
-                    <i class="fa-solid fa-layer-group"></i> Start Group Order
-                </button>
-            </div>
+            </a>
+            
+            <a href="tshirt.html" class="category-card" style="display: block; position: relative; border-radius: 12px; overflow: hidden; height: 250px; text-decoration: none;">
+                <img src="assets/T-Shirt/tshirt1.jpg" alt="T-Shirts" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+                <div class="category-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;">
+                    <h2 style="color: #fff; font-size: 1.8rem; font-family: var(--font-heading); margin-bottom: 5px;">T-Shirts</h2>
+                    <span style="color: var(--primary-color); font-weight: 500;">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+            </a>
+
+            <a href="pant.html" class="category-card" style="display: block; position: relative; border-radius: 12px; overflow: hidden; height: 250px; text-decoration: none;">
+                <img src="assets/Pant/OIP (35).jpg" alt="Pants" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+                <div class="category-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;">
+                    <h2 style="color: #fff; font-size: 1.8rem; font-family: var(--font-heading); margin-bottom: 5px;">Pants & Jeans</h2>
+                    <span style="color: var(--primary-color); font-weight: 500;">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+            </a>
+
+            <a href="track.html" class="category-card" style="display: block; position: relative; border-radius: 12px; overflow: hidden; height: 250px; text-decoration: none;">
+                <img src="assets/Track Pant/classic_sweatpants_trio_pack.jpg" alt="Track Pants" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+                <div class="category-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;">
+                    <h2 style="color: #fff; font-size: 1.8rem; font-family: var(--font-heading); margin-bottom: 5px;">Track Pants</h2>
+                    <span style="color: var(--primary-color); font-weight: 500;">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+            </a>
+
+            <a href="combo.html" class="category-card" style="display: block; position: relative; border-radius: 12px; overflow: hidden; height: 250px; text-decoration: none;">
+                <img src="assets/Combo/combo1.jpeg" alt="Combos" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+                <div class="category-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;">
+                    <h2 style="color: #fff; font-size: 1.8rem; font-family: var(--font-heading); margin-bottom: 5px;">Combo Offers</h2>
+                    <span style="color: var(--primary-color); font-weight: 500;">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+            </a>
+
+            <a href="#" onclick="openBulkOrderFlow(); return false;" class="category-card" style="display: block; position: relative; border-radius: 12px; overflow: hidden; height: 250px; text-decoration: none; border: 2px solid var(--primary-color);">
+                <div style="position: absolute; inset: 0; background: rgba(15,17,21,0.8); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px;">
+                    <i class="fa-solid fa-layer-group" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 15px;"></i>
+                    <h2 style="color: #fff; font-size: 1.8rem; font-family: var(--font-heading); margin-bottom: 5px;">Bulk Orders</h2>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Custom sizing for teams & events</p>
+                    <span style="background: var(--primary-color); color: #000; padding: 8px 20px; border-radius: 20px; font-weight: bold; display: inline-block;">Start Order</span>
+                </div>
+            </a>
         </div>
-    </section>
-
-    <!-- Main Content -->
-    <main>
-        <section id="combo-section" class="products">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Combo Offers</h2>
-                    <a href="collection.html?collection=combos" class="see-all-link">See All <i class="fa-solid fa-arrow-right"></i></a>
-                </div>
-                <div class="products-grid" id="combo-grid"></div>
-            </div>
-        </section>
-
-        <section id="seasonal-section" class="products" style="background-color:var(--bg-elevated);">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Seasonal Offers</h2>
-                    <a href="collection.html?collection=seasonal" class="see-all-link">See All <i class="fa-solid fa-arrow-right"></i></a>
-                </div>
-                <div class="products-grid" id="seasonal-grid"></div>
-            </div>
-        </section>
-
-        <section id="new-section" class="products">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">New Collection</h2>
-                    <a href="collection.html?collection=new" class="see-all-link">See All <i class="fa-solid fa-arrow-right"></i></a>
-                </div>
-                <div class="products-grid" id="new-grid"></div>
-            </div>
-        </section>
+        <style>
+            .category-card:hover img { transform: scale(1.05); }
+            @media (max-width: 768px) {
+                .category-grid { grid-template-columns: 1fr !important; }
+            }
+        </style>
     </main>
 
     <!-- Footer -->
@@ -134,6 +110,7 @@
                 <div class="footer-links">
                     <h4>Quick Links</h4>
                     <ul>
+                        <li><a href="admin/login.html">Admin Portal</a></li>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="shop.html">Shop</a></li>
                         <li><a href="shop.html?filter=shirts">Shirts</a></li>
@@ -218,10 +195,11 @@
                             <label for="cust-phone">Phone Number *</label>
                             <input type="tel" id="cust-phone" required placeholder="e.g. +91 9876543210">
                         </div>
-                        <div class="form-group">
-                            <label for="cust-address">Delivery Address *</label>
-                            <textarea id="cust-address" rows="3" required placeholder="Full street address, city, pin code"></textarea>
-                        </div>
+                        <div class="form-group"><label for="cust-address">Delivery Address *</label><textarea id="cust-address" rows="2" required placeholder="Full street address"></textarea></div>
+<div style="display: flex; gap: 15px;">
+    <div class="form-group" style="flex: 1;"><label for="cust-pincode">Pincode *</label><input type="text" id="cust-pincode" required placeholder="e.g. 621216"></div>
+    <div class="form-group" style="flex: 1;"><label for="cust-district">District *</label><input type="text" id="cust-district" required placeholder="e.g. Tiruchirappalli"></div>
+</div>
                         <button type="submit" class="btn btn-whatsapp btn-block">
                             <i class="fa-brands fa-whatsapp"></i> Send Order via WhatsApp
                         </button>

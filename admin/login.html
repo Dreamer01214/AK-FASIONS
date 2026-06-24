@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AK Fashions | Admin Portal</title>
+    <script>
+        if (localStorage.getItem("ak_admin_logged_in") === "true") {
+            window.location.href = "index.html";
+        }
+    </script>
+    <meta name="description" content="Secure admin dashboard for managing stocks, analytics, order verification, and bill generation at AK Fashions.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-body">
+<!-- LOGIN SCREEN -->
+    <div id="admin-login-screen" class="admin-login-wrapper">
+        <div class="login-card">
+            <div class="login-brand">
+                <img src="../assets/logo.png?v=1" alt="AK Fashions Logo" class="brand-logo">
+                <h2>AK FASHIONS</h2>
+                <p>ADMIN CONTROL PANEL</p>
+            </div>
+            <form id="admin-login-form">
+                <div class="form-group">
+                    <label for="admin-id">Admin ID</label>
+                    <div class="input-wrap">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="admin-id" placeholder="Enter Admin ID" required autocomplete="username">
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 15px;">
+                    <label for="admin-password">Secure Passcode</label>
+                    <div class="input-wrap">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="admin-password" placeholder="Enter Admin Passcode" required autocomplete="current-password">
+                    </div>
+                </div>
+                <div id="login-error-msg" class="login-error"></div>
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fa-solid fa-right-to-bracket"></i> Authenticate
+                </button>
+            </form>
+        </div>
+    </div>
+
+    
+    <script src="admin.js"></script>
+</body>
+</html>

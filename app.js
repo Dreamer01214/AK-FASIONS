@@ -15,8 +15,8 @@ const baseProducts = [
         price: 350,
         originalPrice: 599,
         isOffer: true,
-        image: "assets/adidas front.jpeg",
-        images: ["assets/adidas front.jpeg", "assets/adidas back.jpeg"],
+        image: "assets/T-Shirt/adidas front.jpeg",
+        images: ["assets/T-Shirt/adidas front.jpeg", "assets/T-Shirt/adidas back.jpeg"],
         description: "Premium acid wash oversized t-shirt. Trendy and comfortable.",
         sizes: ["S", "M", "L", "XL"],
         colors: ["Blue"],
@@ -29,7 +29,7 @@ const baseProducts = [
         price: 350,
         originalPrice: 599,
         isOffer: true,
-        image: "assets/adidas tshirt1.jpeg",
+        image: "assets/T-Shirt/adidas tshirt1.jpeg",
         description: "Premium acid wash oversized t-shirt. Trendy and comfortable.",
         sizes: ["S", "M", "L", "XL"],
         colors: ["Beige"],
@@ -42,7 +42,7 @@ const baseProducts = [
         price: 350,
         originalPrice: 599,
         isOffer: true,
-        image: "assets/adidas tshirt2.jpeg",
+        image: "assets/T-Shirt/adidas tshirt2.jpeg",
         description: "Premium acid wash oversized t-shirt. Trendy and comfortable.",
         sizes: ["S", "M", "L", "XL"],
         colors: ["Pink"],
@@ -55,7 +55,7 @@ const baseProducts = [
         price: 350,
         originalPrice: 599,
         isOffer: true,
-        image: "assets/tshirt.jpg",
+        image: "assets/T-Shirt/tshirt.jpg",
         description: "Soft and breathable premium cotton t-shirt. Available in multiple colors.",
         sizes: ["S", "M", "L", "XL"],
         colors: ["Black", "White", "Navy", "Olive"],
@@ -68,7 +68,7 @@ const baseProducts = [
         price: 430,
         originalPrice: 799,
         isOffer: true,
-        image: "assets/casual shirt.jpg",
+        image: "assets/Shirt/casual shirt.jpg",
         description: "A comfortable and stylish checkered shirt for everyday wear.",
         sizes: ["M", "L", "XL"],
         colors: ["Red/Black", "Blue/White", "Grey/Black"],
@@ -80,7 +80,7 @@ const baseProducts = [
         category: "jeans",
         price: 899,
         isOffer: false,
-        image: "assets/tactical_black_cargo_pants.jpg",
+        image: "assets/Track Pant/tactical_black_cargo_pants.jpg",
         description: "Comfortable and durable black cargo pants with multiple utility pockets.",
         sizes: ["30", "32", "34", "36"],
         defaultStock: { "30": 10, "32": 15, "34": 12, "36": 8 }
@@ -92,7 +92,7 @@ const baseProducts = [
         price: 999,
         originalPrice: 1299,
         isOffer: true,
-        image: "assets/light_blue_denim_cargo_jeans.jpg",
+        image: "assets/Pant/light_blue_denim_cargo_jeans.jpg",
         description: "Modern light wash denim combined with functional cargo styling.",
         sizes: ["28", "30", "32", "34"],
         defaultStock: { "28": 8, "30": 12, "32": 14, "34": 10 }
@@ -103,7 +103,7 @@ const baseProducts = [
         category: "shirts",
         price: 430,
         isOffer: false,
-        image: "assets/plain formal shirt.jpg",
+        image: "assets/Shirt/plain formal shirt.jpg",
         description: "Classic solid formal shirt, perfect for office and formal events.",
         sizes: ["S", "M", "L", "XL"],
         colors: ["White", "Light Blue", "Pink", "Black"],
@@ -115,7 +115,7 @@ const baseProducts = [
         category: "tshirts",
         price: 350,
         isOffer: false,
-        image: "assets/printed tshirt.jpg",
+        image: "assets/T-Shirt/printed tshirt.jpg",
         description: "Trendy graphic print t-shirt for a cool casual look.",
         sizes: ["M", "L", "XL"],
         colors: ["White", "Black", "Grey"],
@@ -128,7 +128,7 @@ const baseProducts = [
         price: 899,
         originalPrice: 1299,
         isOffer: true,
-        image: "assets/vintage_dark_denim_shirt.jpeg",
+        image: "assets/Shirt/vintage_dark_denim_shirt.jpeg",
         description: "A timeless denim jacket that pairs perfectly with any outfit.",
         sizes: ["S", "M", "L", "XL"],
         defaultStock: { S: 5, M: 8, L: 7, XL: 4 }
@@ -139,7 +139,7 @@ const baseProducts = [
         category: "tshirts",
         price: 350,
         isOffer: false,
-        image: "assets/tshirt1.jpg",
+        image: "assets/T-Shirt/tshirt1.jpg",
         description: "Smart casual polo t-shirt with contrast collar.",
         sizes: ["M", "L", "XL", "XXL"],
         colors: ["Navy", "Maroon", "Dark Green"],
@@ -148,16 +148,16 @@ const baseProducts = [
 ];
 
 const extraProductsData = [
-    { id: 12, image: "assets/tshirt 4.jpg", name: "Classic Green Polo", category: "tshirts", price: 350, defaultStock: { S: 10, M: 15, L: 12, XL: 8 } },
-    { id: 13, image: "assets/tshirt 5.jpg", name: "Premium Black Henley", category: "tshirts", price: 350, defaultStock: { S: 8, M: 12, L: 14, XL: 10 } },
-    { id: 14, image: "assets/tshirt 6.jpg", name: "Vintage T-Shirt", category: "tshirts", price: 350, defaultStock: { S: 12, M: 16, L: 14, XL: 9 } },
-    { id: 15, image: "assets/white tshirt.jpg", name: "Essential White T-Shirt", category: "tshirts", price: 350, defaultStock: { S: 20, M: 25, L: 22, XL: 15 } },
-    { id: 16, image: "assets/designed shirt.jpg", name: "Tropical Printed Shirt", category: "shirts", price: 430, defaultStock: { M: 10, L: 12, XL: 8 } },
-    { id: 17, image: "assets/plain fomal shirt 2.jpg", name: "Navy Blue Formal Shirt", category: "shirts", price: 430, defaultStock: { S: 8, M: 12, L: 10, XL: 6 } },
-    { id: 18, image: "assets/OIP (33).jpg", name: "Striped Linen Henley", category: "shirts", price: 430, defaultStock: { M: 14, L: 16, XL: 10 } },
-    { id: 19, image: "assets/OIP (34).jpg", name: "Casual Oxford Shirt", category: "shirts", price: 430, defaultStock: { S: 6, M: 10, L: 8, XL: 5 } },
-    { id: 20, image: "assets/OIP (35).jpg", name: "Camo Cargo Half Trousers", category: "jeans", price: 430, defaultStock: { "30": 8, "32": 10, "34": 8, "36": 5 } },
-    { id: 21, image: "assets/OIP (36).jpg", name: "Grey Athletic Half Trousers", category: "jeans", price: 430, defaultStock: { "30": 6, "32": 10, "34": 9, "36": 4 } }
+    { id: 12, image: "assets/T-Shirt/tshirt 4.jpg", name: "Classic Green Polo", category: "tshirts", price: 350, defaultStock: { S: 10, M: 15, L: 12, XL: 8 } },
+    { id: 13, image: "assets/T-Shirt/tshirt 5.jpg", name: "Premium Black Henley", category: "tshirts", price: 350, defaultStock: { S: 8, M: 12, L: 14, XL: 10 } },
+    { id: 14, image: "assets/T-Shirt/tshirt 6.jpg", name: "Vintage T-Shirt", category: "tshirts", price: 350, defaultStock: { S: 12, M: 16, L: 14, XL: 9 } },
+    { id: 15, image: "assets/T-Shirt/white tshirt.jpg", name: "Essential White T-Shirt", category: "tshirts", price: 350, defaultStock: { S: 20, M: 25, L: 22, XL: 15 } },
+    { id: 16, image: "assets/Shirt/designed shirt.jpg", name: "Tropical Printed Shirt", category: "shirts", price: 430, defaultStock: { M: 10, L: 12, XL: 8 } },
+    { id: 17, image: "assets/Shirt/plain fomal shirt 2.jpg", name: "Navy Blue Formal Shirt", category: "shirts", price: 430, defaultStock: { S: 8, M: 12, L: 10, XL: 6 } },
+    { id: 18, image: "assets/Shirt/OIP (33).jpg", name: "Striped Linen Henley", category: "shirts", price: 430, defaultStock: { M: 14, L: 16, XL: 10 } },
+    { id: 19, image: "assets/Shirt/OIP (34).jpg", name: "Casual Oxford Shirt", category: "shirts", price: 430, defaultStock: { S: 6, M: 10, L: 8, XL: 5 } },
+    { id: 20, image: "assets/Pant/OIP (35).jpg", name: "Camo Cargo Half Trousers", category: "jeans", price: 430, defaultStock: { "30": 8, "32": 10, "34": 8, "36": 5 } },
+    { id: 21, image: "assets/Track Pant/OIP (36).jpg", name: "Grey Athletic Half Trousers", category: "jeans", price: 430, defaultStock: { "30": 6, "32": 10, "34": 9, "36": 4 } }
 ];
 
 // Build products array
@@ -185,12 +185,12 @@ extraProductsData.forEach(extra => {
 
 // Build combos
 const comboImages = [
-    "assets/combo.jpeg", "assets/combo1.jpeg", "assets/combo2.jpeg",
-    "assets/combo4.jpeg", "assets/combo5.jpeg", "assets/combo6.jpeg",
-    "assets/combo7.jpeg", "assets/combo8.jpeg", "assets/combo9.jpeg",
-    "assets/combo10.jpeg", "assets/combo11.jpeg", "assets/combo12.jpeg",
-    "assets/combo13.jpeg", "assets/combo14.jpeg", "assets/combo15.jpeg",
-    "assets/combo16.jpeg", "assets/combo17.jpeg"
+    "assets/Combo/combo.jpeg", "assets/Combo/combo1.jpeg", "assets/Combo/combo2.jpeg",
+    "assets/Combo/combo4.jpeg", "assets/Combo/combo5.jpeg", "assets/Combo/combo6.jpeg",
+    "assets/Combo/combo7.jpeg", "assets/Combo/combo8.jpeg", "assets/Combo/combo9.jpeg",
+    "assets/Combo/combo10.jpeg", "assets/Combo/combo11.jpeg", "assets/Combo/combo12.jpeg",
+    "assets/Combo/combo13.jpeg", "assets/Combo/combo14.jpeg", "assets/Combo/combo15.jpeg",
+    "assets/Combo/combo16.jpeg", "assets/Combo/combo17.jpeg"
 ];
 
 const combos = comboImages.map((img, i) => ({
@@ -208,6 +208,13 @@ const combos = comboImages.map((img, i) => ({
 }));
 
 const allItems = [...products, ...combos];
+
+// Load custom products from admin
+const customProducts = JSON.parse(localStorage.getItem('ak_custom_products')) || [];
+customProducts.forEach(cp => {
+    products.push(cp);
+    allItems.push(cp);
+});
 
 // ==========================================
 // 2. STOCK MANAGER
@@ -353,11 +360,20 @@ function init() {
 
     if (elements.productsGrid) {
         const urlParams = new URLSearchParams(window.location.search);
-        const filterParam = urlParams.get('filter');
-        const collectionParam = urlParams.get('collection');
+        let filterParam = urlParams.get('filter');
+        let collectionParam = urlParams.get('collection');
         let shopTitle = document.querySelector('.shop-header .hero-title');
         let shopSubtitle = document.querySelector('.shop-header .hero-subtitle');
         let categoryFilters = document.getElementById('category-filters');
+        
+        const path = window.location.pathname.toLowerCase();
+        if (!filterParam && !collectionParam) {
+            if (path.includes('shirt.html')) filterParam = 'shirts';
+            else if (path.includes('tshirt.html')) filterParam = 'tshirts';
+            else if (path.includes('pant.html')) filterParam = 'jeans';
+            else if (path.includes('track.html')) filterParam = 'track';
+            else if (path.includes('combo.html')) collectionParam = 'combos';
+        }
 
         if (collectionParam) {
             if (categoryFilters) categoryFilters.style.display = 'none';
@@ -375,11 +391,18 @@ function init() {
                 currentFilteredProducts = products.slice(0, 16);
             }
         } else if (filterParam) {
+            if (categoryFilters) categoryFilters.style.display = 'none'; // Hide category filters on specific category pages
+            
             if (filterParam === 'all') currentFilteredProducts = allItems;
             else if (filterParam === 'offers') currentFilteredProducts = products.filter(p => p.isOffer);
             else currentFilteredProducts = products.filter(p => p.category === filterParam);
 
-            if (elements.filterBtns) {
+            if (shopTitle && filterParam !== 'all') {
+                shopTitle.textContent = filterParam.charAt(0).toUpperCase() + filterParam.slice(1);
+                shopSubtitle.textContent = "Browse our premium " + filterParam + ".";
+            }
+
+            if (elements.filterBtns && categoryFilters && categoryFilters.style.display !== 'none') {
                 elements.filterBtns.forEach(btn => {
                     btn.classList.remove('active');
                     if (btn.getAttribute('data-filter') === filterParam) btn.classList.add('active');
@@ -659,9 +682,12 @@ window.addToCartFromModal = function () {
 };
 
 // ==========================================
-// 9. GROUP ORDER CENTRALIZED SIZE FLOW & MODAL
+// 9. BULK ORDER CENTRALIZED SIZE FLOW & MODAL
 // ==========================================
-function ensureGroupOrderModalExists() {
+let currentBulkRequirements = {}; // {size: qty}
+let currentBulkCategory = null;
+
+function ensureBulkOrderModalExists() {
     if (!document.getElementById('group-order-modal')) {
         const modalHtml = `
         <div id="group-order-modal" class="modal">
@@ -672,40 +698,40 @@ function ensureGroupOrderModalExists() {
         </div>`;
         document.body.insertAdjacentHTML('beforeend', modalHtml);
         
-        // Update elements reference
         elements.groupOrderModal = document.getElementById('group-order-modal');
         elements.closeGroupOrderModal = document.getElementById('close-group-order-modal');
         elements.groupOrderContainer = document.getElementById('group-order-container');
         
-        // Add click listener to close if clicked outside
         elements.groupOrderModal.addEventListener('click', e => {
             if (e.target === elements.groupOrderModal) closeModals();
         });
     }
 }
 
-window.openGroupOrderSizeSelector = function() {
+window.openBulkOrderFlow = function() {
     closeModals();
-    ensureGroupOrderModalExists();
+    ensureBulkOrderModalExists();
 
-    // Show size selector UI inside groupOrderContainer
+    currentBulkRequirements = {};
+    currentBulkCategory = null;
+
     elements.groupOrderContainer.innerHTML = `
         <div class="group-size-selector-header" style="padding: 30px 30px 10px;">
-            <h2 style="font-family: var(--font-heading); font-size: 2rem; margin-bottom: 10px; color: var(--primary-color);">Bulk & Group Orders</h2>
-            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.5;">Select your required size to find premium shirts and t-shirts available for group ordering.</p>
+            <h2 style="font-family: var(--font-heading); font-size: 2rem; margin-bottom: 10px; color: var(--primary-color);">Bulk Orders</h2>
+            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.5;">Select a product type for your bulk order.</p>
         </div>
         <div class="group-size-selector-body" style="padding: 20px 30px 30px;">
-            <h3 style="font-size: 1.1rem; margin-bottom: 15px; font-weight: 600;">Choose a Size:</h3>
-            <div class="size-selector-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 12px; margin-bottom: 30px;">
-                ${['S', 'M', 'L', 'XL', 'XXL', '28', '30', '32', '34', '36'].map(size => `
-                    <button class="btn btn-outline size-bubble-btn" onclick="showGroupProductsForSize('${size}')" style="padding: 0; font-size: 1.1rem; font-weight: bold; border-radius: 50%; width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
-                        ${size}
+            <div class="category-selector-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 15px; margin-bottom: 30px;">
+                ${['shirts', 'tshirts', 'jeans', 'track', 'combos'].map(cat => `
+                    <button class="btn btn-outline" onclick="selectBulkCategory('${cat}')" style="padding: 15px; font-size: 1.1rem; font-weight: bold; border-radius: 12px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-transform: capitalize;">
+                        <i class="fa-solid fa-${cat === 'combos' ? 'boxes-stacked' : cat === 'jeans' || cat === 'track' ? 'mitten' : 'shirt'}"></i>
+                        ${cat === 'jeans' ? 'Pants' : cat === 'track' ? 'Track Pants' : cat}
                     </button>
                 `).join('')}
             </div>
             <div style="background: rgba(255,255,255,0.03); border-radius: 10px; padding: 20px; border-left: 4px solid var(--primary-color);">
                 <h4 style="margin-bottom: 5px; color: var(--text-main);"><i class="fa-solid fa-circle-info"></i> How it works</h4>
-                <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">Once you select a size, we will show you all products with stock available in that size. You can then specify quantities for multiple sizes to place a single bulk/group order.</p>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">1. Select Product Type.<br>2. Enter quantity for multiple sizes.<br>3. We will show you products that can fulfill your entire order.</p>
             </div>
         </div>
     `;
@@ -714,17 +740,70 @@ window.openGroupOrderSizeSelector = function() {
     document.body.style.overflow = 'hidden';
 };
 
-window.showGroupProductsForSize = function(size) {
-    ensureGroupOrderModalExists();
-    
-    // Filter shirts/tshirts that have stock for this size > 0
+window.selectBulkCategory = function(cat) {
+    currentBulkCategory = cat;
+    let sizes = [];
+    if (cat === 'shirts' || cat === 'tshirts' || cat === 'combos') {
+        sizes = ['S', 'M', 'L', 'XL', 'XXL'];
+    } else {
+        sizes = ['28', '30', '32', '34', '36'];
+    }
+
+    elements.groupOrderContainer.innerHTML = `
+        <div class="group-size-selector-header" style="padding: 30px 30px 10px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color);">
+            <div>
+                <h2 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 5px; color: var(--primary-color);">Enter Sizes</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0; text-transform: capitalize;">Category: ${cat === 'jeans' ? 'Pants' : cat === 'track' ? 'Track Pants' : cat}</p>
+            </div>
+            <button class="btn btn-outline" onclick="openBulkOrderFlow()" style="padding: 8px 15px; font-size: 0.85rem; border-radius: 8px;">
+                <i class="fa-solid fa-arrow-left"></i> Back
+            </button>
+        </div>
+        <div class="group-size-selector-body" style="padding: 20px 30px 30px;">
+            <div class="bulk-size-inputs" style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px;">
+                ${sizes.map(size => `
+                    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.05); padding: 10px 15px; border-radius: 8px;">
+                        <span style="font-weight: bold; font-size: 1.2rem;">${size}</span>
+                        <div class="group-qty-control">
+                            <button type="button" class="qty-btn" onclick="adjustBulkReqQty('${size}', -1)">-</button>
+                            <input type="number" id="bulk-req-${size}" class="qty-input" value="0" min="0" readonly>
+                            <button type="button" class="qty-btn" onclick="adjustBulkReqQty('${size}', 1)">+</button>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+            <button class="btn btn-primary btn-block" onclick="findBulkProducts()" style="padding: 15px; font-size: 1.1rem;">
+                Find Products <i class="fa-solid fa-magnifying-glass" style="margin-left: 5px;"></i>
+            </button>
+        </div>
+    `;
+};
+
+window.adjustBulkReqQty = function(size, change) {
+    const input = document.getElementById(`bulk-req-${size}`);
+    let val = parseInt(input.value) + change;
+    if (val < 0) val = 0;
+    input.value = val;
+    currentBulkRequirements[size] = val;
+};
+
+window.findBulkProducts = function() {
+    let reqs = Object.keys(currentBulkRequirements).filter(size => currentBulkRequirements[size] > 0);
+    if (reqs.length === 0) {
+        showToast('Please enter at least one quantity', 'error');
+        return;
+    }
+
     const availableProducts = allItems.filter(product => {
-        const isShirt = product.category === 'shirts' || product.category === 'tshirts';
-        if (!isShirt) return false;
-        
+        if (product.category !== currentBulkCategory) return false;
         const productStock = stockManager.getProductStock(product.id);
-        const stockForSize = productStock[size] !== undefined ? productStock[size] : 0;
-        return stockForSize > 0;
+        
+        for (let size of reqs) {
+            let requiredQty = currentBulkRequirements[size];
+            let stockForSize = productStock[size] !== undefined ? productStock[size] : 0;
+            if (stockForSize < requiredQty) return false;
+        }
+        return true;
     });
 
     let productsListHtml = '';
@@ -732,29 +811,27 @@ window.showGroupProductsForSize = function(size) {
         productsListHtml = `
             <div style="text-align: center; padding: 40px 20px; color: var(--text-muted);">
                 <i class="fa-solid fa-face-frown" style="font-size: 3rem; margin-bottom: 15px; color: var(--primary-color);"></i>
-                <p>Sorry, no products currently have size <strong>${size}</strong> in stock for bulk ordering.</p>
+                <p>Sorry, no products can fulfill your exact size requirements.</p>
             </div>
         `;
     } else {
         productsListHtml = `
             <div class="group-products-grid" style="display: flex; flex-direction: column; gap: 15px; max-height: 400px; overflow-y: auto; padding-right: 5px;">
                 ${availableProducts.map(product => {
-                    const productStock = stockManager.getProductStock(product.id);
-                    const stock = productStock[size];
                     return `
-                        <div class="group-product-list-item" style="display: flex; align-items: center; gap: 15px; padding: 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 12px; transition: all 0.2s;">
+                        <div class="group-product-list-item" style="display: flex; align-items: center; gap: 15px; padding: 12px; background: rgba(255,255,255,0.03); border: 1px solid #2ed573; border-radius: 12px; transition: all 0.2s;">
                             <img src="${product.image}" alt="${product.name}" style="width: 70px; height: 90px; object-fit: cover; border-radius: 8px;">
                             <div style="flex: 1; text-align: left;">
                                 <span class="product-category" style="font-size: 0.75rem; color: var(--primary-color); font-weight: 600; text-transform: uppercase;">${product.category}</span>
                                 <h4 style="margin: 3px 0; font-size: 1.1rem; color: var(--text-main);">${product.name}</h4>
-                                <div style="display: flex; align-items: center; gap: 10px; margin-top: 5px;">
+                                <div style="display: flex; flex-direction: column; gap: 5px; margin-top: 5px;">
                                     <span style="font-weight: 600; color: #fff;">${formatPrice(product.price)}</span>
-                                    <span class="size-stock-badge" style="background: rgba(212,175,55,0.1); color: var(--primary-color); padding: 2px 8px; border-radius: 20px; font-size: 0.8rem; font-weight: 500;">
-                                        ${stock} available in ${size}
+                                    <span class="size-stock-badge" style="background: rgba(46, 213, 115, 0.1); color: #2ed573; padding: 4px 8px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; width: fit-content;">
+                                        <i class="fa-solid fa-check-circle"></i> Suitable for Your Size Requirements
                                     </span>
                                 </div>
                             </div>
-                            <button class="btn btn-primary" onclick="openGroupOrderModal(${product.id})" style="padding: 10px 15px; font-size: 0.9rem;">
+                            <button class="btn btn-primary" onclick="openBulkOrderModal(${product.id})" style="padding: 10px 15px; font-size: 0.9rem;">
                                 Select <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; margin-left: 5px;"></i>
                             </button>
                         </div>
@@ -764,13 +841,15 @@ window.showGroupProductsForSize = function(size) {
         `;
     }
 
+    let breakdown = reqs.map(size => `${size} &rarr; ${currentBulkRequirements[size]}`).join(' | ');
+
     elements.groupOrderContainer.innerHTML = `
-        <div class="group-size-selector-header" style="padding: 30px 30px 10px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-color);">
+        <div class="group-size-selector-header" style="padding: 20px 30px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-color);">
             <div style="text-align: left;">
-                <h2 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 5px; color: var(--primary-color);">Products in Size ${size}</h2>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">Showing products available for group orders.</p>
+                <h2 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 5px; color: var(--primary-color);">Matching Products</h2>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">Requirements: ${breakdown}</p>
             </div>
-            <button class="btn btn-outline" onclick="openGroupOrderSizeSelector()" style="padding: 8px 15px; font-size: 0.85rem; border-radius: 8px;">
+            <button class="btn btn-outline" onclick="selectBulkCategory('${currentBulkCategory}')" style="padding: 8px 15px; font-size: 0.85rem; border-radius: 8px;">
                 <i class="fa-solid fa-arrow-left"></i> Back
             </button>
         </div>
@@ -780,7 +859,7 @@ window.showGroupProductsForSize = function(size) {
     `;
 };
 
-window.openGroupOrderModal = function (productId) {
+window.openBulkOrderModal = function (productId) {
     const product = allItems.find(p => p.id === productId);
     if (!product) return;
 
@@ -798,22 +877,25 @@ window.openGroupOrderModal = function (productId) {
             </select>
         </div>` : '';
 
-    const sizeRows = product.sizes.map(size => {
-        const stock = productStock[size] !== undefined ? productStock[size] : 0;
-        const info = stockManager.getStockLabel(stock);
+    let reqs = Object.keys(currentBulkRequirements).filter(size => currentBulkRequirements[size] > 0);
+    let totalQty = 0;
+    
+    const sizeRows = reqs.map(size => {
+        let reqQty = currentBulkRequirements[size];
+        totalQty += reqQty;
         return `
-            <div class="group-size-row">
-                <div class="group-size-label">
-                    <span class="size-tag">${size}</span>
-                    <span class="size-stock-label ${info.cls}">${info.label}</span>
+            <div class="group-size-row" style="background: rgba(255,255,255,0.02); padding: 10px; border-radius: 8px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+                <div class="group-size-label" style="display: flex; gap: 10px; align-items: center;">
+                    <span class="size-tag" style="background: var(--primary-color); color: #000; padding: 5px 10px; border-radius: 4px; font-weight: bold;">${size}</span>
                 </div>
-                <div class="group-qty-control">
-                    <button type="button" class="qty-btn" onclick="adjustGroupQty('${size}', -1)">-</button>
-                    <input type="number" id="group-qty-${size}" class="qty-input group-qty-input" value="0" min="0" max="${stock}" data-size="${size}" data-stock="${stock}" oninput="updateGroupTotal(${product.price})" ${stock === 0 ? 'disabled' : ''}>
-                    <button type="button" class="qty-btn" onclick="adjustGroupQty('${size}', 1, ${stock})">+</button>
+                <div style="font-weight: bold; font-size: 1.1rem;">
+                    Qty: ${reqQty}
+                    <input type="hidden" class="group-qty-input" value="${reqQty}" data-size="${size}" data-stock="${productStock[size]}">
                 </div>
             </div>`;
     }).join('');
+
+    let totalAmount = totalQty * product.price;
 
     if (elements.groupOrderContainer) {
         elements.groupOrderContainer.innerHTML = `
@@ -826,54 +908,35 @@ window.openGroupOrderModal = function (productId) {
                 </div>
             </div>
             <div class="group-order-form">
-                <h3><i class="fa-solid fa-layer-group"></i> Bulk / Group Order</h3>
-                <p class="group-order-hint">Enter the quantity for each size you need. Leave at 0 to skip that size.</p>
+                <h3><i class="fa-solid fa-layer-group"></i> Order Review</h3>
+                <p class="group-order-hint">Review your selected product and bulk quantities.</p>
                 ${colorOptions}
-                <div class="group-sizes-grid">
+                <div class="group-sizes-grid" style="margin-top: 15px;">
                     ${sizeRows}
                 </div>
-                <div class="group-order-total">
-                    <span>Estimated Total:</span>
-                    <span id="group-total-amount" class="total-amount">₹0</span>
+                <div class="group-order-total" style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--border-color);">
+                    <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                        <span style="font-size: 0.9rem; color: var(--text-muted);">Total Quantity</span>
+                        <span style="font-weight: bold; font-size: 1.1rem;">${totalQty} items</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                        <span style="font-size: 0.9rem; color: var(--text-muted);">Total Amount</span>
+                        <span id="group-total-amount" class="total-amount" style="font-size: 1.4rem; color: var(--primary-color);">₹${totalAmount.toLocaleString('en-IN')}</span>
+                    </div>
                 </div>
                 <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;">
-                    <button class="btn btn-primary" style="flex:1;" onclick="addGroupToCart(${product.id})">
+                    <button class="btn btn-primary" style="flex:1;" onclick="addBulkToCart(${product.id})">
                         <i class="fa-solid fa-cart-plus"></i> Add to Cart
                     </button>
-                    <button class="btn btn-whatsapp" style="flex:1;" onclick="sendGroupOrderDirectly(${product.id})">
-                        <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
+                    <button class="btn btn-whatsapp" style="flex:1;" onclick="sendBulkOrderDirectly(${product.id})">
+                        <i class="fa-brands fa-whatsapp"></i> Checkout
                     </button>
                 </div>
             </div>`;
-
-        elements.groupOrderModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
     }
 };
 
-window.adjustGroupQty = function (size, change, maxStock) {
-    const input = document.getElementById(`group-qty-${size}`);
-    if (!input) return;
-    const max = maxStock !== undefined ? maxStock : parseInt(input.dataset.stock || 99);
-    let val = parseInt(input.value) + change;
-    if (val < 0) val = 0;
-    if (val > max) val = max;
-    input.value = val;
-    // Recalculate total
-    const priceEl = document.querySelector('.group-product-details .product-price');
-    const priceText = priceEl ? priceEl.textContent.replace(/[^0-9]/g, '') : '0';
-    updateGroupTotal(parseInt(priceText) || 0);
-};
-
-window.updateGroupTotal = function (pricePerItem) {
-    const inputs = document.querySelectorAll('.group-qty-input');
-    let totalQty = 0;
-    inputs.forEach(inp => { totalQty += parseInt(inp.value) || 0; });
-    const totalEl = document.getElementById('group-total-amount');
-    if (totalEl) totalEl.textContent = formatPrice(totalQty * pricePerItem);
-};
-
-window.addGroupToCart = function (productId) {
+window.addBulkToCart = function (productId) {
     const product = allItems.find(p => p.id === productId);
     if (!product) return;
 
@@ -883,13 +946,6 @@ window.addGroupToCart = function (productId) {
 
     if (product.colors && product.colors.length > 0 && !color) {
         showToast('Please select a color', 'error');
-        return;
-    }
-
-    let totalQty = 0;
-    inputs.forEach(inp => { totalQty += parseInt(inp.value) || 0; });
-    if (totalQty === 0) {
-        showToast('Please enter at least one quantity', 'error');
         return;
     }
 
@@ -907,11 +963,11 @@ window.addGroupToCart = function (productId) {
     if (!hasError) {
         closeModals();
         toggleCartSidebar(true);
-        showToast('Group order added to cart!', 'success');
+        showToast('Bulk order added to cart!', 'success');
     }
 };
 
-window.sendGroupOrderDirectly = function (productId) {
+window.sendBulkOrderDirectly = function (productId) {
     const product = allItems.find(p => p.id === productId);
     if (!product) return;
 
@@ -925,29 +981,24 @@ window.sendGroupOrderDirectly = function (productId) {
     }
 
     let orderLines = [];
-    let subtotal = 0;
     inputs.forEach(inp => {
         const size = inp.dataset.size;
         const qty = parseInt(inp.value) || 0;
+        const stock = parseInt(inp.dataset.stock) || 0;
         if (qty > 0) {
+            if (qty > stock) { showToast(`Only ${stock} in stock for size ${size}`, 'error'); return; }
             orderLines.push({ size, qty, price: product.price });
-            subtotal += qty * product.price;
         }
     });
 
-    if (orderLines.length === 0) {
-        showToast('Please enter at least one quantity', 'error');
-        return;
-    }
+    if (orderLines.length === 0) return;
 
-    // Show customer info form first - open checkout with temp cart
     const tempCartBackup = [...cart];
-    cart = []; // Clear temp
+    cart = [];
     orderLines.forEach(line => {
         cart.push({ id: product.id, name: product.name, price: product.price, image: product.image, size: line.size, color, qty: line.qty, isGroup: true });
     });
     openCheckout(true);
-    // Restore will happen after sending
     window._groupCartBackup = tempCartBackup;
 };
 
@@ -1094,6 +1145,8 @@ function openCheckout(isGroupDirect = false) {
         if (document.getElementById('cust-name')) document.getElementById('cust-name').value = saved.name || '';
         if (document.getElementById('cust-phone')) document.getElementById('cust-phone').value = saved.phone || '';
         if (document.getElementById('cust-address')) document.getElementById('cust-address').value = saved.address || '';
+        if (document.getElementById('cust-pincode')) document.getElementById('cust-pincode').value = saved.pincode || '';
+        if (document.getElementById('cust-district')) document.getElementById('cust-district').value = saved.district || '';
         
         // Show indicator if saved details were prefilled
         const titleEl = document.querySelector('.checkout-form-section h2');
@@ -1180,10 +1233,14 @@ function setupEventListeners() {
             const nameInput = document.getElementById('cust-name');
             const phoneInput = document.getElementById('cust-phone');
             const addressInput = document.getElementById('cust-address');
+            const pincodeInput = document.getElementById('cust-pincode');
+            const districtInput = document.getElementById('cust-district');
             
             const name = nameInput ? nameInput.value.trim() : '';
             const phone = phoneInput ? phoneInput.value.trim() : '';
             const address = addressInput ? addressInput.value.trim() : '';
+            const pincode = pincodeInput ? pincodeInput.value.trim() : '';
+            const district = districtInput ? districtInput.value.trim() : '';
             
             if (!name) {
                 showToast('Please enter your full name', 'error');
@@ -1197,9 +1254,19 @@ function setupEventListeners() {
                 if (phoneInput) phoneInput.focus();
                 return;
             }
-            if (!address || address.length < 10) {
-                showToast('Please enter a complete delivery address (min 10 characters)', 'error');
+            if (!address || address.length < 5) {
+                showToast('Please enter a complete delivery address (min 5 characters)', 'error');
                 if (addressInput) addressInput.focus();
+                return;
+            }
+            if (!pincode || pincode.length < 6) {
+                showToast('Please enter a valid pincode', 'error');
+                if (pincodeInput) pincodeInput.focus();
+                return;
+            }
+            if (!district) {
+                showToast('Please enter your district', 'error');
+                if (districtInput) districtInput.focus();
                 return;
             }
             
@@ -1210,7 +1277,7 @@ function setupEventListeners() {
             submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Preparing WhatsApp Order...';
             
             setTimeout(() => {
-                sendWhatsAppOrder(name, phone, address);
+                sendWhatsAppOrder(name, phone, address, pincode, district);
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalBtnHtml;
             }, 1000);
@@ -1221,47 +1288,107 @@ function setupEventListeners() {
 // ==========================================
 // 12. WHATSAPP ORDER + HISTORY
 // ==========================================
-function sendWhatsAppOrder(name, phone, address) {
-    localStorage.setItem('ak_customer', JSON.stringify({ name, phone, address }));
+function sendWhatsAppOrder(name, phone, address, pincode, district) {
+    localStorage.setItem('ak_customer', JSON.stringify({ name, phone, address, pincode, district }));
 
     let subtotal = 0;
-    const itemsText = cart.map((item, i) => {
+    let totalItems = 0;
+    const baseUrl = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+
+    let groupedCart = [];
+    cart.forEach(item => {
+        if (item.isGroup) {
+            let existing = groupedCart.find(g => g.id === item.id && g.isGroup && g.color === item.color);
+            if (existing) {
+                existing.qty += item.qty;
+                if (!existing.bulkLines) existing.bulkLines = [{size: existing.size, qty: existing.qty - item.qty}]; // Just to be safe
+                existing.bulkLines.push({size: item.size, qty: item.qty});
+            } else {
+                groupedCart.push({...item, bulkLines: [{size: item.size, qty: item.qty}]});
+            }
+        } else {
+            groupedCart.push(item);
+        }
+    });
+
+    const itemsText = groupedCart.map((item, i) => {
         subtotal += item.price * item.qty;
-        return `${i + 1}. *${item.name}*${item.isGroup ? ' [GROUP ORDER]' : ''}
-   Size: ${item.size}${item.color ? ` | Color: ${item.color}` : ''} | Qty: ${item.qty} | ${formatPrice(item.price)} each`;
-    }).join('\n\n');
+        totalItems += item.qty;
+        
+        let originalProduct = allItems.find(p => p.id === item.id) || {};
+        let cat = originalProduct.category || 'N/A';
+        let desc = originalProduct.description || 'No description available.';
+        
+        let url = item.image;
+        if(url && !url.startsWith('http')) {
+            url = baseUrl + url;
+        }
+
+        let sizeInfo = `*Size:* ${item.size} | *Color:* ${item.color || 'N/A'}`;
+        if (item.bulkLines) {
+            sizeInfo = `*Size Breakdown:*\n${item.bulkLines.map(line => `${line.size} -> ${line.qty}`).join('\n')}\n*Color:* ${item.color || 'N/A'}`;
+        }
+
+        return `*${i + 1}. ${item.name}*
+*Category:* ${cat}
+*Product ID:* ${item.id}
+*Description:* ${desc}
+${sizeInfo}
+*Quantity:* ${item.qty} | *Price:* ₹${item.price.toLocaleString('en-IN')}
+*Total:* ₹${(item.price * item.qty).toLocaleString('en-IN')}
+*Image:* ${url}`;
+    }).join('\n-----------------------------------\n');
+
+    const timestampObj = new Date();
+    const dateStr = `${timestampObj.getDate().toString().padStart(2, '0')}/${(timestampObj.getMonth() + 1).toString().padStart(2, '0')}/${timestampObj.getFullYear()}`;
+    
+    let hours = timestampObj.getHours();
+    let minutes = timestampObj.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    const timeStr = hours + ':' + minutes + ' ' + ampm;
+    
+    const timestampStr = `${dateStr}  ${timeStr}`;
+
+    const message = `🛍️ *NEW ORDER RECEIVED*
+-----------------------------------
+👤 *Customer Details*
+*Name:* ${name}
+*Mobile:* ${phone}
+*Address:* ${address}
+*Pincode:* ${pincode}
+*District:* ${district}
+-----------------------------------
+📦 *Ordered Products*
+
+${itemsText}
+-----------------------------------
+💰 *Order Summary*
+*Total Items:* ${totalItems}
+*Total Amount:* ₹${subtotal.toLocaleString('en-IN')}
+*Order Date:* ${timestampStr}
+
+Thank you for shopping with us! 😊`;
 
     const orderId = orderHistory.generateId();
-    const timestamp = new Date().toLocaleString('en-IN');
-
-    const message = `🛍️ *NEW ORDER - AK Fashions*
-━━━━━━━━━━━━━━━━━━
-📋 *Order ID:* ${orderId}
-📅 *Date:* ${timestamp}
-━━━━━━━━━━━━━━━━━━
-👤 *Name:* ${name}
-📞 *Phone:* ${phone}
-📍 *Address:* ${address}
-
-🧾 *Order Details:*
-━━━━━━━━━━━━━━━━━━
-${itemsText}
-
-━━━━━━━━━━━━━━━━━━
-💰 *Total Amount: ${formatPrice(subtotal)}*
-━━━━━━━━━━━━━━━━━━
-Please confirm my order. Thank you! 🙏`;
 
     // Save to order history BEFORE clearing cart
     const orderRecord = {
         id: orderId,
-        timestamp: new Date().toISOString(),
-        customer: { name, phone, address },
+        timestamp: timestampObj.toISOString(),
+        customer: { name, phone, address, pincode, district },
         items: cart.map(i => ({ ...i })),
         total: subtotal,
-        status: 'pending'  // pending, completed, cancelled
+        status: 'pending'  // pending, confirmed, rejected
     };
     orderHistory.save(orderRecord);
+
+    // Reduce stock immediately to reserve it
+    cart.forEach(item => {
+        stockManager.reduce(item.id, item.size, item.qty);
+    });
 
     // Restore group cart backup if any
     if (window._groupCartBackup) {
@@ -1273,6 +1400,16 @@ Please confirm my order. Thank you! 🙏`;
     saveCart();
     updateCartUI();
     closeModals();
+
+    // Refresh grids visually so stock reduction is immediately visible
+    setTimeout(() => {
+        if (typeof renderPaginatedGrid === 'function' && document.getElementById('products-grid')) renderPaginatedGrid();
+        if (typeof renderGrid === 'function') {
+            if (document.getElementById('new-grid')) renderGrid(products.slice(0, 3), document.getElementById('new-grid'));
+            if (document.getElementById('seasonal-grid')) renderGrid(products.filter(p => p.isOffer).slice(0, 3), document.getElementById('seasonal-grid'));
+            if (document.getElementById('combo-grid')) renderGrid(combos.slice(0, 3), document.getElementById('combo-grid'));
+        }
+    }, 100);
 
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
