@@ -216,6 +216,14 @@ customProducts.forEach(cp => {
     allItems.push(cp);
 });
 
+// Apply admin modifications to base products
+const modifiedProducts = JSON.parse(localStorage.getItem('ak_modified_products')) || {};
+allItems.forEach(p => {
+    if (modifiedProducts[p.id]) {
+        Object.assign(p, modifiedProducts[p.id]);
+    }
+});
+
 // ==========================================
 // 2. STOCK MANAGER
 // ==========================================
@@ -368,8 +376,8 @@ function init() {
         
         const path = window.location.pathname.toLowerCase();
         if (!filterParam && !collectionParam) {
-            if (path.includes('shirt.html')) filterParam = 'shirts';
-            else if (path.includes('tshirt.html')) filterParam = 'tshirts';
+            if (path.includes('tshirt.html')) filterParam = 'tshirts';
+            else if (path.includes('shirt.html')) filterParam = 'shirts';
             else if (path.includes('pant.html')) filterParam = 'jeans';
             else if (path.includes('track.html')) filterParam = 'track';
             else if (path.includes('combo.html')) collectionParam = 'combos';
@@ -380,22 +388,22 @@ function init() {
             if (collectionParam === 'combos') {
                 if (shopTitle) shopTitle.textContent = "Combo Offers";
                 if (shopSubtitle) shopSubtitle.textContent = "Exclusive sets tailored for the perfect look.";
-                currentFilteredProducts = combos;
+                currentFilteredProducts = allItems.filter(p => p.category === 'combos' || p.category === 'combo');
             } else if (collectionParam === 'seasonal') {
                 if (shopTitle) shopTitle.textContent = "Seasonal Offers";
                 if (shopSubtitle) shopSubtitle.textContent = "Up to 50% off on premium items.";
-                currentFilteredProducts = products.filter(p => p.isOffer);
+                currentFilteredProducts = allItems.filter(p => p.isOffer);
             } else if (collectionParam === 'new') {
                 if (shopTitle) shopTitle.textContent = "New Collection";
                 if (shopSubtitle) shopSubtitle.textContent = "Be the first to wear our latest arrivals.";
-                currentFilteredProducts = products.slice(0, 16);
+                currentFilteredProducts = allItems.slice(0, 16);
             }
         } else if (filterParam) {
             if (categoryFilters) categoryFilters.style.display = 'none'; // Hide category filters on specific category pages
             
             if (filterParam === 'all') currentFilteredProducts = allItems;
-            else if (filterParam === 'offers') currentFilteredProducts = products.filter(p => p.isOffer);
-            else currentFilteredProducts = products.filter(p => p.category === filterParam);
+            else if (filterParam === 'offers') currentFilteredProducts = allItems.filter(p => p.isOffer);
+            else currentFilteredProducts = allItems.filter(p => p.category === filterParam);
 
             if (shopTitle && filterParam !== 'all') {
                 shopTitle.textContent = filterParam.charAt(0).toUpperCase() + filterParam.slice(1);
@@ -1170,8 +1178,8 @@ function setupEventListeners() {
                 if (elements.searchInput) elements.searchInput.value = '';
                 const filter = e.target.getAttribute('data-filter');
                 if (filter === 'all') currentFilteredProducts = allItems;
-                else if (filter === 'offers') currentFilteredProducts = products.filter(p => p.isOffer);
-                else currentFilteredProducts = products.filter(p => p.category === filter);
+                else if (filter === 'offers') currentFilteredProducts = allItems.filter(p => p.isOffer);
+                else currentFilteredProducts = allItems.filter(p => p.category === filter);
                 currentPage = 1;
                 renderPaginatedGrid();
             });
@@ -1186,8 +1194,8 @@ function setupEventListeners() {
                 elements.filterBtns[0].classList.add('active');
             }
             currentFilteredProducts = query.trim() === ''
-                ? products
-                : products.filter(p =>
+                ? allItems
+                : allItems.filter(p =>
                     p.name.toLowerCase().includes(query) ||
                     p.description.toLowerCase().includes(query) ||
                     p.category.toLowerCase().includes(query)

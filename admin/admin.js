@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if(targetTab === 'dashboard') renderDashboard();
             if(targetTab === 'orders') renderOrders();
+            if(targetTab === 'add-product') renderAdminProductsList();
         });
     });
 
@@ -76,12 +77,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderImages() {
         if(!imagePreviewContainer) return;
-        imagePreviewContainer.innerHTML = currentImages.map((imgSrc, index) => `
+        imagePreviewContainer.innerHTML = currentImages.map((imgSrc, index) => {
+            const displaySrc = imgSrc.startsWith('assets/') ? '../' + imgSrc : imgSrc;
+            return `
             <div class="image-preview-item">
-                <img src="${imgSrc}">
+                <img src="${displaySrc}" alt="Preview">
                 <button type="button" onclick="removeImage(${index})">&times;</button>
             </div>
-        `).join('');
+            `;
+        }).join('');
     }
 
     window.removeImage = (index) => {
@@ -173,8 +177,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            const editId = document.getElementById('edit-product-id').value;
+
             const newProduct = {
-                id: Date.now(),
+                id: editId ? (isNaN(editId) ? editId : parseInt(editId)) : Date.now(),
                 name,
                 category,
                 price,
@@ -188,9 +194,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 defaultStock
             };
 
-            const customProducts = JSON.parse(localStorage.getItem('ak_custom_products')) || [];
-            customProducts.push(newProduct);
-            localStorage.setItem('ak_custom_products', JSON.stringify(customProducts));
+            if (editId) {
+                const customProducts = JSON.parse(localStorage.getItem('ak_custom_products')) || [];
+                const cIdx = customProducts.findIndex(p => p.id == editId);
+                if (cIdx > -1) {
+                    customProducts[cIdx] = newProduct;
+                    localStorage.setItem('ak_custom_products', JSON.stringify(customProducts));
+                } else {
+                    const modified = JSON.parse(localStorage.getItem('ak_modified_products')) || {};
+                    modified[editId] = newProduct;
+                    localStorage.setItem('ak_modified_products', JSON.stringify(modified));
+                }
+                showAdminToast('Product Updated successfully!', 'success');
+            } else {
+                const customProducts = JSON.parse(localStorage.getItem('ak_custom_products')) || [];
+                customProducts.push(newProduct);
+                localStorage.setItem('ak_custom_products', JSON.stringify(customProducts));
+                if (typeof allItems !== 'undefined') allItems.push(newProduct);
+                showAdminToast('Product Published! Successfully synced.', 'success');
+            }
+
+            if (editId && typeof allItems !== 'undefined') {
+                const aIdx = allItems.findIndex(p => p.id == editId);
+                if (aIdx > -1) {
+                    allItems[aIdx] = newProduct;
+                }
+            }
 
             // Set Initial Stock in Stock Manager
             if(typeof stockManager !== 'undefined') {
@@ -199,9 +228,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            showAdminToast('Product Published! Successfully synced.', 'success');
+            renderAdminProductsList();
             
             // Reset Form
+            document.getElementById('edit-product-id').value = '';
+            document.getElementById('form-title').textContent = 'Create New Product';
             addProductForm.reset();
             currentColors = [];
             currentImages = [];
@@ -211,6 +242,78 @@ document.addEventListener('DOMContentLoaded', () => {
             renderImages();
         });
     }
+
+    window.renderAdminProductsList = function() {
+        const tbody = document.getElementById('products-list-body');
+        if (!tbody || typeof allItems === 'undefined') return;
+
+        tbody.innerHTML = '';
+        allItems.forEach(product => {
+            let totalStock = 0;
+            if(typeof stockManager !== 'undefined') {
+                totalStock = stockManager.getTotalForProduct(product.id);
+            }
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>
+                    <img src="../${product.image}" alt="${product.name}" style="width:50px; height:50px; object-fit:cover; border-radius:4px;">
+                </td>
+                <td>
+                    <div style="font-weight:600">${product.name}</div>
+                    <div style="font-size:0.8rem; color:var(--text-muted); text-transform:uppercase;">${product.category}</div>
+                </td>
+                <td>₹${product.price}</td>
+                <td>${totalStock}</td>
+                <td>
+                    <button class="btn btn-sm btn-primary" onclick='editProduct(${JSON.stringify(product).replace(/'/g, "&#39;")})'>Edit</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    };
+
+    window.editProduct = function(product) {
+        document.getElementById('edit-product-id').value = product.id;
+        document.getElementById('form-title').textContent = 'Edit Product: ' + product.name;
+        document.getElementById('new-prod-name').value = product.name;
+        document.getElementById('new-prod-cat').value = product.category;
+        document.getElementById('new-prod-price').value = product.price;
+        document.getElementById('new-prod-discount').value = product.originalPrice || '';
+        document.getElementById('new-prod-desc').value = product.description || '';
+
+        currentColors = [...(product.colors || [])];
+        renderColors();
+
+        // Convert relative image paths to the format expected by the image preview
+        currentImages = product.images && product.images.length > 0 ? [...product.images] : (product.image ? [product.image] : []);
+        renderImages(); // Note: image previews might not render data URLs correctly if they are paths, but we'll try
+
+        const sizeInventoryContainer = document.getElementById('size-inventory-container');
+        if (sizeInventoryContainer) {
+            sizeInventoryContainer.innerHTML = '';
+            product.sizes.forEach(size => {
+                const row = document.createElement('div');
+                row.className = 'size-stock-row';
+                let currentStock = product.defaultStock && product.defaultStock[size] !== undefined ? product.defaultStock[size] : 0;
+                if(typeof stockManager !== 'undefined') {
+                    currentStock = stockManager.get(product.id, size);
+                }
+                
+                row.innerHTML = `
+                    <input type="text" placeholder="Size (e.g. M)" class="form-control size-input" value="${size}">
+                    <input type="number" placeholder="Stock Qty" class="form-control stock-input" value="${currentStock}">
+                    <button type="button" class="btn btn-danger remove-size-btn"><i class="fa-solid fa-trash"></i></button>
+                `;
+                row.querySelector('.remove-size-btn').addEventListener('click', () => {
+                    row.remove();
+                });
+                sizeInventoryContainer.appendChild(row);
+            });
+        }
+        
+        window.scrollTo(0, document.getElementById('product-form-section').offsetTop - 50);
+    };
 
     // ==========================================
     // 2. ORDER MANAGEMENT
@@ -438,7 +541,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const adminLogoutBtn = document.getElementById('admin-logout-btn');
     if (adminLogoutBtn) {
         adminLogoutBtn.addEventListener('click', () => {
-            localStorage.removeItem('ak_admin_logged_in');
+            sessionStorage.removeItem('ak_admin_logged_in');
             window.location.href = 'login.html';
         });
     }
@@ -470,7 +573,7 @@ if (loginForm) {
         const errorMsg = document.getElementById('login-error-msg');
         
         if ((id === 'admin123' || id === 'admin') && pass === 'admin123') {
-            localStorage.setItem("ak_admin_logged_in", "true");
+            sessionStorage.setItem("ak_admin_logged_in", "true");
             window.location.href = "index.html";
         } else {
             if (errorMsg) errorMsg.textContent = "Invalid Admin Credentials.";
@@ -482,7 +585,7 @@ if (loginForm) {
 const logoutBtn = document.getElementById('admin-logout-btn');
 if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
-        localStorage.removeItem("ak_admin_logged_in");
+        sessionStorage.removeItem("ak_admin_logged_in");
         window.location.href = "login.html";
     });
 }

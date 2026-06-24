@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AK Fashions | Admin Portal</title>
     <script>
-        if (localStorage.getItem("ak_admin_logged_in") !== "true") {
+        if (sessionStorage.getItem("ak_admin_logged_in") !== "true") {
             window.location.href = "login.html";
         }
     </script>
@@ -251,9 +251,35 @@
 
                 <!-- 3. PRODUCT MANAGEMENT TAB -->
                 <div id="tab-add-product" class="tab-panel">
-                    <div class="card-panel">
-                        <h3>Create / Edit Product</h3>
+                    
+                    <!-- Product List -->
+                    <div class="card-panel" style="margin-bottom: 20px;">
+                        <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3>All Products</h3>
+                            <button class="btn btn-primary btn-sm" onclick="document.getElementById('edit-product-id').value=''; document.getElementById('add-product-form').reset(); document.getElementById('form-title').textContent='Create New Product'; window.scrollTo(0, document.body.scrollHeight);">+ New Product</button>
+                        </div>
+                        <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                            <table class="data-table" id="products-list-table">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Name & Category</th>
+                                        <th>Price</th>
+                                        <th>Stock</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="products-list-body">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card-panel" id="product-form-section">
+                        <h3 id="form-title">Create New Product</h3>
                         <form id="add-product-form" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+                            <input type="hidden" id="edit-product-id" value="">
                             <div class="form-group">
                                 <label>Product Name *</label>
                                 <input type="text" id="new-prod-name" required placeholder="e.g. Vintage Denim Shirt" class="form-control">
@@ -322,6 +348,6 @@
 
 <!-- Scripts -->
     <script src="../app.js"></script>
-    <script src="admin.js"></script>
+    <script src="admin.js?v=2"></script>
 </body>
 </html>
