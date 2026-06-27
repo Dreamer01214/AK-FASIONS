@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AK Fashions | Admin Portal</title>
+    <link rel="icon" href="../assets/logo.png" type="image/png">
+    
     <script>
-        if (sessionStorage.getItem("ak_admin_logged_in") === "true") {
+        const auth = JSON.parse(localStorage.getItem('ak_admin_auth') || 'null');
+        if (auth && auth.loggedIn && Date.now() < auth.expiresAt) {
             window.location.href = "index.html";
         }
     </script>
@@ -55,6 +58,6 @@
     </div>
 
     
-    <script src="admin.js?v=2"></script>
+    <script src="admin.js?v=7"></script>
 </body>
 </html>

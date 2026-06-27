@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AK Fashions | Admin Portal</title>
+    <link rel="icon" href="../assets/logo.png" type="image/png">
+    
     <script>
-        if (sessionStorage.getItem("ak_admin_logged_in") !== "true") {
-            window.location.href = "login.html";
+        const auth = JSON.parse(localStorage.getItem('ak_admin_auth') || 'null');
+        if (!auth || !auth.loggedIn || Date.now() > auth.expiresAt) {
+            localStorage.removeItem('ak_admin_auth');
+            window.location.href = "login.html" + window.location.search;
         }
     </script>
     <meta name="description" content="Secure admin dashboard for managing stocks, analytics, order verification, and bill generation at AK Fashions.">
@@ -343,11 +347,21 @@
         </main>
     </div>
 
+    <!-- Order Details Modal -->
+    <div id="order-details-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:9999; justify-content:center; align-items:center; backdrop-filter: blur(5px);">
+        <div class="card-panel" style="width:95%; max-width:900px; max-height:90vh; overflow-y:auto; position:relative; background:var(--bg-card); border:1px solid var(--border-color); border-radius:12px; padding:25px;">
+            <button onclick="document.getElementById('order-details-modal').style.display='none'" style="position:absolute; top:20px; right:20px; background:none; border:none; color:var(--text-muted); font-size:1.5rem; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+            <h2 style="margin-bottom: 20px; color:var(--text-main); border-bottom:1px solid var(--border-color); padding-bottom:10px;"><i class="fa-solid fa-receipt"></i> Order <span id="modal-order-id"></span></h2>
+            
+            <div id="order-details-content"></div>
+        </div>
+    </div>
+
     <!-- Toast Notification for Admin Panel -->
     <div id="admin-toast" class="toast-notification"></div>
 
 <!-- Scripts -->
     <script src="../app.js"></script>
-    <script src="admin.js?v=2"></script>
+    <script src="admin.js?v=7"></script>
 </body>
 </html>

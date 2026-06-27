@@ -1309,7 +1309,7 @@ function sendWhatsAppOrder(name, phone, address, pincode, district) {
             let existing = groupedCart.find(g => g.id === item.id && g.isGroup && g.color === item.color);
             if (existing) {
                 existing.qty += item.qty;
-                if (!existing.bulkLines) existing.bulkLines = [{size: existing.size, qty: existing.qty - item.qty}]; // Just to be safe
+                if (!existing.bulkLines) existing.bulkLines = [{size: existing.size, qty: existing.qty - item.qty}];
                 existing.bulkLines.push({size: item.size, qty: item.qty});
             } else {
                 groupedCart.push({...item, bulkLines: [{size: item.size, qty: item.qty}]});
@@ -1319,33 +1319,10 @@ function sendWhatsAppOrder(name, phone, address, pincode, district) {
         }
     });
 
-    const itemsText = groupedCart.map((item, i) => {
+    groupedCart.forEach(item => {
         subtotal += item.price * item.qty;
         totalItems += item.qty;
-        
-        let originalProduct = allItems.find(p => p.id === item.id) || {};
-        let cat = originalProduct.category || 'N/A';
-        let desc = originalProduct.description || 'No description available.';
-        
-        let url = item.image;
-        if(url && !url.startsWith('http')) {
-            url = baseUrl + url;
-        }
-
-        let sizeInfo = `*Size:* ${item.size} | *Color:* ${item.color || 'N/A'}`;
-        if (item.bulkLines) {
-            sizeInfo = `*Size Breakdown:*\n${item.bulkLines.map(line => `${line.size} -> ${line.qty}`).join('\n')}\n*Color:* ${item.color || 'N/A'}`;
-        }
-
-        return `*${i + 1}. ${item.name}*
-*Category:* ${cat}
-*Product ID:* ${item.id}
-*Description:* ${desc}
-${sizeInfo}
-*Quantity:* ${item.qty} | *Price:* ₹${item.price.toLocaleString('en-IN')}
-*Total:* ₹${(item.price * item.qty).toLocaleString('en-IN')}
-*Image:* ${url}`;
-    }).join('\n-----------------------------------\n');
+    });
 
     const timestampObj = new Date();
     const dateStr = `${timestampObj.getDate().toString().padStart(2, '0')}/${(timestampObj.getMonth() + 1).toString().padStart(2, '0')}/${timestampObj.getFullYear()}`;
@@ -1358,29 +1335,33 @@ ${sizeInfo}
     minutes = minutes < 10 ? '0' + minutes : minutes;
     const timeStr = hours + ':' + minutes + ' ' + ampm;
     
-    const timestampStr = `${dateStr}  ${timeStr}`;
-
-    const message = `🛍️ *NEW ORDER RECEIVED*
------------------------------------
-👤 *Customer Details*
-*Name:* ${name}
-*Mobile:* ${phone}
-*Address:* ${address}
-*Pincode:* ${pincode}
-*District:* ${district}
------------------------------------
-📦 *Ordered Products*
-
-${itemsText}
------------------------------------
-💰 *Order Summary*
-*Total Items:* ${totalItems}
-*Total Amount:* ₹${subtotal.toLocaleString('en-IN')}
-*Order Date:* ${timestampStr}
-
-Thank you for shopping with us! 😊`;
+    const timestampStr = `${dateStr} ${timeStr}`;
 
     const orderId = orderHistory.generateId();
+    let isGroupOrder = cart.some(item => item.isGroup);
+    let orderTypeStr = isGroupOrder ? '👥 *GROUP ORDER RECEIVED*' : '🛒 *STANDARD ORDER RECEIVED*';
+
+    const adminOrderLink = `${baseUrl}admin/index.html?order=${orderId}`;
+
+    const message = `${orderTypeStr}
+---
+*Customer Details*
+Name: ${name}
+Mobile: ${phone}
+Address: ${address}
+Pincode: ${pincode}
+District: ${district}
+---
+*Order Summary*
+Order ID: ${orderId}
+Total Products: ${groupedCart.length}
+Total Quantity: ${totalItems}
+Total Amount: ₹${subtotal.toLocaleString('en-IN')}
+Order Date: ${timestampStr}
+---
+🔗 *View Complete Order*
+${adminOrderLink}
+---`;
 
     // Save to order history BEFORE clearing cart
     const orderRecord = {
@@ -1529,3 +1510,26 @@ function updateCartUIStateOnly() {
 // 14. BOOT
 // ==========================================
 document.addEventListener('DOMContentLoaded', init);
+
+// ==========================================
+// 15. ADMIN LOGIN FROM STOREFRONT
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    const adminLoginForm = document.getElementById('storefront-admin-login');
+    if (adminLoginForm) {
+        adminLoginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const id = document.getElementById('modal-admin-id').value;
+            const pass = document.getElementById('modal-admin-password').value;
+            const errorMsg = document.getElementById('modal-login-error');
+            
+            if ((id === 'admin123' || id === 'admin') && pass === 'admin123') {
+                const expiresAt = Date.now() + (60 * 60 * 1000); // 1 hour
+                localStorage.setItem("ak_admin_auth", JSON.stringify({ loggedIn: true, expiresAt }));
+                window.location.href = "admin/index.html";
+            } else {
+                if (errorMsg) errorMsg.style.display = 'block';
+            }
+        });
+    }
+});

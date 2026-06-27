@@ -1,3 +1,16 @@
+function generateProductId() {
+    let customProducts = JSON.parse(localStorage.getItem('ak_custom_products')) || [];
+    let allP = typeof allItems !== 'undefined' ? allItems.concat(customProducts) : customProducts;
+    let max = 0;
+    allP.forEach(p => {
+        if (typeof p.id === 'string' && p.id.startsWith('PRD-')) {
+            let num = parseInt(p.id.replace('PRD-', ''), 10);
+            if (!isNaN(num) && num > max) max = num;
+        }
+    });
+    return 'PRD-' + (max + 1).toString().padStart(6, '0');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // Tab switching logic
     const navItems = document.querySelectorAll('.nav-item');
@@ -180,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const editId = document.getElementById('edit-product-id').value;
 
             const newProduct = {
-                id: editId ? (isNaN(editId) ? editId : parseInt(editId)) : Date.now(),
+                id: editId ? editId : generateProductId(),
                 name,
                 category,
                 price,
@@ -347,14 +360,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="action-buttons-wrap">
                         <button class="btn btn-sm btn-success" onclick="updateOrderStatus('${order.id}', 'confirmed')">Confirm</button>
                         <button class="btn btn-sm btn-danger" onclick="updateOrderStatus('${order.id}', 'rejected')">Reject</button>
+                        <button class="btn btn-sm btn-outline" onclick="viewOrderDetails('${order.id}')" title="View Details" style="padding: 4px 8px; border: 1px solid var(--border-color); background: transparent; color: var(--text-main); border-radius: 4px; cursor: pointer;"><i class="fa-solid fa-eye"></i></button>
                     </div>
                 `;
             } else if(order.status === 'confirmed') {
                 statusBadge = `<span class="status-badge badge-completed-status">Confirmed</span>`;
-                actionHtml = `<span style="color:var(--text-muted);font-size:0.8rem;">No actions</span>`;
+                actionHtml = `
+                    <div class="action-buttons-wrap">
+                        <span style="color:var(--text-muted);font-size:0.8rem;margin-right:10px;">No actions</span>
+                        <button class="btn btn-sm btn-outline" onclick="viewOrderDetails('${order.id}')" title="View Details" style="padding: 4px 8px; border: 1px solid var(--border-color); background: transparent; color: var(--text-main); border-radius: 4px; cursor: pointer;"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                `;
             } else if(order.status === 'rejected') {
                 statusBadge = `<span class="status-badge badge-cancelled-status">Rejected</span>`;
-                actionHtml = `<span style="color:var(--text-muted);font-size:0.8rem;">No actions</span>`;
+                actionHtml = `
+                    <div class="action-buttons-wrap">
+                        <span style="color:var(--text-muted);font-size:0.8rem;margin-right:10px;">No actions</span>
+                        <button class="btn btn-sm btn-outline" onclick="viewOrderDetails('${order.id}')" title="View Details" style="padding: 4px 8px; border: 1px solid var(--border-color); background: transparent; color: var(--text-main); border-radius: 4px; cursor: pointer;"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                `;
             }
 
             const tr = document.createElement('tr');
@@ -399,6 +423,110 @@ document.addEventListener('DOMContentLoaded', () => {
             renderOrders();
             renderDashboard(); // Update analytics
         }
+    };
+
+    window.viewOrderDetails = function(orderId) {
+        let orders = orderHistory.getAll();
+        let order = orders.find(o => o.id === orderId);
+        if(!order) return;
+
+        document.getElementById('modal-order-id').textContent = order.id;
+
+        let customerHtml = `
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:20px; background:var(--bg-elevated); padding:15px; border-radius:8px;">
+                <div>
+                    <h4 style="color:var(--text-muted); margin-bottom:5px; font-size:0.9rem;">Customer Info</h4>
+                    <p><strong>Name:</strong> ${order.customer.name}</p>
+                    <p><strong>Phone:</strong> ${order.customer.phone}</p>
+                    <p><strong>Order Date:</strong> ${new Date(order.timestamp).toLocaleString()}</p>
+                    <p><strong>Status:</strong> <span style="text-transform:capitalize;">${order.status}</span></p>
+                </div>
+                <div>
+                    <h4 style="color:var(--text-muted); margin-bottom:5px; font-size:0.9rem;">Delivery Details</h4>
+                    <p><strong>Address:</strong> ${order.customer.address}</p>
+                    <p><strong>District:</strong> ${order.customer.district || 'N/A'}</p>
+                    <p><strong>Pincode:</strong> ${order.customer.pincode || 'N/A'}</p>
+                </div>
+            </div>
+        `;
+
+        let itemsHtml = `
+            <h4 style="color:var(--text-main); margin-bottom:10px;">Ordered Products</h4>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Product Info</th>
+                            <th>Size</th>
+                            <th>Color</th>
+                            <th>Qty</th>
+                            <th>Unit Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        `;
+        
+        let totalQty = 0;
+        order.items.forEach(item => {
+            totalQty += item.qty;
+            let product = typeof allItems !== 'undefined' ? allItems.find(p => p.id === item.id) : null;
+            let imgSrc = product && product.image ? '../' + product.image : ''; 
+            let category = product ? product.category : '';
+            let pId = product ? product.id : item.id;
+            
+            itemsHtml += `
+                <tr>
+                    <td><img src="${imgSrc}" style="width:50px; height:50px; object-fit:cover; border-radius:6px; border:1px solid var(--border-color);"></td>
+                    <td>
+                        <div style="font-weight:600">${item.name}</div>
+                        <div style="font-size:0.8rem; color:var(--text-muted)">ID: ${pId} | Cat: <span style="text-transform:uppercase;">${category}</span></div>
+                    </td>
+                    <td>${item.size}</td>
+                    <td>${item.color || 'N/A'}</td>
+                    <td>${item.qty}</td>
+                    <td>₹${(item.price).toLocaleString()}</td>
+                    <td><strong>₹${(item.qty * item.price).toLocaleString()}</strong></td>
+                </tr>
+            `;
+        });
+        
+        itemsHtml += `
+                    </tbody>
+                </table>
+            </div>
+        `;
+
+        let summaryHtml = `
+            <div style="display:flex; justify-content:flex-end; margin-top:20px; padding-top:20px; border-top:1px dashed var(--border-color);">
+                <div style="width:300px; background:var(--bg-elevated); padding:20px; border-radius:8px;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                        <span style="color:var(--text-muted)">Total Products:</span>
+                        <span>${order.items.length}</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                        <span style="color:var(--text-muted)">Total Quantity:</span>
+                        <span>${totalQty}</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                        <span style="color:var(--text-muted)">Subtotal:</span>
+                        <span>₹${order.total.toLocaleString()}</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                        <span style="color:var(--text-muted)">Discount:</span>
+                        <span>₹0</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-top:15px; padding-top:15px; border-top:1px solid var(--border-color); font-size:1.2rem; font-weight:700;">
+                        <span>Total Amount:</span>
+                        <span style="color:var(--text-main)">₹${order.total.toLocaleString()}</span>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.getElementById('order-details-content').innerHTML = customerHtml + itemsHtml + summaryHtml;
+        document.getElementById('order-details-modal').style.display = 'flex';
     };
 
     // ==========================================
@@ -541,7 +669,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const adminLogoutBtn = document.getElementById('admin-logout-btn');
     if (adminLogoutBtn) {
         adminLogoutBtn.addEventListener('click', () => {
-            sessionStorage.removeItem('ak_admin_logged_in');
+            localStorage.removeItem('ak_admin_auth');
             window.location.href = 'login.html';
         });
     }
@@ -573,8 +701,10 @@ if (loginForm) {
         const errorMsg = document.getElementById('login-error-msg');
         
         if ((id === 'admin123' || id === 'admin') && pass === 'admin123') {
-            sessionStorage.setItem("ak_admin_logged_in", "true");
-            window.location.href = "index.html";
+            const expiresAt = Date.now() + (60 * 60 * 1000); // 1 hour
+            localStorage.setItem("ak_admin_auth", JSON.stringify({ loggedIn: true, expiresAt }));
+            const params = window.location.search;
+            window.location.href = "index.html" + params;
         } else {
             if (errorMsg) errorMsg.textContent = "Invalid Admin Credentials.";
             showAdminToast("Invalid Admin Credentials.", "error");
@@ -585,7 +715,35 @@ if (loginForm) {
 const logoutBtn = document.getElementById('admin-logout-btn');
 if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
-        sessionStorage.removeItem("ak_admin_logged_in");
+        localStorage.removeItem("ak_admin_auth");
         window.location.href = "login.html";
     });
 }
+
+// Auto-open order details if query param exists
+function openOrderDetailsIfRequested() {
+    const params = new URLSearchParams(window.location.search);
+    const orderId = params.get('order');
+    if (orderId && typeof window.viewOrderDetails === 'function') {
+        // Clean URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+        
+        // Switch to the orders tab for a better background experience
+        const ordersTabBtn = document.querySelector('.nav-item[data-tab="orders"]');
+        if (ordersTabBtn) {
+            ordersTabBtn.click();
+        }
+
+        setTimeout(() => {
+            console.log('Auto-opening order details for:', orderId);
+            window.viewOrderDetails(orderId);
+        }, 300);
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', openOrderDetailsIfRequested);
+} else {
+    openOrderDetailsIfRequested();
+}
+
