@@ -55,7 +55,7 @@ const baseProducts = [
         price: 350,
         originalPrice: 599,
         isOffer: true,
-        image: "assets/T-Shirt/tshirt.jpg",
+        image: "assets/T-Shirt/tshirt.png",
         description: "Soft and breathable premium cotton t-shirt. Available in multiple colors.",
         sizes: ["S", "M", "L", "XL"],
         colors: ["Black", "White", "Navy", "Olive"],
@@ -68,7 +68,7 @@ const baseProducts = [
         price: 430,
         originalPrice: 799,
         isOffer: true,
-        image: "assets/Shirt/casual shirt.jpg",
+        image: "assets/Shirt/casual shirt.png",
         description: "A comfortable and stylish checkered shirt for everyday wear.",
         sizes: ["M", "L", "XL"],
         colors: ["Red/Black", "Blue/White", "Grey/Black"],
@@ -103,7 +103,7 @@ const baseProducts = [
         category: "shirts",
         price: 430,
         isOffer: false,
-        image: "assets/Shirt/plain formal shirt.jpg",
+        image: "assets/Shirt/plain formal shirt.png",
         description: "Classic solid formal shirt, perfect for office and formal events.",
         sizes: ["S", "M", "L", "XL"],
         colors: ["White", "Light Blue", "Pink", "Black"],
@@ -115,7 +115,7 @@ const baseProducts = [
         category: "tshirts",
         price: 350,
         isOffer: false,
-        image: "assets/T-Shirt/printed tshirt.jpg",
+        image: "assets/T-Shirt/printed tshirt.png",
         description: "Trendy graphic print t-shirt for a cool casual look.",
         sizes: ["M", "L", "XL"],
         colors: ["White", "Black", "Grey"],
@@ -139,7 +139,7 @@ const baseProducts = [
         category: "tshirts",
         price: 350,
         isOffer: false,
-        image: "assets/T-Shirt/tshirt1.jpg",
+        image: "assets/T-Shirt/tshirt1.png",
         description: "Smart casual polo t-shirt with contrast collar.",
         sizes: ["M", "L", "XL", "XXL"],
         colors: ["Navy", "Maroon", "Dark Green"],
@@ -153,10 +153,10 @@ const extraProductsData = [
     { id: 14, image: "assets/T-Shirt/tshirt 6.jpg", name: "Vintage T-Shirt", category: "tshirts", price: 350, defaultStock: { S: 12, M: 16, L: 14, XL: 9 } },
     { id: 15, image: "assets/T-Shirt/white tshirt.jpg", name: "Essential White T-Shirt", category: "tshirts", price: 350, defaultStock: { S: 20, M: 25, L: 22, XL: 15 } },
     { id: 16, image: "assets/Shirt/designed shirt.jpg", name: "Tropical Printed Shirt", category: "shirts", price: 430, defaultStock: { M: 10, L: 12, XL: 8 } },
-    { id: 17, image: "assets/Shirt/plain fomal shirt 2.jpg", name: "Navy Blue Formal Shirt", category: "shirts", price: 430, defaultStock: { S: 8, M: 12, L: 10, XL: 6 } },
+    { id: 17, image: "assets/Shirt/plain fomal shirt 2.png", name: "Navy Blue Formal Shirt", category: "shirts", price: 430, defaultStock: { S: 8, M: 12, L: 10, XL: 6 } },
     { id: 18, image: "assets/Shirt/OIP (33).jpg", name: "Striped Linen Henley", category: "shirts", price: 430, defaultStock: { M: 14, L: 16, XL: 10 } },
     { id: 19, image: "assets/Shirt/OIP (34).jpg", name: "Casual Oxford Shirt", category: "shirts", price: 430, defaultStock: { S: 6, M: 10, L: 8, XL: 5 } },
-    { id: 20, image: "assets/Pant/OIP (35).jpg", name: "Camo Cargo Half Trousers", category: "jeans", price: 430, defaultStock: { "30": 8, "32": 10, "34": 8, "36": 5 } },
+    { id: 20, image: "assets/Pant/OIP (35).png", name: "Camo Cargo Half Trousers", category: "jeans", price: 430, defaultStock: { "30": 8, "32": 10, "34": 8, "36": 5 } },
     { id: 21, image: "assets/Track Pant/OIP (36).jpg", name: "Grey Athletic Half Trousers", category: "jeans", price: 430, defaultStock: { "30": 6, "32": 10, "34": 9, "36": 4 } }
 ];
 
@@ -624,7 +624,7 @@ window.openProductModal = function (productId) {
                     <label class="selector-label">Quantity</label>
                     <div class="qty-control">
                         <button class="qty-btn" onclick="updateModalQty(-1)">-</button>
-                        <input type="number" id="modal-qty" class="qty-input" value="1" min="1" readonly>
+                        <input type="number" id="modal-qty" class="qty-input" value="1" min="1" oninput="handleModalQtyInput(this)" onblur="handleModalQtyBlur(this)">
                         <button class="qty-btn" onclick="updateModalQty(1)">+</button>
                     </div>
                 </div>
@@ -774,7 +774,7 @@ window.selectBulkCategory = function(cat) {
                         <span style="font-weight: bold; font-size: 1.2rem;">${size}</span>
                         <div class="group-qty-control">
                             <button type="button" class="qty-btn" onclick="adjustBulkReqQty('${size}', -1)">-</button>
-                            <input type="number" id="bulk-req-${size}" class="qty-input" value="0" min="0" readonly>
+                            <input type="number" id="bulk-req-${size}" class="qty-input" value="0" min="0" oninput="handleBulkReqInput('${size}', this)" onblur="handleBulkReqBlur('${size}', this)">
                             <button type="button" class="qty-btn" onclick="adjustBulkReqQty('${size}', 1)">+</button>
                         </div>
                     </div>
@@ -1083,7 +1083,7 @@ function updateCartUI() {
                     <div class="cart-item-price">${formatPrice(item.price)}</div>
                     <div class="qty-control" style="transform:scale(0.85);transform-origin:left center;">
                         <button class="qty-btn" onclick="updateCartItemQty(${index}, -1)">-</button>
-                        <input type="number" class="qty-input" value="${item.qty}" readonly>
+                        <input type="number" class="qty-input" value="${item.qty}" oninput="handleCartQtyInput(${index}, this)" onblur="handleCartQtyBlur(${index}, this)">
                         <button class="qty-btn" onclick="updateCartItemQty(${index}, 1)">+</button>
                     </div>
                     <button class="remove-item" onclick="removeFromCart(${index})"><i class="fa-solid fa-trash-can"></i></button>
@@ -1443,6 +1443,86 @@ function showToast(message, type = 'success') {
         toast.classList.remove('toast-show');
         setTimeout(() => toast.remove(), 400);
     }, 3000);
+}
+
+// ==========================================
+// 13.5 DIRECT QUANTITY INPUT HANDLERS
+// ==========================================
+window.handleModalQtyInput = function (input) {
+    let val = parseInt(input.value);
+    const max = selectedSize ? stockManager.get(selectedProduct.id, selectedSize) : 99;
+    if (isNaN(val) || val < 1) {
+        return; // Allow typing
+    }
+    if (val > max) {
+        input.value = max;
+        showToast(`Only ${max} units available for size ${selectedSize}`, 'error');
+    }
+};
+
+window.handleModalQtyBlur = function (input) {
+    let val = parseInt(input.value);
+    if (isNaN(val) || val < 1) {
+        input.value = 1;
+    }
+};
+
+window.handleBulkReqInput = function (size, input) {
+    let val = parseInt(input.value);
+    if (isNaN(val) || val < 0) {
+        currentBulkRequirements[size] = 0;
+        return;
+    }
+    currentBulkRequirements[size] = val;
+};
+
+window.handleBulkReqBlur = function (size, input) {
+    let val = parseInt(input.value);
+    if (isNaN(val) || val < 0) {
+        input.value = 0;
+        currentBulkRequirements[size] = 0;
+    }
+};
+
+window.handleCartQtyInput = function (index, input) {
+    let val = parseInt(input.value);
+    if (isNaN(val) || val < 1) {
+        return; // Allow typing
+    }
+    const item = cart[index];
+    const product = allItems.find(p => p.id === item.id);
+    if (product) {
+        const stock = stockManager.get(product.id, item.size);
+        if (val > stock) {
+            val = stock;
+            input.value = val;
+            showToast(`Only ${stock} units available for size ${item.size}`, 'error');
+        }
+    }
+    cart[index].qty = val;
+    saveCart();
+    updateCartUIStateOnly();
+};
+
+window.handleCartQtyBlur = function (index, input) {
+    let val = parseInt(input.value);
+    if (isNaN(val) || val < 1) {
+        val = 1;
+        input.value = val;
+    }
+    cart[index].qty = val;
+    saveCart();
+    updateCartUI();
+};
+
+function updateCartUIStateOnly() {
+    const totalItems = cart.reduce((t, i) => t + i.qty, 0);
+    if (elements.cartBadge) elements.cartBadge.textContent = totalItems;
+    let subtotal = 0;
+    cart.forEach(item => {
+        subtotal += item.price * item.qty;
+    });
+    if (elements.cartSubtotal) elements.cartSubtotal.textContent = formatPrice(subtotal);
 }
 
 // ==========================================
