@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AK Fashions | Premium Menswear</title>
+    <title>Customer Support | AK Fashions</title>
     <link rel="icon" href="assets/logo.png" type="image/png">
     
     <meta name="description" content="Discover premium menswear at AK Fashions. Shop the latest shirts, t-shirts, jeans, and more. Group orders welcome.">
@@ -12,6 +12,35 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .support-layout { display: grid; grid-template-columns: 250px 1fr; gap: 40px; padding: 40px 0 80px 0; align-items: start; }
+        .support-sidebar { position: sticky; top: 100px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+        .support-nav { list-style: none; padding: 0; margin: 0; }
+        .support-nav li { margin-bottom: 10px; }
+        .support-nav li:last-child { margin-bottom: 0; }
+        .support-nav a { display: block; padding: 10px 15px; color: var(--text-muted); border-radius: 8px; transition: var(--transition); font-weight: 500; font-size: 0.95rem; }
+        .support-nav a:hover { background: rgba(212, 175, 55, 0.1); color: var(--primary-color); }
+        .support-section { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 40px; margin-bottom: 40px; scroll-margin-top: 100px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+        .support-section h2 { color: var(--primary-color); font-size: 1.8rem; margin-bottom: 25px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(212, 175, 55, 0.2); padding-bottom: 15px; }
+        .faq-item { margin-bottom: 20px; }
+        .faq-item h4 { color: #fff; margin-bottom: 8px; font-size: 1.1rem; }
+        .faq-item p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+        .policy-list { list-style: none; padding: 0; }
+        .policy-list li { margin-bottom: 20px; display: flex; align-items: flex-start; gap: 15px; color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+        .policy-list li i { color: var(--primary-color); margin-top: 5px; font-size: 1.2rem; }
+        .policy-list li strong { color: #fff; display: block; margin-bottom: 4px; font-size: 1.05rem; }
+        @media (max-width: 992px) {
+            .support-layout { grid-template-columns: 1fr; }
+            .support-sidebar { position: relative; top: 0; margin-bottom: 20px; z-index: 10; }
+            .support-nav { display: flex; overflow-x: auto; gap: 10px; padding-bottom: 10px; }
+            .support-nav li { margin-bottom: 0; white-space: nowrap; }
+        }
+        @media (max-width: 576px) {
+            .support-section { padding: 25px; }
+            .support-section h2 { font-size: 1.5rem; }
+        }
+    </style>
 </head>
 <body>
     <!-- Navbar -->
@@ -22,7 +51,7 @@
                 <span style="font-family:'Outfit',sans-serif;font-weight:800;font-size:1.4rem;color:var(--primary-color);letter-spacing:1px;text-transform:uppercase;">AK FASHIONS</span>
             </a>
             <ul class="nav-links">
-                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="index.html" class="nav-link">Home</a></li>
                 <li><a href="shop.html" class="nav-link">Shop</a></li>
                 <li><a href="#" class="nav-link" onclick="openBulkOrderFlow(); return false;">Bulk Orders</a></li>
             </ul>
@@ -37,68 +66,152 @@
     </nav>
 
     <!-- Shop by Category -->
-    <header class="category-header" style="padding: 120px 0 60px 0; text-align: center;">
-        <h1 style="font-family: var(--font-heading); font-size: 2.5rem; color: var(--primary-color); margin-bottom: 10px;">Welcome to AK Fashions</h1>
-        <p style="color: var(--text-muted); font-size: 1.1rem;">Shop our premium collections by category.</p>
+    <header class="category-header" style="padding: 120px 0 40px 0; text-align: center; border-bottom: 1px solid var(--border-color); background: rgba(15,15,18,0.5);">
+        <h1 style="font-family: var(--font-heading); font-size: 2.8rem; color: var(--primary-color); margin-bottom: 10px;">Customer Support</h1>
+        <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">We're here to help. Find answers to common questions and review our store policies below.</p>
     </header>
 
-    <main class="container" style="padding-bottom: 60px;">
-        <div class="category-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-            <a href="shirt.html" class="category-card" style="display: block; position: relative; border-radius: 12px; overflow: hidden; height: 250px; text-decoration: none;">
-                <img src="assets/Shirt/plain formal shirt.png" alt="Shirts" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
-                <div class="category-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;">
-                    <h2 style="color: #fff; font-size: 1.8rem; font-family: var(--font-heading); margin-bottom: 5px;">Shirts</h2>
-                    <span style="color: var(--primary-color); font-weight: 500;">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
-                </div>
-            </a>
-            
-            <a href="tshirt.html" class="category-card" style="display: block; position: relative; border-radius: 12px; overflow: hidden; height: 250px; text-decoration: none;">
-                <img src="assets/T-Shirt/tshirt1.png" alt="T-Shirts" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
-                <div class="category-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;">
-                    <h2 style="color: #fff; font-size: 1.8rem; font-family: var(--font-heading); margin-bottom: 5px;">T-Shirts</h2>
-                    <span style="color: var(--primary-color); font-weight: 500;">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
-                </div>
-            </a>
+    <main class="container">
+        <div class="support-layout">
+            <!-- Sticky Sidebar -->
+            <aside class="support-sidebar">
+                <ul class="support-nav">
+                    <li><a href="#faq"><i class="fa-solid fa-circle-question" style="width:20px; text-align:center;"></i> FAQ</a></li>
+                    <li><a href="#shipping-policy"><i class="fa-solid fa-truck-fast" style="width:20px; text-align:center;"></i> Shipping Policy</a></li>
+                    <li><a href="#return-policy"><i class="fa-solid fa-rotate-left" style="width:20px; text-align:center;"></i> Return & Exchange</a></li>
+                    <li><a href="#privacy-policy"><i class="fa-solid fa-shield-halved" style="width:20px; text-align:center;"></i> Privacy Policy</a></li>
+                </ul>
+            </aside>
 
-            <a href="pant.html" class="category-card" style="display: block; position: relative; border-radius: 12px; overflow: hidden; height: 250px; text-decoration: none;">
-                <img src="assets/Pant/OIP (35).png" alt="Pants" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
-                <div class="category-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;">
-                    <h2 style="color: #fff; font-size: 1.8rem; font-family: var(--font-heading); margin-bottom: 5px;">Pants & Jeans</h2>
-                    <span style="color: var(--primary-color); font-weight: 500;">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
-                </div>
-            </a>
+            <!-- Main Content -->
+            <div class="support-content">
+                <!-- 1. FAQ Section -->
+                <section id="faq" class="support-section">
+                    <h2><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h4>How do I place an order?</h4>
+                        <p>Browse our catalog, add items to your cart, and proceed to checkout. Your order details will be securely sent to our team via WhatsApp for instant confirmation.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>How is my order confirmed?</h4>
+                        <p>Once you send the WhatsApp order message, our team will review the availability and confirm your order along with the payment details.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Are all products always in stock?</h4>
+                        <p>We maintain real-time inventory, but occasionally highly demanded items may run out. If an item becomes unavailable after placing a request, our team will notify you immediately via WhatsApp.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>How fast is the delivery?</h4>
+                        <p>Standard delivery typically takes 3-5 business days depending on your location. Exact timelines will be shared upon order confirmation.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Do you accept exchanges?</h4>
+                        <p>Yes, we accept size exchanges within 7 days of delivery, provided the item is unworn and in its original condition. Please read our Return & Exchange policy for more details.</p>
+                    </div>
+                </section>
 
-            <a href="track.html" class="category-card" style="display: block; position: relative; border-radius: 12px; overflow: hidden; height: 250px; text-decoration: none;">
-                <img src="assets/Track Pant/classic_sweatpants_trio_pack.png" alt="Track Pants" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
-                <div class="category-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;">
-                    <h2 style="color: #fff; font-size: 1.8rem; font-family: var(--font-heading); margin-bottom: 5px;">Track Pants</h2>
-                    <span style="color: var(--primary-color); font-weight: 500;">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
-                </div>
-            </a>
+                <!-- 2. Shipping Policy Section -->
+                <section id="shipping-policy" class="support-section">
+                    <h2><i class="fa-solid fa-truck-fast"></i> Shipping Policy</h2>
+                    <ul class="policy-list">
+                        <li>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div>
+                                <strong>Delivery Locations</strong>
+                                We deliver pan-India to all serviceable pincodes. If your location is outside our standard delivery zones, we will notify you during order confirmation.
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-clock"></i>
+                            <div>
+                                <strong>Estimated Delivery Time</strong>
+                                Standard orders are typically delivered within 3-5 business days. Remote locations may take up to 7-10 business days.
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-wallet"></i>
+                            <div>
+                                <strong>Shipping Charges</strong>
+                                We offer FREE shipping on all standard orders. Any exceptions or expedited shipping requests will be communicated clearly before final payment.
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-box-open"></i>
+                            <div>
+                                <strong>Order Processing Time</strong>
+                                All confirmed orders are dispatched within 24 hours of successful payment verification (excluding Sundays and public holidays).
+                            </div>
+                        </li>
+                    </ul>
+                </section>
 
-            <a href="combo.html" class="category-card" style="display: block; position: relative; border-radius: 12px; overflow: hidden; height: 250px; text-decoration: none;">
-                <img src="assets/Combo/combo1.jpeg" alt="Combos" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
-                <div class="category-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;">
-                    <h2 style="color: #fff; font-size: 1.8rem; font-family: var(--font-heading); margin-bottom: 5px;">Combo Offers</h2>
-                    <span style="color: var(--primary-color); font-weight: 500;">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
-                </div>
-            </a>
+                <!-- 3. Return & Exchange Policy Section -->
+                <section id="return-policy" class="support-section">
+                    <h2><i class="fa-solid fa-rotate-left"></i> Return & Exchange Policy</h2>
+                    <ul class="policy-list">
+                        <li>
+                            <i class="fa-solid fa-check-double"></i>
+                            <div>
+                                <strong>Exchange Eligibility</strong>
+                                We offer size exchanges to ensure a perfect fit. The item must be unused, unwashed, and retain all original tags and packaging.
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <div>
+                                <strong>Time Limits</strong>
+                                Exchange requests must be raised via WhatsApp within 7 days of receiving the delivery.
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-box-archive"></i>
+                            <div>
+                                <strong>Return Conditions</strong>
+                                We currently only support exchanges for sizing issues or defective products. Direct monetary refunds are not provided unless the item received was fundamentally defective and a replacement is unavailable.
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-ban"></i>
+                            <div>
+                                <strong>Non-Returnable Items</strong>
+                                For hygiene reasons, undergarments and custom-tailored bulk group orders cannot be returned or exchanged.
+                            </div>
+                        </li>
+                    </ul>
+                </section>
 
-            <a href="#" onclick="openBulkOrderFlow(); return false;" class="category-card" style="display: block; position: relative; border-radius: 12px; overflow: hidden; height: 250px; text-decoration: none; border: 2px solid var(--primary-color);">
-                <div style="position: absolute; inset: 0; background: rgba(15,17,21,0.8); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-                    <i class="fa-solid fa-layer-group" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 15px;"></i>
-                    <h2 style="color: #fff; font-size: 1.8rem; font-family: var(--font-heading); margin-bottom: 5px;">Bulk Orders</h2>
-                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Custom sizing for teams & events</p>
-                    <span style="background: var(--primary-color); color: #000; padding: 8px 20px; border-radius: 20px; font-weight: bold; display: inline-block;">Start Order</span>
-                </div>
-            </a>
+                <!-- 4. Privacy Policy Section -->
+                <section id="privacy-policy" class="support-section">
+                    <h2><i class="fa-solid fa-shield-halved"></i> Privacy Policy</h2>
+                    <p style="color: var(--text-muted); line-height: 1.8; margin-bottom: 20px;">
+                        At AK Fashions, we highly respect your privacy and are committed to protecting your personal data.
+                    </p>
+                    <ul class="policy-list">
+                        <li>
+                            <i class="fa-solid fa-user-lock"></i>
+                            <div>
+                                <strong>Data Collection</strong>
+                                We only collect essential information required to fulfill your order, which includes your Name, Mobile Number, Delivery Address, Pincode, and District.
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-bullseye"></i>
+                            <div>
+                                <strong>Data Usage</strong>
+                                Your information is exclusively used for order processing, providing customer support, and communicating important updates regarding your purchases.
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-user-shield"></i>
+                            <div>
+                                <strong>Third-Party Sharing</strong>
+                                We maintain strict confidentiality. Your personal information will <strong>never</strong> be sold, rented, or shared with third parties, except for our trusted logistics partners when strictly necessary to deliver your order.
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </div>
         </div>
-        <style>
-            .category-card:hover img { transform: scale(1.05); }
-            @media (max-width: 768px) {
-                .category-grid { grid-template-columns: 1fr !important; }
-            }
-        </style>
     </main>
 
     <!-- Footer -->

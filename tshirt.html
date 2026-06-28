@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop | AK Fashions</title>
+    <link rel="icon" href="assets/logo.png" type="image/png">
+    
     <meta name="description" content="Browse all premium menswear at AK Fashions. Shirts, T-Shirts, Jeans, Combos. Group orders available.">
     <link rel="stylesheet" href="style.css?v=3.1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -69,24 +71,82 @@
     </main>
 
     <!-- Footer -->
-    <footer>
+        <footer>
         <div class="container">
-            <div class="footer-content">
+            <div class="footer-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px;">
+                <!-- 1. Brand Section -->
                 <div class="footer-brand">
-                    <h3 class="logo"><img src="assets/logo.png?v=1" alt="AK Fashions Logo" class="brand-logo"></h3>
-                    <p>Redefining menswear with quality, style, and perfection.</p>
+                    <h3 class="logo" style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                        <img src="assets/logo.png?v=1" alt="AK Fashions Logo" class="brand-logo" style="width: 40px;">
+                        <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--primary-color);">AK FASHIONS</span>
+                    </h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.5;">
+                        Redefining menswear with quality, style, and perfection.
+                    </p>
+                    <div class="social-icons" style="display: flex; gap: 15px;">
+                        <a href="https://www.instagram.com/ak_fashions__/" target="_blank" style="color: #fff; font-size: 1.2rem; transition: color 0.3s;"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://wa.me/916383341227" target="_blank" style="color: #fff; font-size: 1.2rem; transition: color 0.3s;"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
                 </div>
+
+                <!-- 2. Customer Support -->
                 <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="admin/login.html">Admin Portal</a></li>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="shop.html">Shop</a></li>
+                    <h4 style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; margin-bottom: 20px; color: #fff;">Customer Support</h4>
+                    <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px;">
+                        <li><a href="customer-support.html#faq" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s;">FAQ</a></li>
+                        <li><a href="customer-support.html#shipping-policy" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s;">Shipping Policy</a></li>
+                        <li><a href="customer-support.html#return-policy" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s;">Return & Exchange Policy</a></li>
+                        <li><a href="customer-support.html#privacy-policy" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s;">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- 3. Contact Information -->
+                <div class="footer-links">
+                    <h4 style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; margin-bottom: 20px; color: #fff;">Contact Information</h4>
+                    <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 15px;">
+                        <li>
+                            <a href="tel:+916383341227" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: color 0.3s;">
+                                <i class="fa-solid fa-phone" style="color: var(--primary-color);"></i> +91 63833 41227
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://wa.me/916383341227" target="_blank" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: color 0.3s;">
+                                <i class="fa-brands fa-whatsapp" style="color: #25D366; font-size: 1.1rem;"></i> +91 63833 41227
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/ak_fashions__/" target="_blank" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: color 0.3s;">
+                                <i class="fa-brands fa-instagram" style="color: #E1306C; font-size: 1.1rem;"></i> ak_fashions__
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 4. Why Choose AK Fashions -->
+                <div class="footer-trust">
+                    <h4 style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; margin-bottom: 20px; color: #fff;">Why Choose AK Fashions</h4>
+                    <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px;">
+                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+                            <i class="fa-solid fa-circle-check" style="color: var(--primary-color);"></i> Premium Quality Products
+                        </li>
+                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+                            <i class="fa-solid fa-circle-check" style="color: var(--primary-color);"></i> Affordable Pricing
+                        </li>
+                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+                            <i class="fa-solid fa-circle-check" style="color: var(--primary-color);"></i> Easy WhatsApp Ordering
+                        </li>
+                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+                            <i class="fa-solid fa-circle-check" style="color: var(--primary-color);"></i> Secure Shopping Experience
+                        </li>
+                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+                            <i class="fa-solid fa-circle-check" style="color: var(--primary-color);"></i> Customer Satisfaction
+                        </li>
                     </ul>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 AK Fashions. All rights reserved.</p>
+            
+            <div class="footer-bottom" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; text-align: center;">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 AK FASHIONS. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
@@ -124,16 +184,29 @@
     </div>
     <div id="sidebar-overlay" class="overlay"></div>
 
-    <!-- Login Modal -->
+        <!-- Login Modal -->
     <div id="login-modal" class="modal">
         <div class="modal-content" style="max-width:400px;padding:40px;text-align:center;">
             <button class="close-btn" id="close-login-modal">&times;</button>
-            <h2 style="margin-bottom:20px;">Welcome Back</h2>
-            <p style="color:var(--text-muted);margin-bottom:30px;">Sign in to save your details for faster checkout.</p>
-            <button id="google-signin-btn" class="btn btn-block" style="background:white;color:black;font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google Logo" style="width:20px;height:20px;">
-                Sign in with Google
-            </button>
+            <div style="margin-bottom:20px;">
+                <i class="fa-solid fa-user-shield" style="font-size:3rem;color:var(--primary-color);"></i>
+            </div>
+            <h2 style="margin-bottom:10px;">Admin Portal</h2>
+            <p style="color:var(--text-muted);margin-bottom:25px;">Enter your credentials to access the dashboard.</p>
+            <form id="storefront-admin-login" style="text-align:left;">
+                <div class="form-group" style="text-align:left;">
+                    <label for="modal-admin-id" style="color:var(--text-muted);font-size:0.9rem;margin-bottom:5px;display:block;">Admin ID</label>
+                    <input type="text" id="modal-admin-id" placeholder="Enter Admin ID" required style="width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border-color);color:#fff;border-radius:8px;font-family:var(--font-sans);">
+                </div>
+                <div class="form-group" style="text-align:left;margin-bottom:25px;">
+                    <label for="modal-admin-password" style="color:var(--text-muted);font-size:0.9rem;margin-bottom:5px;display:block;">Secure Passcode</label>
+                    <input type="password" id="modal-admin-password" placeholder="Enter Passcode" required style="width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border-color);color:#fff;border-radius:8px;font-family:var(--font-sans);">
+                </div>
+                <div id="modal-login-error" style="color:var(--stock-low);font-size:0.85rem;margin-bottom:15px;text-align:center;display:none;">Invalid Credentials</div>
+                <button type="submit" class="btn btn-primary btn-block" style="font-weight:600;">
+                    <i class="fa-solid fa-right-to-bracket"></i> Authenticate
+                </button>
+            </form>
         </div>
     </div>
 
