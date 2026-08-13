@@ -473,7 +473,7 @@ function renderPaginatedGrid() {
 
 function createProductCard(product) {
     const card = document.createElement('div');
-    card.className = 'product-card';
+    card.className = 'product-card reveal';
 
     const badgeHtml = product.isOffer ? `<div class="offer-badge">OFFER</div>` : '';
     const priceHtml = product.originalPrice
@@ -497,9 +497,14 @@ function createProductCard(product) {
             <span class="product-category">${product.category.toUpperCase()}</span>
             <h3 class="product-title" style="cursor:pointer;" onclick="openProductModal(${product.id})">${product.name}</h3>
             <div class="product-price">${priceHtml}</div>
-            <button class="btn btn-primary btn-block" onclick="openProductModal(${product.id})">
-                <i class="fa-solid fa-eye"></i> View Details
-            </button>
+            <div style="display: flex; gap: 10px; margin-top: auto;">
+                <button class="btn btn-primary" style="flex: 1; padding: 12px 10px; font-size: 0.9rem;" onclick="openProductModal(${product.id})">
+                    <i class="fa-solid fa-eye"></i> View
+                </button>
+                <button class="btn btn-whatsapp" style="flex: 1; padding: 12px 10px; font-size: 0.9rem;" onclick="buyNow(${product.id})">
+                    <i class="fa-solid fa-bolt"></i> Buy Now
+                </button>
+            </div>
         </div>
     `;
     return card;
@@ -628,9 +633,14 @@ window.openProductModal = function (productId) {
                         <button class="qty-btn" onclick="updateModalQty(1)">+</button>
                     </div>
                 </div>
-                <button class="btn btn-primary btn-block" onclick="addToCartFromModal()" style="margin-top:20px;font-size:1.1rem;padding:15px;" ${totalStock === 0 ? 'disabled' : ''}>
-                    <i class="fa-solid fa-cart-plus"></i> Add to Cart
-                </button>
+                <div style="display:flex; gap:12px; margin-top:20px;">
+                    <button class="btn btn-primary" onclick="addToCartFromModal()" style="flex:1; font-size:1rem; padding:14px;" ${totalStock === 0 ? 'disabled' : ''}>
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                    <button class="btn btn-whatsapp" onclick="buyNowFromModal()" style="flex:1; font-size:1rem; padding:14px;" ${totalStock === 0 ? 'disabled' : ''}>
+                        <i class="fa-solid fa-bolt"></i> Buy Now
+                    </button>
+                </div>
             </div>
         </div>`;
 
@@ -679,6 +689,31 @@ window.addToCartFromModal = function () {
         return;
     }
     const qty = parseInt(document.getElementById('modal-qty').value);
+    const stock = stockManager.get(selectedProduct.id, selectedSize);
+    if (qty > stock) {
+        showToast(`Only ${stock} units available for size ${selectedSize}`, 'error');
+        return;
+    }
+    addToCart(selectedProduct, selectedSize, qty, selectedColor);
+    closeModals();
+    toggleCartSidebar(true);
+};
+
+window.buyNowFromModal = function () {
+    if (selectedProduct.colors && selectedProduct.colors.length > 0 && !selectedColor) {
+        const colorErr = document.getElementById('color-error');
+        if (colorErr) colorErr.textContent = '(Please select a color)';
+        showToast('Please select a color', 'error');
+        return;
+    }
+    if (!selectedSize) {
+        const sizeErr = document.getElementById('size-error');
+        if (sizeErr) sizeErr.textContent = '(Please select a size)';
+        showToast('Please select a size', 'error');
+        return;
+    }
+    const qtyInput = document.getElementById('modal-qty');
+    const qty = qtyInput ? parseInt(qtyInput.value) || 1 : 1;
     const stock = stockManager.get(selectedProduct.id, selectedSize);
     if (qty > stock) {
         showToast(`Only ${stock} units available for size ${selectedSize}`, 'error');
@@ -1032,7 +1067,14 @@ function addToCart(product, size, qty, color, silent = false) {
     }
     saveCart();
     updateCartUI();
-    if (!silent) showToast('Added to cart!', 'success');
+    if (!silent) {
+        showToast('Added to cart!', 'success');
+        if (elements.cartBtn) {
+            elements.cartBtn.classList.remove('bounce-animation');
+            void elements.cartBtn.offsetWidth;
+            elements.cartBtn.classList.add('bounce-animation');
+        }
+    }
 }
 
 window.removeFromCart = function (index) {
@@ -1532,4 +1574,45 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+});
+
+// ==========================================
+// 16. BUY NOW & ANIMATIONS
+// ==========================================
+window.buyNow = function(productId) {
+    const product = allItems.find(p => p.id === productId);
+    if (!product) return;
+    openProductModal(productId);
+};
+
+// Intersection Observer for scroll reveals
+const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+function observeElements() {
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
+
+// Re-observe when grid changes
+const originalRenderGrid = renderGrid;
+window.renderGrid = function(items, container) {
+    if(originalRenderGrid) originalRenderGrid(items, container);
+    observeElements();
+};
+
+const originalRenderPaginatedGrid = renderPaginatedGrid;
+window.renderPaginatedGrid = function() {
+    if(originalRenderPaginatedGrid) originalRenderPaginatedGrid();
+    observeElements();
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(observeElements, 500);
 });
