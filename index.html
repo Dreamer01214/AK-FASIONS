@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,19 +7,20 @@
     <link rel="icon" href="assets/logo.png" type="image/png">
     
     <meta name="description" content="Discover premium menswear at AK Fashions. Shop the latest shirts, t-shirts, jeans, and more. Group orders welcome.">
-    <link rel="stylesheet" href="style.css?v=3.1">
+    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="style.css?v=5.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-    <!-- Navbar -->
+<body class="dark-theme">
+
+    <!-- ========== NAVBAR ========== -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
-                <img src="assets/logo.png?v=1" alt="AK Fashions Logo" class="brand-logo">
-                <span style="font-family:'Outfit',sans-serif;font-weight:800;font-size:1.4rem;color:var(--primary-color);letter-spacing:1px;text-transform:uppercase;">AK FASHIONS</span>
+            <a href="index.html" class="logo">
+                <span class="logo-text">AK Fashions</span>
             </a>
             <ul class="nav-links">
                 <li><a href="index.html" class="nav-link active">Home</a></li>
@@ -27,161 +28,108 @@
                 <li><a href="#" class="nav-link" onclick="openBulkOrderFlow(); return false;">Bulk Orders</a></li>
             </ul>
             <div class="nav-actions">
-                <button id="login-btn" class="icon-btn" aria-label="User Login"><i class="fa-solid fa-user"></i></button>
                 <button id="cart-btn" class="icon-btn" aria-label="Open Cart">
-                    <i class="fa-solid fa-bag-shopping"></i>
+                    <i class="fa-solid fa-cart-shopping"></i>
                     <span id="cart-badge" class="badge">0</span>
+                </button>
+                <button id="login-btn" class="icon-btn" aria-label="User Account">
+                    <i class="fa-regular fa-user"></i>
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- Shop by Category -->
-    <header class="category-header" style="padding: 120px 0 60px 0; text-align: center;">
-        <h1 style="font-family: var(--font-heading); font-size: 2.5rem; color: var(--primary-color); margin-bottom: 10px;">Welcome to AK Fashions</h1>
-        <p style="color: var(--text-muted); font-size: 1.1rem;">Shop our premium collections by category.</p>
+    <!-- ========== HERO SECTION ========== -->
+    <header class="hero-stitch">
+        <div class="hero-stitch-bg"></div>
+        <div class="hero-stitch-overlay"></div>
+        <div class="hero-stitch-content">
+            <h1 class="hero-stitch-title">Welcome to AK Fashions</h1>
+            <p class="hero-stitch-subtitle">Premium collections curated for style and comfort.</p>
+            <a href="shop.html" class="btn-stitch-primary">EXPLORE COLLECTION</a>
+        </div>
     </header>
 
-    <main class="container" style="padding-bottom: 60px;">
-        <div class="category-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-            <a href="shirt.html" class="category-card reveal" style="display: block; position: relative; border-radius: 12px; overflow: hidden; height: 250px; text-decoration: none;">
-                <img src="assets/Shirt/plain formal shirt.png" alt="Shirts" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
-                <div class="category-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;">
-                    <h2 style="color: #fff; font-size: 1.8rem; font-family: var(--font-heading); margin-bottom: 5px;">Shirts</h2>
-                    <span style="color: var(--primary-color); font-weight: 500;">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
-                </div>
-            </a>
-            
-            <a href="tshirt.html" class="category-card reveal" style="display: block; position: relative; border-radius: 12px; overflow: hidden; height: 250px; text-decoration: none;">
-                <img src="assets/T-Shirt/tshirt1.png" alt="T-Shirts" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
-                <div class="category-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;">
-                    <h2 style="color: #fff; font-size: 1.8rem; font-family: var(--font-heading); margin-bottom: 5px;">T-Shirts</h2>
-                    <span style="color: var(--primary-color); font-weight: 500;">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
-                </div>
-            </a>
+    <!-- ========== CURATED CATEGORIES SECTION ========== -->
+    <main class="main-stitch-content">
+        <section class="stitch-section container">
+            <h2 class="stitch-section-title">Curated Categories</h2>
 
-            <a href="pant.html" class="category-card reveal" style="display: block; position: relative; border-radius: 12px; overflow: hidden; height: 250px; text-decoration: none;">
-                <img src="assets/Pant/OIP (35).png" alt="Pants" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
-                <div class="category-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;">
-                    <h2 style="color: #fff; font-size: 1.8rem; font-family: var(--font-heading); margin-bottom: 5px;">Pants & Jeans</h2>
-                    <span style="color: var(--primary-color); font-weight: 500;">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
-                </div>
-            </a>
+            <div class="stitch-categories-grid">
+                <!-- Top Row (3 Cards) -->
+                <div class="stitch-grid-top">
+                    <a href="shirt.html" class="stitch-cat-card reveal">
+                        <img src="assets/Shirt/plain formal shirt.png" alt="Shirts" class="stitch-cat-img">
+                        <div class="stitch-cat-gradient"></div>
+                        <h3 class="stitch-cat-name">Shirts</h3>
+                    </a>
 
-            <a href="track.html" class="category-card reveal" style="display: block; position: relative; border-radius: 12px; overflow: hidden; height: 250px; text-decoration: none;">
-                <img src="assets/Track Pant/classic_sweatpants_trio_pack.png" alt="Track Pants" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
-                <div class="category-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;">
-                    <h2 style="color: #fff; font-size: 1.8rem; font-family: var(--font-heading); margin-bottom: 5px;">Track Pants</h2>
-                    <span style="color: var(--primary-color); font-weight: 500;">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
-                </div>
-            </a>
+                    <a href="tshirt.html" class="stitch-cat-card reveal">
+                        <img src="assets/T-Shirt/tshirt1.png" alt="T-Shirts" class="stitch-cat-img">
+                        <div class="stitch-cat-gradient"></div>
+                        <h3 class="stitch-cat-name">T-Shirts</h3>
+                    </a>
 
-            <a href="combo.html" class="category-card reveal" style="display: block; position: relative; border-radius: 12px; overflow: hidden; height: 250px; text-decoration: none;">
-                <img src="assets/Combo/combo1.jpeg" alt="Combos" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
-                <div class="category-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;">
-                    <h2 style="color: #fff; font-size: 1.8rem; font-family: var(--font-heading); margin-bottom: 5px;">Combo Offers</h2>
-                    <span style="color: var(--primary-color); font-weight: 500;">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
-                </div>
-            </a>
-
-            <a href="#" onclick="openBulkOrderFlow(); return false;" class="category-card reveal" style="display: block; position: relative; border-radius: 12px; overflow: hidden; height: 250px; text-decoration: none; border: 2px solid var(--primary-color);">
-                <div style="position: absolute; inset: 0; background: rgba(15,17,21,0.8); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-                    <i class="fa-solid fa-layer-group" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 15px;"></i>
-                    <h2 style="color: #fff; font-size: 1.8rem; font-family: var(--font-heading); margin-bottom: 5px;">Bulk Orders</h2>
-                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Custom sizing for teams & events</p>
-                    <span style="background: var(--primary-color); color: #000; padding: 8px 20px; border-radius: 20px; font-weight: bold; display: inline-block;">Start Order</span>
-                </div>
-            </a>
-        </div>
-        <style>
-            .category-card:hover img { transform: scale(1.05); }
-            @media (max-width: 768px) {
-                .category-grid { grid-template-columns: 1fr !important; }
-            }
-        </style>
-    </main>
-
-    <!-- Footer -->
-        <footer>
-        <div class="container">
-            <div class="footer-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px;">
-                <!-- 1. Brand Section -->
-                <div class="footer-brand">
-                    <h3 class="logo" style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
-                        <img src="assets/logo.png?v=1" alt="AK Fashions Logo" class="brand-logo" style="width: 40px;">
-                        <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--primary-color);">AK FASHIONS</span>
-                    </h3>
-                    <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.5;">
-                        Redefining menswear with quality, style, and perfection.
-                    </p>
-                    <div class="social-icons" style="display: flex; gap: 15px;">
-                        <a href="https://www.instagram.com/ak_fashions__/" target="_blank" style="color: #fff; font-size: 1.2rem; transition: color 0.3s;"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="https://wa.me/916383341227" target="_blank" style="color: #fff; font-size: 1.2rem; transition: color 0.3s;"><i class="fa-brands fa-whatsapp"></i></a>
-                    </div>
+                    <a href="pant.html" class="stitch-cat-card reveal">
+                        <img src="assets/Pant/OIP (35).png" alt="Pants & Jeans" class="stitch-cat-img">
+                        <div class="stitch-cat-gradient"></div>
+                        <h3 class="stitch-cat-name">Pants & Jeans</h3>
+                    </a>
                 </div>
 
-                <!-- 2. Customer Support -->
-                <div class="footer-links">
-                    <h4 style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; margin-bottom: 20px; color: #fff;">Customer Support</h4>
-                    <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px;">
-                        <li><a href="customer-support.html#faq" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s;">FAQ</a></li>
-                        <li><a href="customer-support.html#shipping-policy" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s;">Shipping Policy</a></li>
-                        <li><a href="customer-support.html#return-policy" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s;">Return & Exchange Policy</a></li>
-                        <li><a href="customer-support.html#privacy-policy" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s;">Privacy Policy</a></li>
-                    </ul>
-                </div>
+                <!-- Bottom Row (2 Cards) -->
+                <div class="stitch-grid-bottom">
+                    <a href="track.html" class="stitch-cat-card reveal">
+                        <img src="assets/Track Pant/classic_sweatpants_trio_pack.png" alt="Track Pants" class="stitch-cat-img">
+                        <div class="stitch-cat-gradient"></div>
+                        <h3 class="stitch-cat-name">Track Pants</h3>
+                    </a>
 
-                <!-- 3. Contact Information -->
-                <div class="footer-links">
-                    <h4 style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; margin-bottom: 20px; color: #fff;">Contact Information</h4>
-                    <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 15px;">
-                        <li>
-                            <a href="tel:+916383341227" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: color 0.3s;">
-                                <i class="fa-solid fa-phone" style="color: var(--primary-color);"></i> +91 63833 41227
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://wa.me/916383341227" target="_blank" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: color 0.3s;">
-                                <i class="fa-brands fa-whatsapp" style="color: #25D366; font-size: 1.1rem;"></i> +91 63833 41227
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.instagram.com/ak_fashions__/" target="_blank" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: color 0.3s;">
-                                <i class="fa-brands fa-instagram" style="color: #E1306C; font-size: 1.1rem;"></i> ak_fashions__
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- 4. Why Choose AK Fashions -->
-                <div class="footer-trust">
-                    <h4 style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; margin-bottom: 20px; color: #fff;">Why Choose AK Fashions</h4>
-                    <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px;">
-                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
-                            <i class="fa-solid fa-circle-check" style="color: var(--primary-color);"></i> Premium Quality Products
-                        </li>
-                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
-                            <i class="fa-solid fa-circle-check" style="color: var(--primary-color);"></i> Affordable Pricing
-                        </li>
-                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
-                            <i class="fa-solid fa-circle-check" style="color: var(--primary-color);"></i> Easy WhatsApp Ordering
-                        </li>
-                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
-                            <i class="fa-solid fa-circle-check" style="color: var(--primary-color);"></i> Secure Shopping Experience
-                        </li>
-                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
-                            <i class="fa-solid fa-circle-check" style="color: var(--primary-color);"></i> Customer Satisfaction
-                        </li>
-                    </ul>
+                    <a href="combo.html" class="stitch-combo-card reveal">
+                        <div class="stitch-combo-content">
+                            <i class="fa-solid fa-tag stitch-combo-icon"></i>
+                            <h3 class="stitch-combo-title">Combo Offers</h3>
+                            <p class="stitch-combo-desc">Curated sets for effortless style.</p>
+                            <span class="stitch-combo-link">SHOP NOW <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                    </a>
                 </div>
             </div>
-            
-            <div class="footer-bottom" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; text-align: center;">
-                <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 AK FASHIONS. All Rights Reserved.</p>
+        </section>
+
+        <!-- ========== BULK ORDERS SECTION ========== -->
+        <section class="stitch-section container">
+            <div class="stitch-bulk-card reveal" onclick="openBulkOrderFlow();">
+                <div class="stitch-bulk-inner">
+                    <i class="fa-solid fa-box-archive stitch-bulk-icon"></i>
+                    <h2 class="stitch-bulk-title">Bulk Orders</h2>
+                    <p class="stitch-bulk-desc">
+                        Custom sizing for teams & events. Experience unparalleled precision and premium materials for your organization's wardrobe.
+                    </p>
+                    <button class="btn-stitch-outline" onclick="openBulkOrderFlow(); event.stopPropagation();">START ORDER</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="stitch-footer">
+        <div class="container stitch-footer-container">
+            <div class="stitch-footer-brand">
+                <span class="stitch-footer-logo">AK Fashions</span>
+                <p class="stitch-footer-copy">&copy; 2026 AK Fashions. All rights reserved.</p>
+            </div>
+
+            <div class="stitch-footer-links">
+                <a href="#" onclick="alert('AK Fashions - Premium Menswear Studio'); return false;">Brand Story</a>
+                <a href="shop.html">Quick Links</a>
+                <a href="customer-support.html">Contact Info</a>
+                <a href="https://www.instagram.com/ak_fashions__/" target="_blank">Social Media</a>
             </div>
         </div>
     </footer>
 
+    <!-- ========== MODALS ========== -->
     <!-- Product Modal -->
     <div id="product-modal" class="modal">
         <div class="modal-content product-modal-content">
@@ -217,7 +165,7 @@
     </div>
     <div id="sidebar-overlay" class="overlay"></div>
 
-        <!-- Login Modal -->
+    <!-- Login Modal -->
     <div id="login-modal" class="modal">
         <div class="modal-content" style="max-width:400px;padding:40px;text-align:center;">
             <button class="close-btn" id="close-login-modal">&times;</button>
@@ -252,36 +200,29 @@
                     <h2>Checkout Details</h2>
                     <p>Please enter your details to complete the order via WhatsApp.</p>
                     <form id="checkout-form" class="checkout-form">
-                        <div class="form-group">
-                            <label for="cust-name">Full Name *</label>
-                            <input type="text" id="cust-name" required placeholder="e.g. John Doe">
-                        </div>
-                        <div class="form-group">
-                            <label for="cust-phone">Phone Number *</label>
-                            <input type="tel" id="cust-phone" required placeholder="e.g. +91 9876543210">
-                        </div>
+                        <div class="form-group"><label for="cust-name">Full Name *</label><input type="text" id="cust-name" required placeholder="e.g. John Doe"></div>
+                        <div class="form-group"><label for="cust-phone">Phone Number *</label><input type="tel" id="cust-phone" required placeholder="e.g. +91 9876543210"></div>
                         <div class="form-group"><label for="cust-address">Delivery Address *</label><textarea id="cust-address" rows="2" required placeholder="Full street address"></textarea></div>
-<div style="display: flex; gap: 15px;">
-    <div class="form-group" style="flex: 1;"><label for="cust-pincode">Pincode *</label><input type="text" id="cust-pincode" required placeholder="e.g. 621216"></div>
-    <div class="form-group" style="flex: 1;"><label for="cust-district">District *</label><input type="text" id="cust-district" required placeholder="e.g. Tiruchirappalli"></div>
-</div>
-                        <button type="submit" class="btn btn-whatsapp btn-block">
-                            <i class="fa-brands fa-whatsapp"></i> Send Order via WhatsApp
-                        </button>
+                        <div style="display: flex; gap: 15px;">
+                            <div class="form-group" style="flex: 1;"><label for="cust-pincode">Pincode *</label><input type="text" id="cust-pincode" required placeholder="e.g. 621216"></div>
+                            <div class="form-group" style="flex: 1;"><label for="cust-district">District *</label><input type="text" id="cust-district" required placeholder="e.g. Tiruchirappalli"></div>
+                        </div>
+                        <button type="submit" class="btn btn-whatsapp btn-block"><i class="fa-brands fa-whatsapp"></i> Send Order via WhatsApp</button>
                     </form>
                 </div>
                 <div class="checkout-summary-section">
                     <h3>Order Summary</h3>
                     <div id="checkout-items" class="checkout-items"></div>
-                    <div class="checkout-total">
-                        <span>Total to Pay:</span>
-                        <span id="checkout-total-amount" class="total-amount">₹0</span>
-                    </div>
+                    <div class="checkout-total"><span>Total to Pay:</span><span id="checkout-total-amount" class="total-amount">₹0</span></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="app.js?v=3.3"></script>
+    <!-- jsPDF & AutoTable -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+    <script src="pdfGenerator.js"></script>
+    <script src="app.js?v=5.0"></script>
 </body>
 </html>

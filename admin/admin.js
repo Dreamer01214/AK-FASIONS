@@ -406,6 +406,14 @@ document.addEventListener('DOMContentLoaded', () => {
         let orderIndex = orders.findIndex(o => o.id === orderId);
         if(orderIndex > -1) {
             let order = orders[orderIndex];
+
+            // Bug fix: guard against performing the same status update twice
+            // (e.g. admin clicks Reject on an already-rejected order).
+            if (order.status === newStatus) {
+                showAdminToast(`Order is already ${newStatus}.`, 'error');
+                return;
+            }
+
             order.status = newStatus;
             
             if(newStatus === 'rejected') {
@@ -430,6 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let order = orders.find(o => o.id === orderId);
         if(!order) return;
 
+        window.currentViewedOrder = order;
         document.getElementById('modal-order-id').textContent = order.id;
 
         let customerHtml = `
@@ -521,12 +530,31 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span>Total Amount:</span>
                         <span style="color:var(--text-main)">₹${order.total.toLocaleString()}</span>
                     </div>
+                    <button class="btn btn-primary btn-block" style="margin-top:20px; font-weight:600;" onclick="generateAdminPDF(this)">
+                        <i class="fa-solid fa-file-pdf"></i> Generate PDF
+                    </button>
                 </div>
             </div>
         `;
 
         document.getElementById('order-details-content').innerHTML = customerHtml + itemsHtml + summaryHtml;
         document.getElementById('order-details-modal').style.display = 'flex';
+    };
+
+    window.generateAdminPDF = async function(btnEl) {
+        if (!window.currentViewedOrder) return;
+        const originalText = btnEl.innerHTML;
+        btnEl.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generating...';
+        btnEl.disabled = true;
+        try {
+            await window.generateOrderPDF(window.currentViewedOrder);
+            showAdminToast('PDF downloaded successfully!', 'success');
+        } catch(e) {
+            console.error(e);
+            showAdminToast('Failed to generate PDF.', 'error');
+        }
+        btnEl.innerHTML = originalText;
+        btnEl.disabled = false;
     };
 
     // ==========================================
@@ -712,13 +740,10 @@ if (loginForm) {
     });
 }
 
-const logoutBtn = document.getElementById('admin-logout-btn');
-if (logoutBtn) {
-    logoutBtn.addEventListener('click', () => {
-        localStorage.removeItem("ak_admin_auth");
-        window.location.href = "login.html";
-    });
-}
+// Bug fix: the logout button listener inside DOMContentLoaded (line ~691) is the
+// canonical one. The duplicate outside listener below is removed to prevent
+// it firing before the DOM is fully ready on slow connections.
+// (logoutBtn listener kept only inside DOMContentLoaded above)
 
 // Auto-open order details if query param exists
 function openOrderDetailsIfRequested() {

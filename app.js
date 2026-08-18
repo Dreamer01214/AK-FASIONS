@@ -10,7 +10,7 @@ const WHATSAPP_NUMBER = "919361438664";
 const baseProducts = [
     {
         id: 1,
-        name: "Adidas T-Shirt",
+        name: "Adidas T-Shirt (Blue)",
         category: "tshirts",
         price: 350,
         originalPrice: 599,
@@ -24,7 +24,7 @@ const baseProducts = [
     },
     {
         id: 2,
-        name: "Adidas T-Shirt",
+        name: "Adidas T-Shirt (Beige)",
         category: "tshirts",
         price: 350,
         originalPrice: 599,
@@ -37,7 +37,7 @@ const baseProducts = [
     },
     {
         id: 3,
-        name: "Adidas T-Shirt",
+        name: "Adidas T-Shirt (Pink)",
         category: "tshirts",
         price: 350,
         originalPrice: 599,
@@ -168,13 +168,16 @@ const products = baseProducts.map(p => ({
 }));
 
 extraProductsData.forEach(extra => {
+    // Bug fix: only mark as offer if there's an actual discount defined;
+    // previously all extra products were given a fabricated originalPrice.
+    const hasDiscount = extra.originalPrice && extra.originalPrice > extra.price;
     products.push({
         id: extra.id,
         name: extra.name,
         category: extra.category,
         price: extra.price,
-        originalPrice: extra.price + 299,
-        isOffer: extra.id % 3 === 0,
+        originalPrice: hasDiscount ? extra.originalPrice : undefined,
+        isOffer: hasDiscount,
         image: extra.image,
         description: "Premium quality clothing for everyday comfort and style.",
         sizes: Object.keys(extra.defaultStock),
@@ -305,7 +308,8 @@ const orderHistory = {
     },
 
     generateId() {
-        return 'ORD-' + Date.now();
+        // Add random suffix to avoid collisions if two orders are placed within the same millisecond
+        return 'ORD-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7).toUpperCase();
     }
 };
 
@@ -407,7 +411,8 @@ function init() {
 
             if (shopTitle && filterParam !== 'all') {
                 shopTitle.textContent = filterParam.charAt(0).toUpperCase() + filterParam.slice(1);
-                shopSubtitle.textContent = "Browse our premium " + filterParam + ".";
+                // Bug fix: null-check shopSubtitle before accessing it
+                if (shopSubtitle) shopSubtitle.textContent = "Browse our premium " + filterParam + ".";
             }
 
             if (elements.filterBtns && categoryFilters && categoryFilters.style.display !== 'none') {
@@ -438,6 +443,27 @@ function init() {
             }
         }
     });
+
+    // Section 15: Admin login form (storefront modal)
+    const adminLoginForm = document.getElementById('storefront-admin-login');
+    if (adminLoginForm) {
+        adminLoginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const id = document.getElementById('modal-admin-id').value;
+            const pass = document.getElementById('modal-admin-password').value;
+            const errorMsg = document.getElementById('modal-login-error');
+            if ((id === 'admin123' || id === 'admin') && pass === 'admin123') {
+                const expiresAt = Date.now() + (60 * 60 * 1000);
+                localStorage.setItem("ak_admin_auth", JSON.stringify({ loggedIn: true, expiresAt }));
+                window.location.href = "admin/index.html";
+            } else {
+                if (errorMsg) errorMsg.style.display = 'block';
+            }
+        });
+    }
+
+    // Section 16: Scroll-reveal initial observation (delayed so grid renders first)
+    setTimeout(observeElements, 500);
 }
 
 // ==========================================
@@ -475,36 +501,31 @@ function createProductCard(product) {
     const card = document.createElement('div');
     card.className = 'product-card reveal';
 
-    const badgeHtml = product.isOffer ? `<div class="offer-badge">OFFER</div>` : '';
     const priceHtml = product.originalPrice
-        ? `<span class="original-price">${formatPrice(product.originalPrice)}</span> ${formatPrice(product.price)}`
-        : formatPrice(product.price);
+        ? `<span class="original-price">${formatPrice(product.originalPrice)}</span> <span class="current-price">${formatPrice(product.price)}</span>`
+        : `<span class="current-price">${formatPrice(product.price)}</span>`;
 
     const totalStock = stockManager.getTotalForProduct(product.id);
     const stockInfo = totalStock === 0
-        ? `<div class="card-stock-badge stock-none">Out of Stock</div>`
+        ? `<div class="card-stock-badge stock-none">OUT OF STOCK</div>`
         : totalStock <= 5
-            ? `<div class="card-stock-badge stock-low">${totalStock} left</div>`
-            : `<div class="card-stock-badge stock-good">In Stock</div>`;
+            ? `<div class="card-stock-badge stock-low">LOW STOCK</div>`
+            : `<div class="card-stock-badge stock-good">IN STOCK</div>`;
+
+    const categoryName = (product.category || 'MENSWEAR').toUpperCase();
 
     card.innerHTML = `
-        <div class="product-img-wrapper" style="cursor:pointer;" onclick="openProductModal(${product.id})">
-            ${badgeHtml}
+        <div class="product-img-wrapper" onclick="openProductModal(${product.id})">
             ${stockInfo}
             <img src="${product.image}" alt="${product.name}" class="product-img" loading="lazy">
         </div>
         <div class="product-info">
-            <span class="product-category">${product.category.toUpperCase()}</span>
-            <h3 class="product-title" style="cursor:pointer;" onclick="openProductModal(${product.id})">${product.name}</h3>
+            <span class="product-category">${categoryName}</span>
+            <h3 class="product-title" onclick="openProductModal(${product.id})">${product.name}</h3>
             <div class="product-price">${priceHtml}</div>
-            <div style="display: flex; gap: 10px; margin-top: auto;">
-                <button class="btn btn-primary" style="flex: 1; padding: 12px 10px; font-size: 0.9rem;" onclick="openProductModal(${product.id})">
-                    <i class="fa-solid fa-eye"></i> View
-                </button>
-                <button class="btn btn-whatsapp" style="flex: 1; padding: 12px 10px; font-size: 0.9rem;" onclick="buyNow(${product.id})">
-                    <i class="fa-solid fa-bolt"></i> Buy Now
-                </button>
-            </div>
+            <button class="btn-view-details" onclick="openProductModal(${product.id})">
+                <i class="fa-regular fa-eye"></i> View Details
+            </button>
         </div>
     `;
     return card;
@@ -731,7 +752,10 @@ let currentBulkRequirements = {}; // {size: qty}
 let currentBulkCategory = null;
 
 function ensureBulkOrderModalExists() {
-    if (!document.getElementById('group-order-modal')) {
+    // Bug fix: always apply consistent dark styling to the modal, whether it was
+    // pre-existing in HTML or dynamically created, to avoid inconsistent appearance.
+    let modal = document.getElementById('group-order-modal');
+    if (!modal) {
         const modalHtml = `
         <div id="group-order-modal" class="modal">
             <div class="modal-content group-order-modal-content">
@@ -740,15 +764,28 @@ function ensureBulkOrderModalExists() {
             </div>
         </div>`;
         document.body.insertAdjacentHTML('beforeend', modalHtml);
-        
-        elements.groupOrderModal = document.getElementById('group-order-modal');
-        elements.closeGroupOrderModal = document.getElementById('close-group-order-modal');
-        elements.groupOrderContainer = document.getElementById('group-order-container');
-        
-        elements.groupOrderModal.addEventListener('click', e => {
-            if (e.target === elements.groupOrderModal) closeModals();
-        });
+        modal = document.getElementById('group-order-modal');
     }
+    // Bug fix: use a data attribute to ensure the backdrop-click listener is only
+    // added once, even if the modal was pre-existing in HTML (where the listener
+    // was never attached). Prevents listener stacking on repeated calls.
+    if (!modal.dataset.backdropListenerAdded) {
+        modal.addEventListener('click', e => {
+            if (e.target === modal) closeModals();
+        });
+        modal.dataset.backdropListenerAdded = 'true';
+    }
+    // Always enforce the dark styling on the inner content div
+    const inner = modal.querySelector('.group-order-modal-content');
+    if (inner) {
+        inner.style.background = '#161616';
+        inner.style.border = '1px solid var(--border-gold)';
+        inner.style.padding = '0';
+        inner.style.borderRadius = '8px';
+    }
+    elements.groupOrderModal = modal;
+    elements.closeGroupOrderModal = document.getElementById('close-group-order-modal');
+    elements.groupOrderContainer = document.getElementById('group-order-container');
 }
 
 window.openBulkOrderFlow = function() {
@@ -757,6 +794,10 @@ window.openBulkOrderFlow = function() {
 
     currentBulkRequirements = {};
     currentBulkCategory = null;
+    
+    if (document.getElementById('close-group-order-modal')) {
+        document.getElementById('close-group-order-modal').style.display = 'block';
+    }
 
     elements.groupOrderContainer.innerHTML = `
         <div class="group-size-selector-header" style="padding: 30px 30px 10px;">
@@ -791,33 +832,44 @@ window.selectBulkCategory = function(cat) {
     } else {
         sizes = ['28', '30', '32', '34', '36'];
     }
+    
+    if (document.getElementById('close-group-order-modal')) {
+        document.getElementById('close-group-order-modal').style.display = 'none';
+    }
 
     elements.groupOrderContainer.innerHTML = `
-        <div class="group-size-selector-header" style="padding: 30px 30px 10px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color);">
-            <div>
-                <h2 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 5px; color: var(--primary-color);">Enter Sizes</h2>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0; text-transform: capitalize;">Category: ${cat === 'jeans' ? 'Pants' : cat === 'track' ? 'Track Pants' : cat}</p>
+        <div style="display:flex;flex-direction:column;">
+            <div style="padding:22px 24px 18px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:flex-start;">
+                <div>
+                    <h2 style="font-family:var(--font-heading);font-size:1.75rem;font-weight:800;color:var(--primary-color);margin:0 0 3px 0;">Enter Sizes</h2>
+                    <p style="color:#6b7280;font-size:0.85rem;margin:0;text-transform:capitalize;">Category: ${cat === 'jeans' ? 'Pants' : cat === 'track' ? 'Track Pants' : cat}</p>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;">
+                    <button onclick="openBulkOrderFlow()" style="background:#d4d4d4;color:#111;padding:5px 14px;font-size:0.8rem;font-weight:600;font-family:var(--font-sans);border-radius:5px;border:none;cursor:pointer;">
+                        &larr; Back
+                    </button>
+                    <button onclick="closeModals()" style="background:none;border:none;color:#9ca3af;font-size:1.3rem;cursor:pointer;padding:0;line-height:1;">
+                        &times;
+                    </button>
+                </div>
             </div>
-            <button class="btn btn-outline" onclick="openBulkOrderFlow()" style="padding: 8px 15px; font-size: 0.85rem; border-radius: 8px;">
-                <i class="fa-solid fa-arrow-left"></i> Back
-            </button>
-        </div>
-        <div class="group-size-selector-body" style="padding: 20px 30px 30px;">
-            <div class="bulk-size-inputs" style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px;">
-                ${sizes.map(size => `
-                    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.05); padding: 10px 15px; border-radius: 8px;">
-                        <span style="font-weight: bold; font-size: 1.2rem;">${size}</span>
-                        <div class="group-qty-control">
-                            <button type="button" class="qty-btn" onclick="adjustBulkReqQty('${size}', -1)">-</button>
-                            <input type="number" id="bulk-req-${size}" class="qty-input" value="0" min="0" oninput="handleBulkReqInput('${size}', this)" onblur="handleBulkReqBlur('${size}', this)">
-                            <button type="button" class="qty-btn" onclick="adjustBulkReqQty('${size}', 1)">+</button>
+            <div>
+                ${sizes.map((size, idx) => `
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding:15px 24px;${idx < sizes.length - 1 ? 'border-bottom:1px solid rgba(255,255,255,0.05);' : ''}">
+                        <span style="font-weight:700;font-size:1.1rem;color:#fff;">${size}</span>
+                        <div style="display:flex;align-items:center;">
+                            <button type="button" onclick="adjustBulkReqQty('${size}', -1)" style="width:32px;height:32px;background:#2a2a2a;border:none;color:#999;font-size:1rem;cursor:pointer;border-radius:5px 0 0 5px;display:flex;align-items:center;justify-content:center;">&#8722;</button>
+                            <input type="number" id="bulk-req-${size}" value="0" min="0" oninput="handleBulkReqInput('${size}', this)" onblur="handleBulkReqBlur('${size}', this)" style="width:42px;height:32px;background:#1e1e1e;border:none;color:#fff;text-align:center;font-size:0.9rem;font-weight:600;padding:0;outline:none;-moz-appearance:textfield;-webkit-appearance:none;">
+                            <button type="button" onclick="adjustBulkReqQty('${size}', 1)" style="width:32px;height:32px;background:#2a2a2a;border:none;color:#999;font-size:1rem;cursor:pointer;border-radius:0 5px 5px 0;display:flex;align-items:center;justify-content:center;">&#43;</button>
                         </div>
                     </div>
                 `).join('')}
             </div>
-            <button class="btn btn-primary btn-block" onclick="findBulkProducts()" style="padding: 15px; font-size: 1.1rem;">
-                Find Products <i class="fa-solid fa-magnifying-glass" style="margin-left: 5px;"></i>
-            </button>
+            <div style="padding:16px 24px 24px;">
+                <button onclick="findBulkProducts()" style="width:100%;padding:14px;background:var(--primary-color);color:#111;font-family:var(--font-heading);font-size:1rem;font-weight:700;border:none;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+                    Find Products <i class="fa-solid fa-magnifying-glass" style="font-size:0.85rem;"></i>
+                </button>
+            </div>
         </div>
     `;
 };
@@ -831,6 +883,14 @@ window.adjustBulkReqQty = function(size, change) {
 };
 
 window.findBulkProducts = function() {
+    // Bug fix: always re-read current DOM values before searching, in case oninput
+    // didn't fire (e.g. browser autofill or programmatic value changes)
+    document.querySelectorAll('[id^="bulk-req-"]').forEach(input => {
+        const size = input.id.replace('bulk-req-', '');
+        const val = parseInt(input.value);
+        currentBulkRequirements[size] = isNaN(val) || val < 0 ? 0 : val;
+    });
+
     let reqs = Object.keys(currentBulkRequirements).filter(size => currentBulkRequirements[size] > 0);
     if (reqs.length === 0) {
         showToast('Please enter at least one quantity', 'error');
@@ -992,22 +1052,33 @@ window.addBulkToCart = function (productId) {
         return;
     }
 
-    let hasError = false;
-    inputs.forEach(inp => {
+    // Bug fix: use for...of so we can properly return on stock error,
+    // avoiding the forEach-callback early-return trap.
+    for (const inp of inputs) {
         const size = inp.dataset.size;
         const qty = parseInt(inp.value) || 0;
         const stock = parseInt(inp.dataset.stock) || 0;
         if (qty > 0) {
-            if (qty > stock) { showToast(`Only ${stock} in stock for size ${size}`, 'error'); hasError = true; return; }
+            if (qty > stock) {
+                showToast(`Only ${stock} in stock for size ${size}`, 'error');
+                return; // Properly exits the entire function
+            }
+        }
+    }
+
+    // All sizes valid — add to cart
+    for (const inp of inputs) {
+        const size = inp.dataset.size;
+        const qty = parseInt(inp.value) || 0;
+        const stock = parseInt(inp.dataset.stock) || 0;
+        if (qty > 0 && qty <= stock) {
             addToCart(product, size, qty, color, true);
         }
-    });
-
-    if (!hasError) {
-        closeModals();
-        toggleCartSidebar(true);
-        showToast('Bulk order added to cart!', 'success');
     }
+
+    closeModals();
+    toggleCartSidebar(true);
+    showToast('Bulk order added to cart!', 'success');
 };
 
 window.sendBulkOrderDirectly = function (productId) {
@@ -1023,25 +1094,50 @@ window.sendBulkOrderDirectly = function (productId) {
         return;
     }
 
-    let orderLines = [];
-    inputs.forEach(inp => {
+    // Bug fix: validate ALL sizes first using for...of so a stock error
+    // properly exits the function (forEach-callback return does not).
+    for (const inp of inputs) {
         const size = inp.dataset.size;
         const qty = parseInt(inp.value) || 0;
         const stock = parseInt(inp.dataset.stock) || 0;
+        if (qty > 0 && qty > stock) {
+            showToast(`Only ${stock} in stock for size ${size}`, 'error');
+            return; // Properly exits the entire function
+        }
+    }
+
+    const orderLines = [];
+    for (const inp of inputs) {
+        const size = inp.dataset.size;
+        const qty = parseInt(inp.value) || 0;
         if (qty > 0) {
-            if (qty > stock) { showToast(`Only ${stock} in stock for size ${size}`, 'error'); return; }
             orderLines.push({ size, qty, price: product.price });
         }
-    });
+    }
 
-    if (orderLines.length === 0) return;
+    if (orderLines.length === 0) {
+        showToast('Please enter at least one quantity', 'error');
+        return;
+    }
 
     const tempCartBackup = [...cart];
     cart = [];
     orderLines.forEach(line => {
-        cart.push({ id: product.id, name: product.name, price: product.price, image: product.image, size: line.size, color, qty: line.qty, isGroup: true });
+        // Bug fix: include _key so bulk items can be deduplicated like regular cart items
+        const key = `${product.id}_${line.size}_${color || ''}`;
+        cart.push({
+            _key: key,
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.image,
+            size: line.size,
+            color,
+            qty: line.qty,
+            isGroup: true
+        });
     });
-    openCheckout(true);
+    openCheckout();
     window._groupCartBackup = tempCartBackup;
 };
 
@@ -1159,9 +1255,18 @@ function closeModals() {
     if (elements.loginModal) elements.loginModal.classList.remove('active');
     if (elements.groupOrderModal) elements.groupOrderModal.classList.remove('active');
     document.body.style.overflow = '';
+    // Bug fix: if the user cancels checkout without completing it, clear the bulk
+    // cart backup so it does not corrupt a subsequent normal checkout.
+    if (window._groupCartBackup && !elements.checkoutModal?.classList.contains('active')) {
+        cart = [...window._groupCartBackup];
+        window._groupCartBackup = null;
+        saveCart();
+        updateCartUI();
+    }
 }
 
-function openCheckout(isGroupDirect = false) {
+// Bug fix: removed unused isGroupDirect parameter
+function openCheckout() {
     toggleCartSidebar(false);
     if (!elements.checkoutItems || !elements.checkoutTotalAmount) return;
 
@@ -1343,67 +1448,35 @@ function sendWhatsAppOrder(name, phone, address, pincode, district) {
 
     let subtotal = 0;
     let totalItems = 0;
-    const baseUrl = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
 
-    let groupedCart = [];
     cart.forEach(item => {
-        if (item.isGroup) {
-            let existing = groupedCart.find(g => g.id === item.id && g.isGroup && g.color === item.color);
-            if (existing) {
-                existing.qty += item.qty;
-                if (!existing.bulkLines) existing.bulkLines = [{size: existing.size, qty: existing.qty - item.qty}];
-                existing.bulkLines.push({size: item.size, qty: item.qty});
-            } else {
-                groupedCart.push({...item, bulkLines: [{size: item.size, qty: item.qty}]});
-            }
-        } else {
-            groupedCart.push(item);
-        }
-    });
-
-    groupedCart.forEach(item => {
         subtotal += item.price * item.qty;
         totalItems += item.qty;
     });
-
     const timestampObj = new Date();
-    const dateStr = `${timestampObj.getDate().toString().padStart(2, '0')}/${(timestampObj.getMonth() + 1).toString().padStart(2, '0')}/${timestampObj.getFullYear()}`;
-    
-    let hours = timestampObj.getHours();
-    let minutes = timestampObj.getMinutes();
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12;
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-    const timeStr = hours + ':' + minutes + ' ' + ampm;
-    
-    const timestampStr = `${dateStr} ${timeStr}`;
 
     const orderId = orderHistory.generateId();
-    let isGroupOrder = cart.some(item => item.isGroup);
-    let orderTypeStr = isGroupOrder ? '👥 *GROUP ORDER RECEIVED*' : '🛒 *STANDARD ORDER RECEIVED*';
+    const statusDisplay = 'Pending Confirmation';
+    const paymentDisplay = 'Cash on Delivery';
+    const itemsDisplay = totalItems === 1 ? '1 Item' : `${totalItems} Items`;
 
-    const adminOrderLink = `${baseUrl}admin/index.html?order=${orderId}`;
+    const message = `🛍️ *AK FASHIONS*
+━━━━━━━━━━━━━━━━━━
+🚨 *NEW ORDER RECEIVED*
 
-    const message = `${orderTypeStr}
----
-*Customer Details*
-Name: ${name}
-Mobile: ${phone}
-Address: ${address}
-Pincode: ${pincode}
-District: ${district}
----
-*Order Summary*
-Order ID: ${orderId}
-Total Products: ${groupedCart.length}
-Total Quantity: ${totalItems}
-Total Amount: ₹${subtotal.toLocaleString('en-IN')}
-Order Date: ${timestampStr}
----
-🔗 *View Complete Order*
-${adminOrderLink}
----`;
+🆔 Order: *${orderId}*
+👤 ${name}
+📞 ${phone}
+
+🛒 ${itemsDisplay}
+💰 *Total: ₹${subtotal.toLocaleString('en-IN')}*
+💳 ${paymentDisplay}
+📌 *${statusDisplay}*
+
+📄 *Order details attached in PDF.*
+
+━━━━━━━━━━━━━━━━━━
+❤️ Thank you — *AK FASHIONS*`;
 
     // Save to order history BEFORE clearing cart
     const orderRecord = {
@@ -1445,7 +1518,56 @@ ${adminOrderLink}
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
     showToast(`Order ${orderId} sent! Check WhatsApp. 🎉`, 'success');
+    showOrderSuccessModal(orderRecord);
 }
+
+window.showOrderSuccessModal = function(order) {
+    let successModal = document.getElementById('order-success-modal');
+    if (!successModal) {
+        const modalHtml = `
+        <div id="order-success-modal" class="modal">
+            <div class="modal-content" style="max-width:500px;text-align:center;padding:40px;">
+                <button class="close-btn" onclick="document.getElementById('order-success-modal').classList.remove('active')">&times;</button>
+                <i class="fa-solid fa-circle-check" style="font-size:4rem;color:#2ed573;margin-bottom:20px;"></i>
+                <h2>Order Placed Successfully!</h2>
+                <p style="color:var(--text-muted);margin:15px 0;">Your order <strong id="success-order-id"></strong> has been saved and sent via WhatsApp.</p>
+                <div style="display:flex;gap:15px;justify-content:center;margin-top:25px;flex-wrap:wrap;">
+                    <button class="btn btn-outline" id="btn-download-pdf">
+                        <i class="fa-solid fa-file-pdf"></i> Download PDF
+                    </button>
+                    <button class="btn btn-primary" onclick="document.getElementById('order-success-modal').classList.remove('active')">
+                        Continue Shopping
+                    </button>
+                </div>
+            </div>
+        </div>`;
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+        successModal = document.getElementById('order-success-modal');
+        
+        // Add event listener for overlay click
+        successModal.addEventListener('click', e => { 
+            if (e.target === successModal) successModal.classList.remove('active'); 
+        });
+    }
+    
+    document.getElementById('success-order-id').textContent = order.id;
+    document.getElementById('btn-download-pdf').onclick = async function() {
+        const originalText = this.innerHTML;
+        this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generating...';
+        this.disabled = true;
+        try {
+            await window.generateOrderPDF(order);
+            showToast('PDF downloaded successfully!', 'success');
+        } catch(e) {
+            console.error(e);
+            showToast('Failed to generate PDF. Please try again.', 'error');
+        }
+        this.innerHTML = originalText;
+        this.disabled = false;
+    };
+    
+    successModal.classList.add('active');
+};
 
 // ==========================================
 // 13. TOAST NOTIFICATIONS
@@ -1549,32 +1671,15 @@ function updateCartUIStateOnly() {
 }
 
 // ==========================================
-// 14. BOOT
+// 14. BOOT — single DOMContentLoaded entry point
+// Bug fix: merged 3 separate DOMContentLoaded listeners into init() to avoid
+// redundancy and ensure consistent execution order.
 // ==========================================
 document.addEventListener('DOMContentLoaded', init);
 
 // ==========================================
-// 15. ADMIN LOGIN FROM STOREFRONT
+// 15. ADMIN LOGIN FROM STOREFRONT (moved into init())
 // ==========================================
-document.addEventListener('DOMContentLoaded', () => {
-    const adminLoginForm = document.getElementById('storefront-admin-login');
-    if (adminLoginForm) {
-        adminLoginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const id = document.getElementById('modal-admin-id').value;
-            const pass = document.getElementById('modal-admin-password').value;
-            const errorMsg = document.getElementById('modal-login-error');
-            
-            if ((id === 'admin123' || id === 'admin') && pass === 'admin123') {
-                const expiresAt = Date.now() + (60 * 60 * 1000); // 1 hour
-                localStorage.setItem("ak_admin_auth", JSON.stringify({ loggedIn: true, expiresAt }));
-                window.location.href = "admin/index.html";
-            } else {
-                if (errorMsg) errorMsg.style.display = 'block';
-            }
-        });
-    }
-});
 
 // ==========================================
 // 16. BUY NOW & ANIMATIONS
@@ -1612,7 +1717,5 @@ window.renderPaginatedGrid = function() {
     if(originalRenderPaginatedGrid) originalRenderPaginatedGrid();
     observeElements();
 };
-
-document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(observeElements, 500);
-});
+// Note: observeElements() is also called inside init() with a 500ms delay.
+// The standalone DOMContentLoaded listener has been removed as it's now redundant.

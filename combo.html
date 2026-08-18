@@ -1,25 +1,26 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop | AK Fashions</title>
+    <title>Combo Offers | AK Fashions</title>
     <link rel="icon" href="assets/logo.png" type="image/png">
     
-    <meta name="description" content="Browse all premium menswear at AK Fashions. Shirts, T-Shirts, Jeans, Combos. Group orders available.">
-    <link rel="stylesheet" href="style.css?v=3.1">
+    <meta name="description" content="Exclusive bundle offers and curated menswear combos at special prices.">
+    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="style.css?v=6.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-    <!-- Navbar -->
-    <nav class="navbar" style="background:rgba(15,17,21,0.98);">
+<body class="dark-theme">
+
+    <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+            <a href="index.html" class="logo">
                 <img src="assets/logo.png?v=1" alt="AK Fashions Logo" class="brand-logo">
-                <span style="font-family:'Outfit',sans-serif;font-weight:800;font-size:1.4rem;color:var(--primary-color);letter-spacing:1px;text-transform:uppercase;">AK FASHIONS</span>
+                <span class="logo-text">AK Fashions</span>
             </a>
             <ul class="nav-links">
                 <li><a href="index.html" class="nav-link">Home</a></li>
@@ -27,42 +28,40 @@
                 <li><a href="#" class="nav-link" onclick="openBulkOrderFlow(); return false;">Bulk Orders</a></li>
             </ul>
             <div class="nav-actions">
-                <button id="login-btn" class="icon-btn" aria-label="User Login"><i class="fa-solid fa-user"></i></button>
+                <button id="search-toggle-btn" class="icon-btn" aria-label="Search" onclick="document.getElementById('search-container-wrap').classList.toggle('active');">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
                 <button id="cart-btn" class="icon-btn" aria-label="Open Cart">
-                    <i class="fa-solid fa-bag-shopping"></i>
+                    <i class="fa-solid fa-cart-shopping"></i>
                     <span id="cart-badge" class="badge">0</span>
+                </button>
+                <button id="login-btn" class="icon-btn" aria-label="User Account">
+                    <i class="fa-regular fa-user"></i>
                 </button>
             </div>
         </div>
     </nav>
 
-    <header class="shop-header">
+    <header class="shop-collection-header">
         <div class="container">
-            <h1 class="hero-title" style="font-size:3rem;margin-bottom:10px;">Our Collection</h1>
-            <p class="hero-subtitle" style="margin-bottom:20px;">Explore our premium menswear. Group orders available on shirts &amp; tees.</p>
-            <div class="search-bar-container">
-                <input type="text" id="search-input" class="search-input" placeholder="Search for shirts, jeans, t-shirts...">
-                <i class="fa-solid fa-search search-icon"></i>
+            <div class="shop-header-flex">
+                <div class="shop-title-group">
+                    <h1>Combo Offers</h1>
+                    <p>Curated outfit sets and multi-item packs at unbeatable value.</p>
+                </div>
+                <div class="shop-header-controls">
+                    <select id="sort-select" class="sort-select">
+                        <option value="featured">Sort by: Featured</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                    </select>
+                </div>
             </div>
         </div>
     </header>
 
     <main>
-        <!-- Filter Tabs -->
-        <section class="categories" style="padding-top:20px;">
-            <div class="container">
-                <div class="category-filters" id="category-filters">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="offers">Offers 🔥</button>
-                    <button class="filter-btn" data-filter="shirts">Shirts</button>
-                    <button class="filter-btn" data-filter="tshirts">T-Shirts</button>
-                    <button class="filter-btn" data-filter="jeans">Jeans</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Products Grid -->
-        <section class="products" style="padding-top:40px;">
+        <section class="products">
             <div class="container">
                 <div class="products-grid" id="products-grid"></div>
                 <div id="pagination-container" class="pagination"></div>
@@ -70,174 +69,33 @@
         </section>
     </main>
 
-    <!-- Footer -->
-        <footer>
-        <div class="container">
-            <div class="footer-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px;">
-                <!-- 1. Brand Section -->
-                <div class="footer-brand">
-                    <h3 class="logo" style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
-                        <img src="assets/logo.png?v=1" alt="AK Fashions Logo" class="brand-logo" style="width: 40px;">
-                        <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--primary-color);">AK FASHIONS</span>
-                    </h3>
-                    <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.5;">
-                        Redefining menswear with quality, style, and perfection.
-                    </p>
-                    <div class="social-icons" style="display: flex; gap: 15px;">
-                        <a href="https://www.instagram.com/ak_fashions__/" target="_blank" style="color: #fff; font-size: 1.2rem; transition: color 0.3s;"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="https://wa.me/916383341227" target="_blank" style="color: #fff; font-size: 1.2rem; transition: color 0.3s;"><i class="fa-brands fa-whatsapp"></i></a>
-                    </div>
-                </div>
-
-                <!-- 2. Customer Support -->
-                <div class="footer-links">
-                    <h4 style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; margin-bottom: 20px; color: #fff;">Customer Support</h4>
-                    <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px;">
-                        <li><a href="customer-support.html#faq" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s;">FAQ</a></li>
-                        <li><a href="customer-support.html#shipping-policy" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s;">Shipping Policy</a></li>
-                        <li><a href="customer-support.html#return-policy" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s;">Return & Exchange Policy</a></li>
-                        <li><a href="customer-support.html#privacy-policy" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s;">Privacy Policy</a></li>
-                    </ul>
-                </div>
-
-                <!-- 3. Contact Information -->
-                <div class="footer-links">
-                    <h4 style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; margin-bottom: 20px; color: #fff;">Contact Information</h4>
-                    <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 15px;">
-                        <li>
-                            <a href="tel:+916383341227" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: color 0.3s;">
-                                <i class="fa-solid fa-phone" style="color: var(--primary-color);"></i> +91 63833 41227
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://wa.me/916383341227" target="_blank" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: color 0.3s;">
-                                <i class="fa-brands fa-whatsapp" style="color: #25D366; font-size: 1.1rem;"></i> +91 63833 41227
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.instagram.com/ak_fashions__/" target="_blank" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: color 0.3s;">
-                                <i class="fa-brands fa-instagram" style="color: #E1306C; font-size: 1.1rem;"></i> ak_fashions__
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- 4. Why Choose AK Fashions -->
-                <div class="footer-trust">
-                    <h4 style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; margin-bottom: 20px; color: #fff;">Why Choose AK Fashions</h4>
-                    <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px;">
-                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
-                            <i class="fa-solid fa-circle-check" style="color: var(--primary-color);"></i> Premium Quality Products
-                        </li>
-                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
-                            <i class="fa-solid fa-circle-check" style="color: var(--primary-color);"></i> Affordable Pricing
-                        </li>
-                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
-                            <i class="fa-solid fa-circle-check" style="color: var(--primary-color);"></i> Easy WhatsApp Ordering
-                        </li>
-                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
-                            <i class="fa-solid fa-circle-check" style="color: var(--primary-color);"></i> Secure Shopping Experience
-                        </li>
-                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
-                            <i class="fa-solid fa-circle-check" style="color: var(--primary-color);"></i> Customer Satisfaction
-                        </li>
-                    </ul>
-                </div>
+    <footer class="stitch-footer">
+        <div class="container stitch-footer-container">
+            <div class="stitch-footer-brand">
+                <span class="stitch-footer-logo">AK Fashions</span>
+                <p class="stitch-footer-copy" style="max-width: 320px; line-height: 1.5; margin-top: 6px;">
+                    Elevating menswear with precision, prestige, and unparalleled craftsmanship.
+                </p>
             </div>
-            
-            <div class="footer-bottom" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; text-align: center;">
-                <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 AK FASHIONS. All Rights Reserved.</p>
+            <div class="stitch-footer-links">
+                <a href="index.html">Home</a>
+                <a href="shop.html">Shop</a>
+                <a href="customer-support.html">Contact Info</a>
             </div>
+            <div class="stitch-footer-copy">&copy; 2026 AK Fashions. All rights reserved.</div>
         </div>
     </footer>
 
-    <!-- Product Modal -->
-    <div id="product-modal" class="modal">
-        <div class="modal-content product-modal-content">
-            <button class="close-btn" id="close-product-modal">&times;</button>
-            <div class="product-details" id="product-details-container"></div>
-        </div>
-    </div>
-
-    <!-- Group Order Modal -->
-    <div id="group-order-modal" class="modal">
-        <div class="modal-content group-order-modal-content">
-            <button class="close-btn" id="close-group-order-modal">&times;</button>
-            <div id="group-order-container"></div>
-        </div>
-    </div>
-
-    <!-- Cart Sidebar -->
-    <div id="cart-sidebar" class="sidebar">
-        <div class="sidebar-header">
-            <h2>Your Cart</h2>
-            <button class="close-btn" id="close-cart-sidebar">&times;</button>
-        </div>
-        <div class="cart-items" id="cart-items-container"></div>
-        <div class="cart-footer">
-            <div class="cart-summary">
-                <span>Subtotal</span>
-                <span id="cart-subtotal">₹0</span>
-            </div>
-            <button id="checkout-btn" class="btn btn-primary btn-block" disabled>Proceed to Checkout</button>
-        </div>
-    </div>
+    <!-- Modals -->
+    <div id="product-modal" class="modal"><div class="modal-content product-modal-content"><button class="close-btn" id="close-product-modal">&times;</button><div class="product-details" id="product-details-container"></div></div></div>
+    <div id="group-order-modal" class="modal"><div class="modal-content group-order-modal-content"><button class="close-btn" id="close-group-order-modal">&times;</button><div id="group-order-container"></div></div></div>
+    <div id="cart-sidebar" class="sidebar"><div class="sidebar-header"><h2>Your Cart</h2><button class="close-btn" id="close-cart-sidebar">&times;</button></div><div class="cart-items" id="cart-items-container"></div><div class="cart-footer"><div class="cart-summary"><span>Subtotal</span><span id="cart-subtotal">₹0</span></div><button id="checkout-btn" class="btn btn-primary btn-block" disabled>Proceed to Checkout</button></div></div>
     <div id="sidebar-overlay" class="overlay"></div>
 
-        <!-- Login Modal -->
-    <div id="login-modal" class="modal">
-        <div class="modal-content" style="max-width:400px;padding:40px;text-align:center;">
-            <button class="close-btn" id="close-login-modal">&times;</button>
-            <div style="margin-bottom:20px;">
-                <i class="fa-solid fa-user-shield" style="font-size:3rem;color:var(--primary-color);"></i>
-            </div>
-            <h2 style="margin-bottom:10px;">Admin Portal</h2>
-            <p style="color:var(--text-muted);margin-bottom:25px;">Enter your credentials to access the dashboard.</p>
-            <form id="storefront-admin-login" style="text-align:left;">
-                <div class="form-group" style="text-align:left;">
-                    <label for="modal-admin-id" style="color:var(--text-muted);font-size:0.9rem;margin-bottom:5px;display:block;">Admin ID</label>
-                    <input type="text" id="modal-admin-id" placeholder="Enter Admin ID" required style="width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border-color);color:#fff;border-radius:8px;font-family:var(--font-sans);">
-                </div>
-                <div class="form-group" style="text-align:left;margin-bottom:25px;">
-                    <label for="modal-admin-password" style="color:var(--text-muted);font-size:0.9rem;margin-bottom:5px;display:block;">Secure Passcode</label>
-                    <input type="password" id="modal-admin-password" placeholder="Enter Passcode" required style="width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border-color);color:#fff;border-radius:8px;font-family:var(--font-sans);">
-                </div>
-                <div id="modal-login-error" style="color:var(--stock-low);font-size:0.85rem;margin-bottom:15px;text-align:center;display:none;">Invalid Credentials</div>
-                <button type="submit" class="btn btn-primary btn-block" style="font-weight:600;">
-                    <i class="fa-solid fa-right-to-bracket"></i> Authenticate
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Checkout Modal -->
-    <div id="checkout-modal" class="modal">
-        <div class="modal-content checkout-modal-content">
-            <button class="close-btn" id="close-checkout-modal">&times;</button>
-            <div class="checkout-layout">
-                <div class="checkout-form-section">
-                    <h2>Checkout Details</h2>
-                    <p>Please enter your details to complete the order via WhatsApp.</p>
-                    <form id="checkout-form" class="checkout-form">
-                        <div class="form-group"><label for="cust-name">Full Name *</label><input type="text" id="cust-name" required placeholder="e.g. John Doe"></div>
-                        <div class="form-group"><label for="cust-phone">Phone Number *</label><input type="tel" id="cust-phone" required placeholder="e.g. +91 9876543210"></div>
-                        <div class="form-group"><label for="cust-address">Delivery Address *</label><textarea id="cust-address" rows="2" required placeholder="Full street address"></textarea></div>
-<div style="display: flex; gap: 15px;">
-    <div class="form-group" style="flex: 1;"><label for="cust-pincode">Pincode *</label><input type="text" id="cust-pincode" required placeholder="e.g. 621216"></div>
-    <div class="form-group" style="flex: 1;"><label for="cust-district">District *</label><input type="text" id="cust-district" required placeholder="e.g. Tiruchirappalli"></div>
-</div>
-                        <button type="submit" class="btn btn-whatsapp btn-block"><i class="fa-brands fa-whatsapp"></i> Send Order via WhatsApp</button>
-                    </form>
-                </div>
-                <div class="checkout-summary-section">
-                    <h3>Order Summary</h3>
-                    <div id="checkout-items" class="checkout-items"></div>
-                    <div class="checkout-total"><span>Total:</span><span id="checkout-total-amount" class="total-amount">₹0</span></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="app.js"></script>
+    <!-- jsPDF & AutoTable -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+    <script src="pdfGenerator.js"></script>
+    <script src="app.js?v=6.0"></script>
 </body>
 </html>
