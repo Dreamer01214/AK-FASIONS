@@ -1,10 +1,10 @@
 // AK Fashions Order PDF Generator
 
-window.generateOrderPDF = async function(order) {
+window.generateOrderPDF = async function(order, returnBlob = false) {
     if (!window.jspdf || !window.jspdf.jsPDF) {
         console.error("jsPDF library not loaded.");
         alert("Unable to generate PDF. Required library is missing.");
-        return;
+        return null;
     }
 
     const { jsPDF } = window.jspdf;
@@ -191,5 +191,18 @@ window.generateOrderPDF = async function(order) {
     doc.text("Thank you for shopping with AK Fashions!", pageWidth / 2, pageHeight - 40, { align: 'center' });
     doc.text("For order-related queries, please contact AK Fashions Customer Support.", pageWidth / 2, pageHeight - 25, { align: 'center' });
 
-    doc.save(`AK-Fashions-Order-${order.id}.pdf`);
+    let customerName = (order.customer && order.customer.name) ? order.customer.name : 'Customer';
+    let safeCustomerName = customerName.trim().replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, '_');
+    if (!safeCustomerName) safeCustomerName = 'Customer';
+    
+    const filename = `AK_Fashions_Order_${safeCustomerName}_${order.id}.pdf`;
+
+    if (returnBlob) {
+        return {
+            blob: doc.output('blob'),
+            filename: filename
+        };
+    }
+    
+    doc.save(filename);
 };

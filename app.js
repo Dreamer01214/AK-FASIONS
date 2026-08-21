@@ -584,11 +584,11 @@ window.openProductModal = function (productId) {
     let colorSelectorHtml = '';
     if (selectedProduct.colors && selectedProduct.colors.length > 0) {
         colorSelectorHtml = `
-            <div class="selector-group">
-                <label class="selector-label">Select Color <span style="color:#ff4757" id="color-error"></span></label>
-                <div class="size-options">
+            <div class="custom-selector-group">
+                <label class="custom-selector-label">SELECT COLOR <span style="color:#ff4757" id="color-error"></span></label>
+                <div class="custom-color-options">
                     ${selectedProduct.colors.map(color => `
-                        <button class="size-btn color-btn" onclick="selectColor('${color}', this)" style="width:auto;padding:0 15px;">${color}</button>
+                        <button class="custom-color-btn color-btn" onclick="selectColor('${color}', this)">${color}</button>
                     `).join('')}
                 </div>
             </div>`;
@@ -597,7 +597,7 @@ window.openProductModal = function (productId) {
     let imageGalleryHtml = '';
     if (selectedProduct.images && selectedProduct.images.length > 1) {
         imageGalleryHtml = `
-            <div class="product-gallery" style="display:flex;gap:10px;margin-top:15px;justify-content:center;flex-wrap:wrap;">
+            <div class="product-gallery" style="display:flex;gap:10px;margin-top:10px;padding:0 15px 15px;justify-content:center;flex-wrap:wrap;">
                 ${selectedProduct.images.map((img, idx) => `
                     <img src="${img}" class="gallery-thumb" style="width:60px;height:60px;object-fit:contain;background:var(--bg-elevated);border-radius:5px;cursor:pointer;border:2px solid ${idx === 0 ? 'var(--primary-color)' : 'transparent'};transition:border-color 0.2s;" onclick="changeModalImage(this,'${img}')">
                 `).join('')}
@@ -606,59 +606,53 @@ window.openProductModal = function (productId) {
 
     const totalStock = stockManager.getTotalForProduct(selectedProduct.id);
     const stockStatusHtml = `
-        <div class="stock-status-bar">
-            <span class="stock-total-label ${totalStock === 0 ? 'stock-none' : totalStock <= 5 ? 'stock-low' : 'stock-good'}">
-                <i class="fa-solid fa-boxes-stacked"></i>
-                ${totalStock === 0 ? 'Out of Stock' : `${totalStock} units available`}
-            </span>
+        <div class="custom-stock-badge">
+            <i class="fa-solid fa-box"></i>
+            ${totalStock === 0 ? 'Out of Stock' : `${totalStock} units available`}
         </div>`;
 
     const sizesHtml = selectedProduct.sizes.map(size => {
         const qty = productStock[size] !== undefined ? productStock[size] : 0;
-        const info = stockManager.getStockLabel(qty);
         const disabled = qty === 0 ? 'disabled' : '';
         return `
-            <div class="size-option-wrap">
-                <button class="size-btn ${qty === 0 ? 'out-of-stock' : ''}" onclick="selectSize('${size}', this)" ${disabled} style="width:auto;padding:0 15px;">
-                    ${size}
-                </button>
-                <span class="size-stock-label ${info.cls}">${info.label}</span>
+            <div class="custom-size-row size-btn ${qty === 0 ? 'out-of-stock' : ''}" onclick="selectSize('${size}', this)" ${disabled}>
+                <div class="custom-size-left">
+                    <div class="custom-radio"></div>
+                    <span class="custom-size-name">${size}</span>
+                </div>
+                <span class="custom-size-stock">${qty} in stock</span>
             </div>`;
     }).join('');
 
     elements.productDetailsContainer.innerHTML = `
-        <div class="product-detail-grid">
-            <div class="product-detail-img-container">
-                ${selectedProduct.isOffer ? `<div class="offer-badge" style="font-size:1rem;padding:8px 16px;">SPECIAL OFFER</div>` : ''}
-                <img src="${selectedProduct.image}" alt="${selectedProduct.name}" class="product-detail-img" id="main-product-img">
+        <div class="custom-modal-card">
+            <div class="custom-modal-img-wrapper">
+                <span class="custom-category-badge">${selectedProduct.category.toUpperCase()}</span>
+                <img src="${selectedProduct.image}" alt="${selectedProduct.name}" class="custom-modal-img" id="main-product-img">
                 ${imageGalleryHtml}
             </div>
-            <div class="product-detail-info">
-                <span style="color:var(--primary-color);font-weight:600;font-size:0.9rem;text-transform:uppercase;margin-bottom:5px;display:block;">${selectedProduct.category}</span>
-                <h2 class="product-detail-title">${selectedProduct.name}</h2>
-                <div class="product-detail-price">${priceHtml}</div>
+            <div class="custom-modal-body">
+                <h2 class="custom-modal-title">${selectedProduct.name}</h2>
+                <div class="custom-modal-price">${priceHtml}</div>
                 ${stockStatusHtml}
-                <p class="product-detail-desc">${selectedProduct.description}</p>
+                <p class="custom-modal-desc">${selectedProduct.description}</p>
+                
                 ${colorSelectorHtml}
-                <div class="selector-group">
-                    <label class="selector-label">Select Size <span style="color:#ff4757" id="size-error"></span></label>
-                    <div class="size-options size-options-stacked">
+                
+                <div class="custom-selector-group">
+                    <label class="custom-selector-label">SELECT SIZE <span style="color:#ff4757" id="size-error"></span></label>
+                    <div class="custom-size-list">
                         ${sizesHtml}
                     </div>
                 </div>
-                <div class="selector-group">
-                    <label class="selector-label">Quantity</label>
-                    <div class="qty-control">
-                        <button class="qty-btn" onclick="updateModalQty(-1)">-</button>
-                        <input type="number" id="modal-qty" class="qty-input" value="1" min="1" oninput="handleModalQtyInput(this)" onblur="handleModalQtyBlur(this)">
-                        <button class="qty-btn" onclick="updateModalQty(1)">+</button>
-                    </div>
-                </div>
-                <div style="display:flex; gap:12px; margin-top:20px;">
-                    <button class="btn btn-primary" onclick="addToCartFromModal()" style="flex:1; font-size:1rem; padding:14px;" ${totalStock === 0 ? 'disabled' : ''}>
+                
+                <input type="hidden" id="modal-qty" value="1" min="1">
+
+                <div class="custom-modal-actions">
+                    <button class="custom-btn-add" onclick="addToCartFromModal()" ${totalStock === 0 ? 'disabled' : ''}>
                         <i class="fa-solid fa-cart-plus"></i> Add to Cart
                     </button>
-                    <button class="btn btn-whatsapp" onclick="buyNowFromModal()" style="flex:1; font-size:1rem; padding:14px;" ${totalStock === 0 ? 'disabled' : ''}>
+                    <button class="custom-btn-buy" onclick="buyNowFromModal()" ${totalStock === 0 ? 'disabled' : ''}>
                         <i class="fa-solid fa-bolt"></i> Buy Now
                     </button>
                 </div>
@@ -1431,11 +1425,11 @@ function setupEventListeners() {
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Preparing WhatsApp Order...';
             
-            setTimeout(() => {
-                sendWhatsAppOrder(name, phone, address, pincode, district);
+            setTimeout(async () => {
+                await sendWhatsAppOrder(name, phone, address, pincode, district);
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalBtnHtml;
-            }, 1000);
+            }, 100);
         });
     }
 }
@@ -1443,7 +1437,7 @@ function setupEventListeners() {
 // ==========================================
 // 12. WHATSAPP ORDER + HISTORY
 // ==========================================
-function sendWhatsAppOrder(name, phone, address, pincode, district) {
+async function sendWhatsAppOrder(name, phone, address, pincode, district) {
     localStorage.setItem('ak_customer', JSON.stringify({ name, phone, address, pincode, district }));
 
     let subtotal = 0;
@@ -1458,25 +1452,6 @@ function sendWhatsAppOrder(name, phone, address, pincode, district) {
     const orderId = orderHistory.generateId();
     const statusDisplay = 'Pending Confirmation';
     const paymentDisplay = 'Cash on Delivery';
-    const itemsDisplay = totalItems === 1 ? '1 Item' : `${totalItems} Items`;
-
-    const message = `🛍️ *AK FASHIONS*
-━━━━━━━━━━━━━━━━━━
-🚨 *NEW ORDER RECEIVED*
-
-🆔 Order: *${orderId}*
-👤 ${name}
-📞 ${phone}
-
-🛒 ${itemsDisplay}
-💰 *Total: ₹${subtotal.toLocaleString('en-IN')}*
-💳 ${paymentDisplay}
-📌 *${statusDisplay}*
-
-📄 *Order details attached in PDF.*
-
-━━━━━━━━━━━━━━━━━━
-❤️ Thank you — *AK FASHIONS*`;
 
     // Save to order history BEFORE clearing cart
     const orderRecord = {
@@ -1494,17 +1469,6 @@ function sendWhatsAppOrder(name, phone, address, pincode, district) {
         stockManager.reduce(item.id, item.size, item.qty);
     });
 
-    // Restore group cart backup if any
-    if (window._groupCartBackup) {
-        cart = [...window._groupCartBackup];
-        window._groupCartBackup = null;
-    } else {
-        cart = [];
-    }
-    saveCart();
-    updateCartUI();
-    closeModals();
-
     // Refresh grids visually so stock reduction is immediately visible
     setTimeout(() => {
         if (typeof renderPaginatedGrid === 'function' && document.getElementById('products-grid')) renderPaginatedGrid();
@@ -1515,10 +1479,86 @@ function sendWhatsAppOrder(name, phone, address, pincode, district) {
         }
     }, 100);
 
-    const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
-    showToast(`Order ${orderId} sent! Check WhatsApp. 🎉`, 'success');
     showOrderSuccessModal(orderRecord);
+
+    try {
+        console.log("Order ID:");
+        console.log(orderId);
+
+        const pdfData = await window.generateOrderPDF(orderRecord, true);
+
+        if (pdfData && pdfData.blob && pdfData.blob.size > 0 && pdfData.blob.type === 'application/pdf') {
+            console.log("PDF generated:");
+            console.log("YES");
+            console.log("PDF filename:");
+            console.log(pdfData.filename);
+            console.log("PDF size:");
+            console.log(pdfData.blob.size);
+
+            const formData = new FormData();
+            formData.append('pdf_file', pdfData.blob, pdfData.filename);
+
+            const response = await fetch('api/upload-drive.php', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                console.log("Google Drive upload:");
+                console.log("SUCCESS");
+                console.log("Google Drive file ID:");
+                console.log(result.file_id);
+                console.log("Google Drive URL:");
+                console.log(result.url);
+
+                const message = `🛍️ *AK FASHIONS*
+━━━━━━━━━━━━━━━━━━
+📦 *NEW ORDER RECEIVED*
+
+👤 *Customer:* ${name}
+🆔 *Order:* ${orderId}
+
+🛒 ${totalItems} Item(s)
+💰 *Total: ₹${subtotal.toLocaleString('en-IN')}*
+💳 ${paymentDisplay}
+📌 *${statusDisplay}*
+
+📄 *Order PDF:*
+${result.url}
+
+━━━━━━━━━━━━━━━━━━
+❤️ *AK FASHIONS*`;
+
+                console.log("WhatsApp message generated:");
+                console.log("YES");
+
+                const encodedMessage = encodeURIComponent(message);
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
+            } else {
+                console.log("Google Drive upload:");
+                console.log("FAILED");
+                console.error("Google Drive API Error:", result);
+            }
+        } else {
+            console.log("PDF generated:");
+            console.log("NO");
+            console.error("PDF generation failed.");
+        }
+    } catch (e) {
+        console.error("Error during PDF generation or upload flow:", e);
+    }
+
+    if (window._groupCartBackup) {
+        cart = [...window._groupCartBackup];
+        window._groupCartBackup = null;
+    } else {
+        cart = [];
+    }
+    saveCart();
+    updateCartUI();
+    closeModals();
 }
 
 window.showOrderSuccessModal = function(order) {
