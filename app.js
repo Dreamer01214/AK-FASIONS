@@ -561,170 +561,203 @@ function renderPaginationControls() {
 // ==========================================
 window.changeModalImage = function (thumbEl, newSrc) {
     document.getElementById('main-product-img').src = newSrc;
-    document.querySelectorAll('.gallery-thumb').forEach(el => el.style.border = '2px solid transparent');
-    thumbEl.style.border = '2px solid var(--primary-color)';
+    document.querySelectorAll('.gallery-thumb').forEach(el => el.classList.remove('active-thumb'));
+    thumbEl.classList.add('active-thumb');
 };
+
+// Internal qty state for modal
+let _modalQty = 1;
 
 window.openProductModal = function (productId) {
     selectedProduct = allItems.find(p => p.id === productId);
     selectedSize = null;
     selectedColor = null;
+    _modalQty = 1;
     if (!selectedProduct) return;
 
+    const productStock = stockManager.getProductStock(selectedProduct.id);
+    const totalStock = stockManager.getTotalForProduct(selectedProduct.id);
+
+    // Price HTML
     const priceHtml = selectedProduct.originalPrice
-        ? `<span class="original-price" style="font-size:1.2rem">${formatPrice(selectedProduct.originalPrice)}</span> ${formatPrice(selectedProduct.price)}`
+        ? `<span class="original-price">${formatPrice(selectedProduct.originalPrice)}</span> ${formatPrice(selectedProduct.price)}`
         : formatPrice(selectedProduct.price);
 
-    const productStock = stockManager.getProductStock(selectedProduct.id);
-
-    let colorSelectorHtml = '';
-    if (selectedProduct.colors && selectedProduct.colors.length > 0) {
-        colorSelectorHtml = `
-            <div class="custom-selector-group">
-                <label class="custom-selector-label">SELECT COLOR <span style="color:#ff4757" id="color-error"></span></label>
-                <div class="custom-color-options">
-                    ${selectedProduct.colors.map(color => `
-                        <button class="custom-color-btn color-btn" onclick="selectColor('${color}', this)">${color}</button>
-                    `).join('')}
-                </div>
-            </div>`;
+    // Stock Badge
+    let stockBadgeClass = 'modal-stock-in';
+    let stockBadgeText = `<i class="fa-solid fa-circle-check"></i>&nbsp; ${totalStock} units available`;
+    if (totalStock === 0) {
+        stockBadgeClass = 'modal-stock-out';
+        stockBadgeText = `<i class="fa-solid fa-circle-xmark"></i>&nbsp; Out of Stock`;
+    } else if (totalStock <= 5) {
+        stockBadgeClass = 'modal-stock-low';
+        stockBadgeText = `<i class="fa-solid fa-triangle-exclamation"></i>&nbsp; Only ${totalStock} left`;
     }
 
-    let imageGalleryHtml = '';
+    // Image Gallery
+    let galleryHtml = '';
     if (selectedProduct.images && selectedProduct.images.length > 1) {
-        imageGalleryHtml = `
-            <div class="product-gallery" style="display:flex;gap:10px;margin-top:10px;padding:0 15px 15px;justify-content:center;flex-wrap:wrap;">
-                ${selectedProduct.images.map((img, idx) => `
-                    <img src="${img}" class="gallery-thumb" style="width:60px;height:60px;object-fit:contain;background:var(--bg-elevated);border-radius:5px;cursor:pointer;border:2px solid ${idx === 0 ? 'var(--primary-color)' : 'transparent'};transition:border-color 0.2s;" onclick="changeModalImage(this,'${img}')">
-                `).join('')}
-            </div>`;
+        galleryHtml = `<div class="product-gallery">
+            ${selectedProduct.images.map((img, idx) => `
+                <img src="${img}" class="gallery-thumb ${idx === 0 ? 'active-thumb' : ''}"
+                    onclick="changeModalImage(this,'${img}')" alt="View ${idx + 1}">
+            `).join('')}
+        </div>`;
     }
 
-    const totalStock = stockManager.getTotalForProduct(selectedProduct.id);
-    const stockStatusHtml = `
-        <div class="custom-stock-badge">
-            <i class="fa-solid fa-box"></i>
-            ${totalStock === 0 ? 'Out of Stock' : `${totalStock} units available`}
+    // Color Selector
+    let colorHtml = '';
+    if (selectedProduct.colors && selectedProduct.colors.length > 0) {
+        colorHtml = `
+        <div class="modal-selector-group">
+            <label class="modal-selector-label">Select Color <span class="modal-error-text" id="color-error"></span></label>
+            <div class="modal-color-options">
+                ${selectedProduct.colors.map(color => `
+                    <button class="modal-color-btn" onclick="selectModalColor('${color}', this)">${color}</button>
+                `).join('')}
+            </div>
         </div>`;
+    }
 
+    // Size Rows with stock labels
     const sizesHtml = selectedProduct.sizes.map(size => {
         const qty = productStock[size] !== undefined ? productStock[size] : 0;
-        const disabled = qty === 0 ? 'disabled' : '';
+        const isDisabled = qty === 0;
+        let stockClass = 's-good', stockLabel = `${qty} in stock`;
+        if (qty === 0) { stockClass = 's-out'; stockLabel = 'Out of stock'; }
+        else if (qty <= 3) { stockClass = 's-low'; stockLabel = `Only ${qty} left`; }
         return `
-            <div class="custom-size-row size-btn ${qty === 0 ? 'out-of-stock' : ''}" onclick="selectSize('${size}', this)" ${disabled}>
-                <div class="custom-size-left">
-                    <div class="custom-radio"></div>
-                    <span class="custom-size-name">${size}</span>
-                </div>
-                <span class="custom-size-stock">${qty} in stock</span>
-            </div>`;
+        <div class="modal-size-row ${isDisabled ? 'size-row-disabled' : ''}"
+            onclick="${isDisabled ? '' : `selectModalSize('${size}', this)`}" data-size="${size}">
+            <div class="size-row-left">
+                <div class="size-row-radio"></div>
+                <span class="size-row-name">${size}</span>
+            </div>
+            <span class="size-row-stock ${stockClass}">${stockLabel}</span>
+        </div>`;
     }).join('');
 
-    elements.productDetailsContainer.innerHTML = `
-        <div class="custom-modal-card">
-            <div class="custom-modal-img-wrapper">
-                <span class="custom-category-badge">${selectedProduct.category.toUpperCase()}</span>
-                <img src="${selectedProduct.image}" alt="${selectedProduct.name}" class="custom-modal-img" id="main-product-img">
-                ${imageGalleryHtml}
-            </div>
-            <div class="custom-modal-body">
-                <h2 class="custom-modal-title">${selectedProduct.name}</h2>
-                <div class="custom-modal-price">${priceHtml}</div>
-                ${stockStatusHtml}
-                <p class="custom-modal-desc">${selectedProduct.description}</p>
-                
-                ${colorSelectorHtml}
-                
-                <div class="custom-selector-group">
-                    <label class="custom-selector-label">SELECT SIZE <span style="color:#ff4757" id="size-error"></span></label>
-                    <div class="custom-size-list">
-                        ${sizesHtml}
-                    </div>
-                </div>
-                
-                <input type="hidden" id="modal-qty" value="1" min="1">
+    const isOutOfStock = totalStock === 0;
+    const disabledAttr = isOutOfStock ? 'disabled' : '';
 
-                <div class="custom-modal-actions">
-                    <button class="custom-btn-add" onclick="addToCartFromModal()" ${totalStock === 0 ? 'disabled' : ''}>
-                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
-                    </button>
-                    <button class="custom-btn-buy" onclick="buyNowFromModal()" ${totalStock === 0 ? 'disabled' : ''}>
-                        <i class="fa-solid fa-bolt"></i> Buy Now
-                    </button>
+    elements.productDetailsContainer.innerHTML = `
+    <div class="product-detail-grid">
+        <div class="product-detail-img-container">
+            <img src="${selectedProduct.image}" alt="${selectedProduct.name}"
+                class="product-detail-img" id="main-product-img">
+            ${galleryHtml}
+        </div>
+        <div class="product-detail-info">
+            <span class="product-detail-category">${(selectedProduct.category || 'menswear').toUpperCase()}</span>
+            <h2 class="product-detail-title">${selectedProduct.name}</h2>
+            <div class="product-detail-price">${priceHtml}</div>
+            <span class="modal-stock-badge ${stockBadgeClass}">${stockBadgeText}</span>
+            <p class="product-detail-desc">${selectedProduct.description || 'Premium quality clothing.'}</p>
+            ${colorHtml}
+            <div class="modal-selector-group">
+                <label class="modal-selector-label">Select Size <span class="modal-error-text" id="size-error"></span></label>
+                <div class="modal-size-list">${sizesHtml}</div>
+            </div>
+            <div class="modal-qty-group">
+                <label class="modal-qty-label">Quantity</label>
+                <div class="modal-qty-control">
+                    <button class="modal-qty-btn" id="modal-qty-minus" onclick="changeModalQty(-1)" disabled ${disabledAttr}>&#8722;</button>
+                    <span class="modal-qty-value" id="modal-qty-display">1</span>
+                    <button class="modal-qty-btn" id="modal-qty-plus" onclick="changeModalQty(1)" ${disabledAttr}>&#43;</button>
                 </div>
             </div>
-        </div>`;
+            <div class="modal-actions">
+                <button class="modal-btn-cart" onclick="addToCartFromModal()" ${disabledAttr}>
+                    <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                </button>
+                <button class="modal-btn-buy" onclick="buyNowFromModal()" ${disabledAttr}>
+                    <i class="fa-solid fa-bolt"></i> Buy Now
+                </button>
+            </div>
+        </div>
+    </div>`;
 
     elements.productModal.classList.add('active');
     document.body.style.overflow = 'hidden';
 };
 
-window.selectColor = function (color, btnEl) {
-    selectedColor = color;
-    document.querySelectorAll('.color-btn').forEach(btn => btn.classList.remove('selected'));
-    btnEl.classList.add('selected');
-    if (document.getElementById('color-error')) document.getElementById('color-error').textContent = '';
-};
-
-window.selectSize = function (size, btnEl) {
-    if (btnEl.disabled) return;
-    selectedSize = size;
-    document.querySelectorAll('.size-btn:not(.color-btn)').forEach(btn => btn.classList.remove('selected'));
-    btnEl.classList.add('selected');
-    const errEl = document.getElementById('size-error');
-    if (errEl) errEl.textContent = '';
-
-    // Update max qty based on stock
-    const stock = stockManager.get(selectedProduct.id, size);
-    const qtyInput = document.getElementById('modal-qty');
-    if (qtyInput) {
-        qtyInput.max = stock;
-        if (parseInt(qtyInput.value) > stock) qtyInput.value = stock;
-    }
-};
-
-window.updateModalQty = function (change) {
-    const input = document.getElementById('modal-qty');
-    let newVal = parseInt(input.value) + change;
+window.changeModalQty = function (delta) {
+    if (!selectedProduct) return;
     const max = selectedSize ? stockManager.get(selectedProduct.id, selectedSize) : 99;
-    if (newVal >= 1 && newVal <= max) input.value = newVal;
+    _modalQty = Math.max(1, Math.min(_modalQty + delta, max));
+    const display = document.getElementById('modal-qty-display');
+    if (display) display.textContent = _modalQty;
+    const minusBtn = document.getElementById('modal-qty-minus');
+    const plusBtn = document.getElementById('modal-qty-plus');
+    if (minusBtn) minusBtn.disabled = _modalQty <= 1;
+    if (plusBtn) plusBtn.disabled = selectedSize ? _modalQty >= max : false;
+};
+
+window.selectModalColor = function (color, btnEl) {
+    selectedColor = color;
+    document.querySelectorAll('.modal-color-btn').forEach(btn => btn.classList.remove('selected'));
+    btnEl.classList.add('selected');
+    const err = document.getElementById('color-error');
+    if (err) err.textContent = '';
+};
+
+window.selectModalSize = function (size, rowEl) {
+    if (rowEl.classList.contains('size-row-disabled')) return;
+    selectedSize = size;
+    document.querySelectorAll('.modal-size-row').forEach(r => r.classList.remove('selected'));
+    rowEl.classList.add('selected');
+    const err = document.getElementById('size-error');
+    if (err) err.textContent = '';
+    // Reset qty to 1
+    _modalQty = 1;
+    const display = document.getElementById('modal-qty-display');
+    if (display) display.textContent = 1;
+    const stock = stockManager.get(selectedProduct.id, size);
+    const plusBtn = document.getElementById('modal-qty-plus');
+    if (plusBtn) plusBtn.disabled = stock <= 1;
+    const minusBtn = document.getElementById('modal-qty-minus');
+    if (minusBtn) minusBtn.disabled = true;
 };
 
 window.addToCartFromModal = function () {
     if (selectedProduct.colors && selectedProduct.colors.length > 0 && !selectedColor) {
-        document.getElementById('color-error').textContent = '(Please select a color)';
+        const err = document.getElementById('color-error');
+        if (err) err.textContent = '← required';
+        showToast('Please select a color first', 'error');
         return;
     }
     if (!selectedSize) {
-        document.getElementById('size-error').textContent = '(Please select a size)';
+        const err = document.getElementById('size-error');
+        if (err) err.textContent = '← required';
+        showToast('Please select a size first', 'error');
         return;
     }
-    const qty = parseInt(document.getElementById('modal-qty').value);
+    const qty = _modalQty || 1;
     const stock = stockManager.get(selectedProduct.id, selectedSize);
     if (qty > stock) {
         showToast(`Only ${stock} units available for size ${selectedSize}`, 'error');
         return;
     }
     addToCart(selectedProduct, selectedSize, qty, selectedColor);
+    showToast(`Added to cart!`, 'success');
     closeModals();
     toggleCartSidebar(true);
 };
 
 window.buyNowFromModal = function () {
     if (selectedProduct.colors && selectedProduct.colors.length > 0 && !selectedColor) {
-        const colorErr = document.getElementById('color-error');
-        if (colorErr) colorErr.textContent = '(Please select a color)';
-        showToast('Please select a color', 'error');
+        const err = document.getElementById('color-error');
+        if (err) err.textContent = '← required';
+        showToast('Please select a color first', 'error');
         return;
     }
     if (!selectedSize) {
-        const sizeErr = document.getElementById('size-error');
-        if (sizeErr) sizeErr.textContent = '(Please select a size)';
-        showToast('Please select a size', 'error');
+        const err = document.getElementById('size-error');
+        if (err) err.textContent = '← required';
+        showToast('Please select a size first', 'error');
         return;
     }
-    const qtyInput = document.getElementById('modal-qty');
-    const qty = qtyInput ? parseInt(qtyInput.value) || 1 : 1;
+    const qty = _modalQty || 1;
     const stock = stockManager.get(selectedProduct.id, selectedSize);
     if (qty > stock) {
         showToast(`Only ${stock} units available for size ${selectedSize}`, 'error');
@@ -732,7 +765,7 @@ window.buyNowFromModal = function () {
     }
     addToCart(selectedProduct, selectedSize, qty, selectedColor);
     closeModals();
-    toggleCartSidebar(true);
+    openCheckout();
 };
 
 // ==========================================

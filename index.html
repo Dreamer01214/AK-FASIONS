@@ -8,7 +8,7 @@
     
     <meta name="description" content="Discover premium menswear at AK Fashions. Shop the latest shirts, t-shirts, jeans, and more. Group orders welcome.">
     <meta name="robots" content="index, follow">
-    <link rel="stylesheet" href="style.css?v=5.0">
+    <link rel="stylesheet" href="style.css?v=7.0.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -20,6 +20,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="AK Fashions" class="brand-logo">
                 <span class="logo-text">AK Fashions</span>
             </a>
             <ul class="nav-links">
@@ -172,19 +173,19 @@
             <div style="margin-bottom:20px;">
                 <i class="fa-solid fa-user-shield" style="font-size:3rem;color:var(--primary-color);"></i>
             </div>
-            <h2 style="margin-bottom:10px;">Admin Portal</h2>
+            <h2 style="margin-bottom:10px;color:var(--primary-color);">Admin Portal</h2>
             <p style="color:var(--text-muted);margin-bottom:25px;">Enter your credentials to access the dashboard.</p>
             <form id="storefront-admin-login" style="text-align:left;">
                 <div class="form-group" style="text-align:left;">
-                    <label for="modal-admin-id" style="color:var(--text-muted);font-size:0.9rem;margin-bottom:5px;display:block;">Admin ID</label>
-                    <input type="text" id="modal-admin-id" placeholder="Enter Admin ID" required style="width:100%;padding:12px;background:var(--primary-light);border:1px solid var(--border-color);color:var(--text-main);border-radius:12px;font-family:var(--font-sans);">
+                    <label for="modal-admin-id" style="color:var(--text-muted);font-size:0.82rem;margin-bottom:6px;display:block;text-transform:uppercase;letter-spacing:0.5px;">Admin ID</label>
+                    <input type="text" id="modal-admin-id" placeholder="Enter Admin ID" required style="width:100%;padding:12px;background:var(--bg-elevated);border:1px solid var(--border-color);color:var(--text-main);border-radius:4px;font-family:var(--font-sans);">
                 </div>
                 <div class="form-group" style="text-align:left;margin-bottom:25px;">
-                    <label for="modal-admin-password" style="color:var(--text-muted);font-size:0.9rem;margin-bottom:5px;display:block;">Secure Passcode</label>
-                    <input type="password" id="modal-admin-password" placeholder="Enter Passcode" required style="width:100%;padding:12px;background:var(--primary-light);border:1px solid var(--border-color);color:var(--text-main);border-radius:12px;font-family:var(--font-sans);">
+                    <label for="modal-admin-password" style="color:var(--text-muted);font-size:0.82rem;margin-bottom:6px;display:block;text-transform:uppercase;letter-spacing:0.5px;">Secure Passcode</label>
+                    <input type="password" id="modal-admin-password" placeholder="Enter Passcode" required style="width:100%;padding:12px;background:var(--bg-elevated);border:1px solid var(--border-color);color:var(--text-main);border-radius:4px;font-family:var(--font-sans);">
                 </div>
                 <div id="modal-login-error" style="color:var(--stock-low);font-size:0.85rem;margin-bottom:15px;text-align:center;display:none;">Invalid Credentials</div>
-                <button type="submit" class="btn btn-primary btn-block" style="font-weight:600;">
+                <button type="submit" class="btn btn-primary btn-block" style="font-weight:700;">
                     <i class="fa-solid fa-right-to-bracket"></i> Authenticate
                 </button>
             </form>
@@ -223,6 +224,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
     <script src="pdfGenerator.js"></script>
-    <script src="app.js?v=5.0"></script>
+    <script src="app.js?v=7.0.0"></script>
 </body>
 </html>
