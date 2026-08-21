@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,21 +16,21 @@
 
     <style>
         .support-layout { display: grid; grid-template-columns: 250px 1fr; gap: 40px; padding: 40px 0 80px 0; align-items: start; }
-        .support-sidebar { position: sticky; top: 100px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+        .support-sidebar { position: sticky; top: 100px; background: var(--bg-card); border: 1px solid rgba(139, 92, 246, 0.08); border-radius: 16px; padding: 20px; box-shadow: 0 10px 30px rgba(139, 92, 246, 0.03); }
         .support-nav { list-style: none; padding: 0; margin: 0; }
         .support-nav li { margin-bottom: 10px; }
         .support-nav li:last-child { margin-bottom: 0; }
-        .support-nav a { display: block; padding: 10px 15px; color: var(--text-muted); border-radius: 8px; transition: var(--transition); font-weight: 500; font-size: 0.95rem; }
-        .support-nav a:hover { background: rgba(212, 175, 55, 0.1); color: var(--primary-color); }
-        .support-section { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 40px; margin-bottom: 40px; scroll-margin-top: 100px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-        .support-section h2 { color: var(--primary-color); font-size: 1.8rem; margin-bottom: 25px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(212, 175, 55, 0.2); padding-bottom: 15px; }
+        .support-nav a { display: block; padding: 10px 15px; color: var(--text-muted); border-radius: 12px; transition: var(--transition); font-weight: 600; font-size: 0.95rem; }
+        .support-nav a:hover { background: rgba(139, 92, 246, 0.08); color: var(--primary-color); }
+        .support-section { background: var(--bg-card); border: 1px solid rgba(139, 92, 246, 0.08); border-radius: 20px; padding: 40px; margin-bottom: 40px; scroll-margin-top: 100px; box-shadow: 0 10px 30px rgba(139, 92, 246, 0.03); }
+        .support-section h2 { color: var(--primary-color); font-size: 1.8rem; margin-bottom: 25px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(139, 92, 246, 0.15); padding-bottom: 15px; }
         .faq-item { margin-bottom: 20px; }
-        .faq-item h4 { color: #fff; margin-bottom: 8px; font-size: 1.1rem; }
-        .faq-item p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+        .faq-item h4 { color: var(--text-main); margin-bottom: 8px; font-size: 1.1rem; font-weight: 700; }
+        .faq-item p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; font-weight: 500; }
         .policy-list { list-style: none; padding: 0; }
-        .policy-list li { margin-bottom: 20px; display: flex; align-items: flex-start; gap: 15px; color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+        .policy-list li { margin-bottom: 20px; display: flex; align-items: flex-start; gap: 15px; color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; font-weight: 500; }
         .policy-list li i { color: var(--primary-color); margin-top: 5px; font-size: 1.2rem; }
-        .policy-list li strong { color: #fff; display: block; margin-bottom: 4px; font-size: 1.05rem; }
+        .policy-list li strong { color: var(--text-main); display: block; margin-bottom: 4px; font-size: 1.05rem; font-weight: 700; }
         @media (max-width: 992px) {
             .support-layout { grid-template-columns: 1fr; }
             .support-sidebar { position: relative; top: 0; margin-bottom: 20px; z-index: 10; }
@@ -49,7 +49,7 @@
         <div class="nav-container">
             <a href="index.html" class="logo" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
                 <img src="assets/logo.png?v=1" alt="AK Fashions Logo" class="brand-logo">
-                <span style="font-family:'Outfit',sans-serif;font-weight:800;font-size:1.4rem;color:var(--primary-color);letter-spacing:1px;text-transform:uppercase;">AK FASHIONS</span>
+                <span class="logo-text" style="font-size: 1.4rem;">AK FASHIONS</span>
             </a>
             <ul class="nav-links">
                 <li><a href="index.html" class="nav-link">Home</a></li>
@@ -67,7 +67,7 @@
     </nav>
 
     <!-- Shop by Category -->
-    <header class="category-header" style="padding: 120px 0 40px 0; text-align: center; border-bottom: 1px solid var(--border-color); background: rgba(15,15,18,0.5);">
+    <header class="category-header" style="padding: 120px 0 40px 0; text-align: center; border-bottom: 1px solid var(--border-color); background: linear-gradient(180deg, #fdf4ff 0%, var(--bg-dark) 100%);">
         <h1 style="font-family: var(--font-heading); font-size: 2.8rem; color: var(--primary-color); margin-bottom: 10px;">Customer Support</h1>
         <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">We're here to help. Find answers to common questions and review our store policies below.</p>
     </header>
@@ -223,44 +223,44 @@
                 <div class="footer-brand">
                     <h3 class="logo" style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
                         <img src="assets/logo.png?v=1" alt="AK Fashions Logo" class="brand-logo" style="width: 40px;">
-                        <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--primary-color);">AK FASHIONS</span>
+                        <span class="logo-text" style="font-size: 1.4rem;">AK FASHIONS</span>
                     </h3>
-                    <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.5;">
+                    <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.5; font-weight: 500;">
                         Redefining menswear with quality, style, and perfection.
                     </p>
                     <div class="social-icons" style="display: flex; gap: 15px;">
-                        <a href="https://www.instagram.com/ak_fashions__/" target="_blank" style="color: #fff; font-size: 1.2rem; transition: color 0.3s;"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="https://wa.me/916383341227" target="_blank" style="color: #fff; font-size: 1.2rem; transition: color 0.3s;"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/ak_fashions__/" target="_blank" style="color: var(--text-main); font-size: 1.2rem; transition: color 0.3s;"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://wa.me/916383341227" target="_blank" style="color: var(--text-main); font-size: 1.2rem; transition: color 0.3s;"><i class="fa-brands fa-whatsapp"></i></a>
                     </div>
                 </div>
 
                 <!-- 2. Customer Support -->
                 <div class="footer-links">
-                    <h4 style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; margin-bottom: 20px; color: #fff;">Customer Support</h4>
+                    <h4 style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; margin-bottom: 20px; color: var(--text-main); font-weight: 700;">Customer Support</h4>
                     <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px;">
-                        <li><a href="customer-support.html#faq" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s;">FAQ</a></li>
-                        <li><a href="customer-support.html#shipping-policy" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s;">Shipping Policy</a></li>
-                        <li><a href="customer-support.html#return-policy" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s;">Return & Exchange Policy</a></li>
-                        <li><a href="customer-support.html#privacy-policy" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s;">Privacy Policy</a></li>
+                        <li><a href="customer-support.html#faq" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; font-weight: 500;">FAQ</a></li>
+                        <li><a href="customer-support.html#shipping-policy" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; font-weight: 500;">Shipping Policy</a></li>
+                        <li><a href="customer-support.html#return-policy" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; font-weight: 500;">Return & Exchange Policy</a></li>
+                        <li><a href="customer-support.html#privacy-policy" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; font-weight: 500;">Privacy Policy</a></li>
                     </ul>
                 </div>
 
                 <!-- 3. Contact Information -->
                 <div class="footer-links">
-                    <h4 style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; margin-bottom: 20px; color: #fff;">Contact Information</h4>
+                    <h4 style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; margin-bottom: 20px; color: var(--text-main); font-weight: 700;">Contact Information</h4>
                     <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 15px;">
                         <li>
-                            <a href="tel:+916383341227" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: color 0.3s;">
+                            <a href="tel:+916383341227" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: color 0.3s; font-weight: 500;">
                                 <i class="fa-solid fa-phone" style="color: var(--primary-color);"></i> +91 63833 41227
                             </a>
                         </li>
                         <li>
-                            <a href="https://wa.me/916383341227" target="_blank" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: color 0.3s;">
+                            <a href="https://wa.me/916383341227" target="_blank" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: color 0.3s; font-weight: 500;">
                                 <i class="fa-brands fa-whatsapp" style="color: #25D366; font-size: 1.1rem;"></i> +91 63833 41227
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.instagram.com/ak_fashions__/" target="_blank" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: color 0.3s;">
+                            <a href="https://www.instagram.com/ak_fashions__/" target="_blank" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: color 0.3s; font-weight: 500;">
                                 <i class="fa-brands fa-instagram" style="color: #E1306C; font-size: 1.1rem;"></i> ak_fashions__
                             </a>
                         </li>
@@ -269,28 +269,28 @@
 
                 <!-- 4. Why Choose AK Fashions -->
                 <div class="footer-trust">
-                    <h4 style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; margin-bottom: 20px; color: #fff;">Why Choose AK Fashions</h4>
+                    <h4 style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; margin-bottom: 20px; color: var(--text-main); font-weight: 700;">Why Choose AK Fashions</h4>
                     <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px;">
-                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px; font-weight: 500;">
                             <i class="fa-solid fa-circle-check" style="color: var(--primary-color);"></i> Premium Quality Products
                         </li>
-                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px; font-weight: 500;">
                             <i class="fa-solid fa-circle-check" style="color: var(--primary-color);"></i> Affordable Pricing
                         </li>
-                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px; font-weight: 500;">
                             <i class="fa-solid fa-circle-check" style="color: var(--primary-color);"></i> Easy WhatsApp Ordering
                         </li>
-                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px; font-weight: 500;">
                             <i class="fa-solid fa-circle-check" style="color: var(--primary-color);"></i> Secure Shopping Experience
                         </li>
-                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+                        <li style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px; font-weight: 500;">
                             <i class="fa-solid fa-circle-check" style="color: var(--primary-color);"></i> Customer Satisfaction
                         </li>
                     </ul>
                 </div>
             </div>
             
-            <div class="footer-bottom" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; text-align: center;">
+            <div class="footer-bottom" style="border-top: 1px solid var(--border-color); padding-top: 20px; text-align: center;">
                 <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 AK FASHIONS. All Rights Reserved.</p>
             </div>
         </div>
@@ -343,11 +343,11 @@
             <form id="storefront-admin-login" style="text-align:left;">
                 <div class="form-group" style="text-align:left;">
                     <label for="modal-admin-id" style="color:var(--text-muted);font-size:0.9rem;margin-bottom:5px;display:block;">Admin ID</label>
-                    <input type="text" id="modal-admin-id" placeholder="Enter Admin ID" required style="width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border-color);color:#fff;border-radius:8px;font-family:var(--font-sans);">
+                    <input type="text" id="modal-admin-id" placeholder="Enter Admin ID" required style="width:100%;padding:12px;background:var(--primary-light);border:1px solid var(--border-color);color:var(--text-main);border-radius:12px;font-family:var(--font-sans);">
                 </div>
                 <div class="form-group" style="text-align:left;margin-bottom:25px;">
                     <label for="modal-admin-password" style="color:var(--text-muted);font-size:0.9rem;margin-bottom:5px;display:block;">Secure Passcode</label>
-                    <input type="password" id="modal-admin-password" placeholder="Enter Passcode" required style="width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border-color);color:#fff;border-radius:8px;font-family:var(--font-sans);">
+                    <input type="password" id="modal-admin-password" placeholder="Enter Passcode" required style="width:100%;padding:12px;background:var(--primary-light);border:1px solid var(--border-color);color:var(--text-main);border-radius:12px;font-family:var(--font-sans);">
                 </div>
                 <div id="modal-login-error" style="color:var(--stock-low);font-size:0.85rem;margin-bottom:15px;text-align:center;display:none;">Invalid Credentials</div>
                 <button type="submit" class="btn btn-primary btn-block" style="font-weight:600;">

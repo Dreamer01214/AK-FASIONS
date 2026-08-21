@@ -434,13 +434,9 @@ function init() {
         const navbar = document.querySelector('.navbar');
         if (!navbar) return;
         if (window.scrollY > 50) {
-            navbar.style.background = 'rgba(15, 17, 21, 0.98)';
-            navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.5)';
+            navbar.classList.add('scrolled');
         } else {
-            if (!elements.productsGrid) {
-                navbar.style.background = 'rgba(15, 17, 21, 0.85)';
-                navbar.style.boxShadow = 'none';
-            }
+            navbar.classList.remove('scrolled');
         }
     });
 
