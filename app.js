@@ -1513,29 +1513,25 @@ async function sendWhatsAppOrder(name, phone, address, pincode, district) {
                 console.log("Google Drive URL:");
                 console.log(result.url);
 
-                const message = `🛍️ *AK FASHIONS*
-━━━━━━━━━━━━━━━━━━
-📦 *NEW ORDER RECEIVED*
+                const message = `🛍️ AK FASHIONS
 
-👤 *Customer:* ${name}
-🆔 *Order:* ${orderId}
+📦 NEW ORDER RECEIVED
 
-🛒 ${totalItems} Item(s)
-💰 *Total: ₹${subtotal.toLocaleString('en-IN')}*
+👤 Customer: ${name}
+🆔 Order: ${orderId}
+
+💰 Total: ₹${subtotal.toLocaleString('en-IN')}
 💳 ${paymentDisplay}
-📌 *${statusDisplay}*
+📌 ${statusDisplay}
 
-📄 *Order PDF:*
-${result.url}
-
-━━━━━━━━━━━━━━━━━━
-❤️ *AK FASHIONS*`;
+📄 Order PDF:
+${result.url}`;
 
                 console.log("WhatsApp message generated:");
                 console.log("YES");
 
                 const encodedMessage = encodeURIComponent(message);
-                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
+                window.location.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
             } else {
                 console.log("Google Drive upload:");
                 console.log("FAILED");
